@@ -39,6 +39,9 @@
         <div class="container">
             <div class="content">
                 <div class="title">Laravel 5</div>
+                @foreach ($datas as $data)
+    				<p>This is user {{$data}}</p>
+				@endforeach
             </div>
         </div>
     </body>
