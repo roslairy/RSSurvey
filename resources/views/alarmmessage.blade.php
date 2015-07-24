@@ -15,7 +15,7 @@
           <div class="left" id="left">
               <ul class="left_menu">
                   <li><a href="/">全站显示</a></li>
-                  <li  style="background:skyblue;"><a href="">曲线图显示</a></li>
+                  <li  style="background:skyblue;"><a href={{route('chart')}}>曲线图显示</a></li>
                   <li id="sepli" >查询
                       <ul>
                           <li><a href={{route('railuse')}}>按车次</a></li>
@@ -39,7 +39,7 @@
           	 			<legend>查询条件</legend>
           	 		
           	 			<label for="start">起始时间</label><input class="laydate-icon" onclick="laydate()" name="alarmTime">
-          	 			<label for="stop">结束时间</label><input class="laydate-icon" onclick="laydate()" name="endTime">
+          	 			<label for="stop">结束时间</label><input id='demo' class="laydate-icon" onclick="laydate()" name="endTime">
           	 			<label for="num">电源编号</label><select name="powerName">
           	 			<option value="1">1</option>
           	 			<option value="2">2</option>

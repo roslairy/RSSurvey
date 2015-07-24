@@ -13,28 +13,77 @@ class MainController extends Controller
 {
 	
 	
-				/****************以下是实时监控模块***************/
+			/****************以下是站场实时监控模块***************/
 	
-	public function  sourceSurvey(){
+	
+	
+	public function  surveyStation(){		
+		$stationId=Input::get('stationId','');
 		
-		
-		$sourceId=Input::get('sourceId');
+		/*
+		//字段合法性验证
+		$stations='-武昌-汉口-宜昌-襄阳-信阳-';
+		if(!strpos($stations, $sourceId))
+			return view('error,['validatorMessage','对不起，您查找的站场不在服务范围']);
+		*/
 		
 		$tableService=new TableServices();
-		$tableService->getCurrentSourceMessage($sourceId);
+		$datas=$tableService->getStationMessageById($stationId);
+		
+		//确定返回的视图
+		/*
+		$returnView=$stationId.'station';
+		return view($returnView,$datas);
+		*/
 	}
 
 	
-	/*******************************************************************************/
+		
+	/**************************************************************************/
+	
+				/****************以下是图表显示模块***************/
+	
+	/**************************************************************************/
+	
+	
+	
+	
+	public function showChart(){
+		
+		//获取查看条目信息并设置默认值
+		$selectWhat=Input::get('selectWhat',null);
+		//验证合法性
+		$selections='-vol1-cur1-i1-vol2-cur2-i2-';
+		
+		//若为空
+		if($selectWhat==null)
+			return view('chart');
+		
+		//检查是否存在此选项
+		if(!strpos($selections,$selectWhat))
+			return view('error',['validatorMessage'=>'暂不支持此选项的图表显示']);
+		
+		$tableService=new TableServices();
+		$datas=$tableService->getSourceMessageInHistory('1','2015-07-21',$selectWhat);
+				
+		/*		
+		for($i=0;$i<count($datas[0]);$i++)
+			echo $datas[1][$i].'<br>';
+		*/	
+		return view('chart',['x'=>$datas[0],'y'=>$datas[1]]);
+	}
+
+	
+		
+	/**************************************************************************/
 	
 				/****************以下是三个查询模块***************/
 	
-	/*******************************************************************************/
+	/**************************************************************************/
 	
 	//车次使用查询
 	public function searchRailUse(){
 		
-	
 		//输入参数验证
 		$validator=Validator::make(Input::all(),
 				[
@@ -207,22 +256,4 @@ class MainController extends Controller
 	}
 	
 	
-	
-	/*******************************************************************************/
-	
-				/****************以下是站场历史信息查询模块***************/
-	
-	/*******************************************************************************/
-	
-	//站场历时信息查看
-	public function viewHistoryRecord(){
-		
-		$powerName=Input::get('powerName');
-		$saveTime=Input::get('saveTime');
-		
-		$tableService=new TableServices();
-		$tableService->getHistoryRecord($powerName, $saveTime);
-	}
-	
-
 }

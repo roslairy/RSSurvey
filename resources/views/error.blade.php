@@ -2,15 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Rail Source Management</title>
-    
-    
+    <title>Rail Source Management</title>   
 </head>
   
 <link rel="stylesheet" type="text/css" href="css/comm.css">
 <link rel="stylesheet" type="text/css" href="css/poweruse.css">
 <script type="text/javascript" src="js/initialize.js"></script>
-  <script type="text/javascript" src="js/laydate/laydate.js"></script>
+<script type="text/javascript" src="js/laydate/laydate.js"></script>
 
 <body>
    <div class="wrap" id="wrap">
@@ -21,7 +19,7 @@
           <div class="left" id='left'>
               <ul class="left_menu">
                   <li><a href="/">全站显示</a></li>
-                  <li  style="background:skyblue;"><a href="">曲线图显示</a></li>
+                  <li  style="background:skyblue;"><a href={{route('chart')}}>曲线图显示</a></li>
                   <li id="sepli" >查询
                       <ul>
                           <li><a href={{route('railuse')}}>按车次</a></li>
@@ -42,7 +40,11 @@
           	 <div style="text-align:center">
           	 	
           	 		<fieldset>
-          	 			{{$validatorMessage or '未知的错误'}}
+          	 			<!-- 出错信息列表 -->
+          	 			
+          	 			<!-- 字段验证出错 -->
+          	 			{{$validatorMessage or  '未知的错误'}}
+          	 			
           	 		</fieldset>
           	 	
           	 

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\TestModel;
 use App\TestModel0;
 use App\TestModel1;
 use App\TestModel2;
@@ -17,6 +18,25 @@ class TestSeeder extends Seeder
     {
         //
         
+    	for($i=0;$i<24;$i++){
+    		for($j=0;$j<60;$j++){
+    			for($k=0;$k<7;$k++){
+    				$second=10*$k;
+		    		TestModel::create(array(
+			    		'PowerName'=>'station1',
+			    		'savetime'=>$i.':'.$j.':'.$second,
+			    		'vol1'=>rand(0, 100),
+			    		'volz1'=>rand(0, 100),
+			    		'cur1'=>rand(0, 100),
+			    		'vol2'=>rand(0, 100),
+			    		'volz2'=>rand(0, 100),
+			    		'cur2'=>rand(0, 100),
+		    		));
+    			}
+    			
+    		}
+    	}
+        /*
         for($i=10;$i<16;$i++){
         	TestModel0::create(array(
         		'ThisName'=>$i,
@@ -78,5 +98,6 @@ class TestSeeder extends Seeder
          	'EndTime'=>$i,
          	));
          }
+         */
     }
 }

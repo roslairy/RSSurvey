@@ -4,12 +4,14 @@ use App\TableModel;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Session;
+use PhpParser\Node\Expr\Array_;
 
 
 
 class TableServices {
 	
-		
+	/************************全站显示相关函数*************************************/	
+	
 	//获取最新信息
 	public function getNewestData() {				
 		
@@ -23,29 +25,22 @@ class TableServices {
 			$thisName3Datas=$tableModel::where('ThisName','=','3')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
 			$thisName4Datas=$tableModel::where('ThisName','=','4')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
 			$thisName5Datas=$tableModel::where('ThisName','=','5')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
-			
-			
+						
 			//调用格式化函数处理数据
 			$thisName1Datas=$this->formatArray($thisName1Datas);
 			$thisName2Datas=$this->formatArray($thisName2Datas);
 			$thisName3Datas=$this->formatArray($thisName3Datas);
 			$thisName4Datas=$this->formatArray($thisName4Datas);
 			$thisName5Datas=$this->formatArray($thisName5Datas);
-				
-			
+							
 			//存储每个站场的电源数
 			$powerNum=array(count($thisName1Datas),count($thisName2Datas),count($thisName3Datas),count($thisName4Datas),count($thisName5Datas));
 			$datas=array($thisName1Datas,$thisName2Datas,$thisName3Datas,$thisName4Datas,$thisName5Datas,$powerNum);
 			return $datas;
 			
-			/*
-			foreach ($thisName1Datas[0] as $key=>$value)
-				echo $key.'=>'.$value.'<br>';
-				*/
 	}
-	
-	
-	//处理数据指定站场数据，包括计算，格式化
+		
+	//处理指定站场数据，包括计算，格式化
 	public function formatArray($datas){
 		
 		//处理结果数组
@@ -88,14 +83,10 @@ class TableServices {
 			//最后处理结果保存到返回数组
 			$thisDatas[$i]=$datas[$i];
 		}
-		
-		
-		return $thisDatas;
-		
-		
+				
+		return $thisDatas;		
 	}
-	
-	
+		
 	//此函数用来计算对地绝缘电阻
 	public function calculateResistor($Rx1,$Rx2,$vol1,$volz1){
 		
@@ -110,26 +101,14 @@ class TableServices {
 				
 		//正线存在对地电阻时
 		else
-			$Rx2=2100*$volz1/($vol1-2*$volz1);
-							
-	}
-		
-	
-	/*************************************************************************/
-	
-	//获取站场当前数据
-	public function getCurrentSourceMessage($sourceId){
-		
-		$tableModel=new TableModel();
-		$tableModel->setTable("");
-		
+			$Rx2=2100*$volz1/($vol1-2*$volz1);							
 	}
 	
 	
 	
-	/************************************************************************/
 	
-	
+	/**************************分块查询相关函数***********************************/
+		
 	//获取车次使用信息
 	public function getRailUse($beginTime,$stopTime,$powerName){
 		
@@ -147,10 +126,6 @@ class TableServices {
 		return $datas;
 		
 	}
-	
-	
-	/***********************************************************************/
-	
 	
 	//获取电源使用信息
 	public function getPowerUse($beginTime,$stopTime,$powerName){
@@ -171,8 +146,6 @@ class TableServices {
 				
 	}
 	
-	/*****************************************************************************/
-	
 	//获取故障信息
 	public function getAlarmMessage($alarmTime,$endTime,$PowerName){
 		$tableModel=new TableModel();
@@ -190,23 +163,148 @@ class TableServices {
 	
 	}
 	
-	/*****************************************************************************/
+		
 	
-	//获取历史站场信息记录
-	public function getHistoryRecord($ThisName,$saveTime){
+	
+	
+	/**********************图表显示模块相关函数************************************/
+
+	//获取指定日期指定电源的信息
+	public function getSourceMessageInHistory($stationName,$date,$selectWhat){
 		
-		//根据约定规则构造出表名
-		$tableName=$ThisName.$saveTime;
+		//根据约定规则构造得到表名
+		//$tableName=$stationName.$date;
 		
-		//模型绑定数据库
-		$tableModel=new TableModel();		
-		$tableModel->setTable($tableName);
-		
-		//取出全部数据
-		$datas=$tableModel->all();
+		//绑定数据表
+		$tableModel=new TableModel();
+		//$tableModel->setTable($tableName);
+		$tableModel->setTable('station1_2015_07_21');
 		
 		
+		//i1,i2分别为一路漏电流和二路漏电流
+		if($selectWhat=='i1'){
+			
+			$datas=$tableModel	->where('PowerName','=','station1')
+								->select('vol1','volz1','savetime')
+								->orderBy('savetime')
+								->get()
+								->toArray();
+			
+			//x、y数组分别存时间和对应储漏电流
+			$x=array();
+			$y=array();		
+				
+			for($i=0;$i<count($datas);$i++){
+				$x[$i]['savetime']=$datas[$i]['savetime'];
+				$y[$i]['i1']=abs(2*$datas[$i]['volz1']-$datas[$i]['vol1'])/2100;				
+			}
+			
+			$x=array_flatten($x);
+			$y=array_flatten($y);
+			return array($x,$y);
+		}
+		
+		else if($selectWhat=='i2'){
+				
+			$datas=$tableModel	->where('PowerName','=','station1')
+								->select('vol2','volz2','savetime')
+								->orderBy('savetime')
+								->get()
+								->toArray();
+									
+			$x=array();
+			$y=array();
+			for($i=0;$i<count($datas);$i++){
+				$x[$i]['savetime']=$datas[$i]['savetime'];
+				$y[$i]['i2']=abs(2*$datas[$i]['volz2']-$datas[$i]['vol2'])/2100;				
+			}
+				
+			$x=array_flatten($x);
+			$y=array_flatten($y);			
+			return array($x,$y);
+		}
+		
+		else{
+			
+			//x轴坐标值
+			$x=$tableModel		->where('PowerName','=','station1')
+								->select('savetime')
+								->orderBy('savetime')
+								->get()
+								->toArray();				
+			$x=array_flatten($x);
+			
+			//y轴坐标值
+			$y=$tableModel		->where('PowerName','=','station1')
+								->select('vol1')
+								->orderBy('savetime')
+								->get()
+								->toArray();				
+			$y=array_flatten($y);						
+			return array($x,$y);
+		}
+
+	}
+	
+	
+
+	
+	
+	/***********************指定站场监控相关函数***********************************/
+		
+	//分站场获取最新信息
+	public function getStationMessageById($stationId){
+		$tableModel=new TableModel();
+		$tableModel->setTable('NewData');
+		
+		$datas=$tableModel::where('ThisName','=',$stationId)
+							->select('ThisName','PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')
+							->orderBy('PowerName')
+							->get()
+							->toArray();
+		
+		//调用函数格式化数组
+		$datas=$this->formatArray2($datas);
+		
+		foreach($datas[0] as $key=>$value)
+			echo $key.'=>'.$value.'<br>';
+	}
+	
+	
+	
+	//格式化以得到站场监控页面所需的数据
+	public function formatArray2($datas){
+		
+		//定义结果数组
+		$resultDatas=array();
+		for($i=0;$i<count($datas);$i++){
+			
+			//计算对地电阻，1，2分别为负对地电阻，正对地电阻
+			$Rx11=$Rx12=$Rx21=$Rx22=-1;
+			$this->calculateResistor($Rx11, $Rx12,$datas[$i]['vol1'],$datas[$i]['volz1']);
+			$this->calculateResistor($Rx21, $Rx22,$datas[$i]['vol1'],$datas[$i]['volz1']);
+				
+			//判断结果
+			$Rx11Result=($Rx11==-1||$Rx11>2500)?'绝缘正常':$Rx11;
+			$Rx12Result=($Rx12==-1||$Rx12>2500)?'绝缘正常':$Rx12;
+			$Rx21Result=($Rx21==-1||$Rx21>2500)?'绝缘正常':$Rx21;
+			$Rx22Result=($Rx22==-1||$Rx22>2500)?'绝缘正常':$Rx22;
+			
+			//插入处理得到的数值
+			$datas[$i]=array_add($datas[$i], 'RM1', $Rx11Result);//一路负对地电阻
+			$datas[$i]=array_add($datas[$i], 'RP1', $Rx12Result);//二路正对地电阻
+			$datas[$i]=array_add($datas[$i], 'RM2', $Rx21Result);
+			$datas[$i]=array_add($datas[$i], 'RP2', $Rx22Result);
+			
+			$datas[$i]=array_add($datas[$i], 'volf1', $datas[$i]['vol1']-$datas[$i]['volz1']);//负对地电压
+			$datas[$i]=array_add($datas[$i], 'volf2', $datas[$i]['vol2']-$datas[$i]['volz2']);
+			
+			$resultDatas[$i]=$datas[$i];
+					
+		}
+		
+		return $resultDatas;
 	}
 }
 
-?>
+	

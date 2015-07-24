@@ -14,42 +14,41 @@ use Illuminate\Http\Response;
 | and give it the controller to call when that URI is requested.
 |
 */
-/*
-Route::get('/', function () {
-    return view('welcome');
-});
-*/
-//ȫվ��ʾ
 
 
+//全站信息
 Route::get('/',function(){
-	
+
 	
 	$tableService=new TableServices();
 	$datas=$tableService->getNewestData();
-
 	
 	return view('index',['datas'=>$datas]);
+	
 	//return view('alarmmessage');
 	//return view('railuse');
 	//return view('error');
-	//return view('wuchangstation');
+	//return view('xinyangstation');
+	//return view('chart');
 	
 });
 
+//站场监控
+Route::get('/survey',['as'=>'survey','uses'=>'MainController@surveyStation']);
+
+//图表显示
+Route::get('/chart',['as'=>'chart','uses'=>'MainController@showChart']);
 
 
-//Route::get('/','MainController@index');
-
-Route::get('/survey','MainController@sourceSurvey');
-
+//车次使用查询
 Route::get('/searchRailUse',['as' => 'railuse','uses'=>'MainController@searchRailUse']);
 
+//电源使用查询
 Route::get('/searchPowerUse',['as' => 'poweruse','uses'=>'MainController@searchPowerUse']);
 
+//故障信息使用查询
 Route::get('/searchAlarmMessage',['as' => 'alarmmessage','uses'=>'MainController@searchAlarmMessage']);
 
-Route::get('/viewHistoryRecord','MainController@viewHistoryRecord');
 
 
 
