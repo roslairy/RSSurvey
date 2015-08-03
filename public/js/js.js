@@ -324,6 +324,8 @@ $.appendSource = function (selector, source){
 
 	// 更新数据
 	obj.update(source);
+	
+	return obj;
 }
 
 // 示例数据
@@ -366,6 +368,8 @@ console.log(source_1);
  * 		这里调用
  *
  */
+/*
 $(function(){
 	$.appendSource('#container', source_1);
 })
+*/

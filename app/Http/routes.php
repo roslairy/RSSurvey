@@ -23,7 +23,7 @@ Route::get('/',function(){
 	$tableService=new TableServices();
 	$datas=$tableService->getNewestData();
 	
-	return view('index',['datas'=>$datas]);
+	return view('index',['datas'=>$datas,'navName'=>'index']);
 	
 	//return view('alarmmessage');
 	//return view('railuse');

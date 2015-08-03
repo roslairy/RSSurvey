@@ -30,7 +30,7 @@ class MainController extends Controller
 		
 		//判断是否第一次请求
 		if($isFirst!=null)
-			return view($stationId,['isFirst'=>'true']);
+			return view($stationId,['navName'=>$stationId]);
 		
 		$tableService=new TableServices();
 		$datas=$tableService->getStationMessageById($stationId);
@@ -62,7 +62,7 @@ class MainController extends Controller
 		
 		//若为空
 		if($selectWhat==null)
-			return view('chart');
+			return view('chart',['navName'=>'chart']);
 		
 		//检查是否存在此选项
 		if(!strpos($selections,$selectWhat))
@@ -140,7 +140,7 @@ class MainController extends Controller
 		//将数据保存在session中，用于导出excel表格。
 		Session::put('sRailUseDatas',$excelArray);
 				
-		return view('railuse',['datas'=>$datas]);
+		return view('railuse',['datas'=>$datas,'navName'=>'railuse']);
 	}
 
 	/**************************/
@@ -202,7 +202,7 @@ class MainController extends Controller
 		//将数据保存在session中，用于导出excel表格。
 		Session::put('sPowerUseDatas',$excelArray);		
 				
-		return view('poweruse',['datas'=>$datas]);
+		return view('poweruse',['datas'=>$datas,'navName'=>'poweruse']);
 		
 	}
 	
@@ -257,7 +257,7 @@ class MainController extends Controller
 		Session::put('$sAlarmMessageDatas',$excelArray);
 		
 		
-		return view('alarmmessage',['datas'=>$datas]);
+		return view('alarmmessage',['datas'=>$datas,'navName'=>'alarmmessage']);
 	
 	}
 	
