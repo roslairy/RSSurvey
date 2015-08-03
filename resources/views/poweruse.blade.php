@@ -42,8 +42,8 @@
           	 		<fieldset>
           	 			<legend>查询条件</legend>
           	 			
-          	 			<label for="start">起始时间</label><input class="laydate-icon" onclick="laydate()" name="beginTime">
-          	 			<label for="stop">结束时间</label><input id='demo' id='demo' class="laydate-icon" onclick="laydate()" name="stopTime">
+          	 			<label for="start">起始时间</label><input class="laydate-icon" onclick="laydate()" name="beginTime" id="_date">
+          	 			<label for="stop">结束时间</label><input  id='demo' class="laydate-icon" onclick="laydate()" name="stopTime">
           	 			<label for="num">电源编号</label><select name="powerName">
           	 			<option value="1">1</option>
           	 			<option value="2">2</option>
@@ -55,6 +55,7 @@
           	 			<input type="button" onclick="window.location.href=('{{action('MainController@searchPowerUse', ['export'=>true])}}')" value="导出excel">
              	 		</fieldset>
           	 	</form>
+         
           	 	<div class="result">
           	 			<table>
           	 				<tr><th>电源编号</th><th>路数</th><th>轨道号</th><th>车号</th><th>开始时间</th><th>结束时间</th><th>用电量</th></tr>

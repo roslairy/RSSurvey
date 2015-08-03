@@ -30,6 +30,10 @@ Route::get('/',function(){
 	//return view('error');
 	//return view('xinyangstation');
 	//return view('chart');
+	//return view('xinyangstation');
+	//return view('survey');
+	
+	//echo strtotime("2015-07-21 11:20:30");
 	
 });
 

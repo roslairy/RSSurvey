@@ -1,0 +1,85 @@
+p{
+	font-size: 0.86em;
+}
+.source-container{
+	width: 320px;
+	height: 220px;
+	outline: 1px solid #999;
+}
+.source-container p{
+	margin: 0;
+}
+
+.state-block{
+	width: 160px;
+	height: 18px;
+	margin: 3px 0;
+}
+
+.state-container{
+	width: 160px;
+	float: left;
+}
+
+.source-container p {
+	text-align: center;
+}
+
+.data-block{
+	width: 160px;
+	height: 18px;
+	margin: 3px 0;
+}
+
+.data-block>div, .data-block>p{
+	float: left;
+}
+
+.center-square{
+	margin-left: 50px;
+	width: 60px;
+	background-color: #eee;
+}
+
+.left-square{
+	margin-left: 12px;
+	width: 60px;
+	background-color: #eee;
+}
+
+.rail-container{
+	width: 320px;
+	float: left;
+	border-top: 1px solid #999;
+}
+
+.gbg-container{
+	margin: 0 13px;
+	width: 80px;
+	float: left;
+}
+
+.gbg-square{
+	margin-left: 20px;
+	width: 40px;
+	background-color: #eee;
+}
+
+.rail-k{
+	margin-left: 5px;
+}
+
+.rail-square{
+	float: left;
+	margin-left: 0px;
+	width: 40px;
+	background-color: #eee;
+}
+
+.active-square{
+	background-color: #51C3FF;
+}
+
+.bad-square{
+	background-color: red;
+}

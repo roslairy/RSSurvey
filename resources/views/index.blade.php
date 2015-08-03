@@ -56,11 +56,11 @@
                           <li><a href={{route('alarmmessage')}}>按故障</a></li>
                       </ul>
                   </li>
-                  <li><a href='{{route('survey')}}?stationId=001'>站场1</a></li>
-                  <li><a href="">站场2</a></li>
-                  <li><a href="">站场3</a></li>
-                  <li><a href="">站场4</a></li>
-                  <li><a href="">站场5</a></li>
+                  <li><a href='{{route('survey')}}?stationId=xinyang&isFirst=true'>信阳</a></li>
+                  <li><a href='{{route('survey')}}?stationId=yichang&isFirst=true'>宜昌</a></li>
+                  <li><a href='{{route('survey')}}?stationId=xiangyang&isFirst=true'>襄阳</a></li>
+                  <li><a href='{{route('survey')}}?stationId=wuchang&isFirst=true'>武昌</a></li>
+                  <li><a href='{{route('survey')}}?stationId=hankou&isFirst=true'>汉口</a></li>
                   
               </ul>
           </div>

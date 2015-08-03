@@ -8,33 +8,38 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Response;
 
 class MainController extends Controller
 {
 	
 	
-			/****************以下是站场实时监控模块***************/
+				/****************以下是站场实时监控模块***************/
 	
 	
 	
-	public function  surveyStation(){		
-		$stationId=Input::get('stationId','');
-		
-		/*
+	public function  surveyStation(){	
+			
+		$stationId=Input::get('stationId','nodefine');//站场ID及默认值
+		$isFirst=Input::get('isFirst');
+	
 		//字段合法性验证
-		$stations='-武昌-汉口-宜昌-襄阳-信阳-';
-		if(!strpos($stations, $sourceId))
-			return view('error,['validatorMessage','对不起，您查找的站场不在服务范围']);
-		*/
+		$stations='-wuchang-hankou-yichang-xiangyang-xinyang-';
+		if(!strpos($stations, $stationId))
+			return view('error',['validatorMessage'=>'对不起，您查找的站场不在服务范围']);
+		
+		//判断是否第一次请求
+		if($isFirst!=null)
+			return view($stationId,['isFirst'=>'true']);
 		
 		$tableService=new TableServices();
 		$datas=$tableService->getStationMessageById($stationId);
 		
-		//确定返回的视图
-		/*
-		$returnView=$stationId.'station';
-		return view($returnView,$datas);
-		*/
+		//返回json数据到请求页面
+		return response()->json(['jsonDatas'=>$datas]);
+	
+		
+		
 	}
 
 	
@@ -66,11 +71,12 @@ class MainController extends Controller
 		$tableService=new TableServices();
 		$datas=$tableService->getSourceMessageInHistory('1','2015-07-21',$selectWhat);
 				
-		/*		
+		/*
 		for($i=0;$i<count($datas[0]);$i++)
 			echo $datas[1][$i].'<br>';
 		*/	
-		return view('chart',['x'=>$datas[0],'y'=>$datas[1]]);
+		//return view('chart',['x'=>$datas[0],'y'=>$datas[1]]);
+		return response()->json(['x'=>$datas[0],'y'=>$datas[1]]);
 	}
 
 	

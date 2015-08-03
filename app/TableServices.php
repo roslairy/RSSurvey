@@ -254,6 +254,7 @@ class TableServices {
 		
 	//分站场获取最新信息
 	public function getStationMessageById($stationId){
+		
 		$tableModel=new TableModel();
 		$tableModel->setTable('NewData');
 		
@@ -264,16 +265,20 @@ class TableServices {
 							->toArray();
 		
 		//调用函数格式化数组
-		$datas=$this->formatArray2($datas);
+		$datas=$this->formatArray2($datas,$stationId);
 		
+		/*
 		foreach($datas[0] as $key=>$value)
 			echo $key.'=>'.$value.'<br>';
+		*/
+		
+		return $datas;
 	}
 	
 	
 	
 	//格式化以得到站场监控页面所需的数据
-	public function formatArray2($datas){
+	public function formatArray2($datas,$stationId){
 		
 		//定义结果数组
 		$resultDatas=array();
@@ -291,19 +296,57 @@ class TableServices {
 			$Rx22Result=($Rx22==-1||$Rx22>2500)?'绝缘正常':$Rx22;
 			
 			//插入处理得到的数值
-			$datas[$i]=array_add($datas[$i], 'RM1', $Rx11Result);//一路负对地电阻
-			$datas[$i]=array_add($datas[$i], 'RP1', $Rx12Result);//二路正对地电阻
-			$datas[$i]=array_add($datas[$i], 'RM2', $Rx21Result);
-			$datas[$i]=array_add($datas[$i], 'RP2', $Rx22Result);
+			$datas[$i]=array_add($datas[$i], 'volfo1', $Rx11Result);//一路负对地电阻
+			$datas[$i]=array_add($datas[$i], 'volzo1', $Rx12Result);//二路正对地电阻
+			$datas[$i]=array_add($datas[$i], 'volfo2', $Rx21Result);
+			$datas[$i]=array_add($datas[$i], 'volzo2', $Rx22Result);
 			
 			$datas[$i]=array_add($datas[$i], 'volf1', $datas[$i]['vol1']-$datas[$i]['volz1']);//负对地电压
 			$datas[$i]=array_add($datas[$i], 'volf2', $datas[$i]['vol2']-$datas[$i]['volz2']);
 			
-			$resultDatas[$i]=$datas[$i];
+			//设置站场的柜边柜
+			if($stationId=='xinyang')
+				$datas[$i]=array_add($datas[$i], 'rails', ['k1','k2','k5','k6']);
+			
+			else if($stationId=='yichang')
+				$datas[$i]=array_add($datas[$i], 'rails', ['k1','k2','k3','k4']);
+			
+			else if($stationId=='xiangyang'){
+				if($i==0)
+					$datas[$i]=array_add($datas[$i], 'rails', ['k3','k4','k5','k6']);
+				else 
+					$datas[$i]=array_add($datas[$i], 'rails', ['k7','k8','k9','k10']);
+			}
+			
+			else if($stationId=='wuchang'){
+				switch ($i){
+						case 0:$datas[$i]=array_add($datas[$i], 'rails', ['k5','k6']);break;
+						case 1:$datas[$i]=array_add($datas[$i], 'rails', ['k7','k8']);break;
+						case 2:$datas[$i]=array_add($datas[$i], 'rails', ['k9','k10']);break;
+						case 3:$datas[$i]=array_add($datas[$i], 'rails', ['k11','k12']);break;
+						default:break;
+					}	
+				}
+				
+			else if($stationId=='hankou'){
+				if($i==0)
+					$datas[$i]=array_add($datas[$i], 'rails', ['k2','k3','k4','k5','k6','k7']);
+				else
+					$datas[$i]=array_add($datas[$i], 'rails', ['k8','k9','k10','k11','k12','k13']);
+				}
+				
+			else{}
+	
+			//测试用
+			$datas[$i]=array_add($datas[$i],'PowerUse1','1000');
+			$datas[$i]=array_add($datas[$i],'PowerUse2','2000');
+
+			$resultDatas[$i]=json_encode($datas[$i]);
 					
 		}
 		
 		return $resultDatas;
+		
 	}
 }
 

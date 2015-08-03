@@ -530,7 +530,15 @@ Licensed under the MIT license.
                 xaxis: {
                     show: null, // null = auto-detect, true = always, false = never
                     position: "bottom", // or "top"
-                    mode: null, // null or "time"
+                    
+                    //mode: null, // null or "time"
+                    mode: "time", 
+                    
+                    //这个是自己添加的
+                    //timeformat: "%y/%m/%d %H:%M:%S",
+                    //twelveHourClock: false,
+                	//monthNames: null,
+                	
                     font: null, // null (derived from CSS in placeholder) or object like { size: 11, lineHeight: 13, style: "italic", weight: "bold", family: "sans-serif", variant: "small-caps" }
                     color: null, // base color, labels, ticks
                     tickColor: null, // possibly different color of ticks, e.g. "rgba(0,0,0,0.15)"
@@ -548,7 +556,11 @@ Licensed under the MIT license.
                     alignTicksWithAxis: null, // axis number or null for no sync
                     tickDecimals: null, // no. of decimals, null means auto
                     tickSize: null, // number or [number, "unit"]
-                    minTickSize: null // number or [number, "unit"]
+                    
+                    
+                    //这里改过
+                    //minTickSize: null // number or [number, "unit"]
+                    minTickSize: [5, "minute"]
                 },
                 yaxis: {
                     autoscaleMargin: 0.02,
