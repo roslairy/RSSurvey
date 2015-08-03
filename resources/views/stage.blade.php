@@ -7,6 +7,8 @@
   <script type="text/javascript" src="js/json_parse.js"></script> 
  <script>
 
+ 					//定义全局container类数组
+ 					var containerObjs=new Array();
 					$.ajax({
 	    			     type: "get",//使用get方法访问后台
 	    			     dataType: "json",//返回json格式的数据
@@ -17,12 +19,12 @@
 	    			     success: function(data){	    			                  	
 	    			     $.each(data.jsonDatas,function(index,d){
 											
-		    			 var sourceDiv='<div id="container'+index+'" style="width: 320px; margin: auto;"></div>';
+		    			 var sourceDiv='<div id="container'+index+'" style="width: 320px; margin: 20px;	float:left"></div>';
 			    		 $(".right").append(sourceDiv);	
 		    			                  													
 		    			 var source=JSON.parse(d);			
 		    			 var container='#container'+index; 	                  	
-		    			 $.appendSource(container, source);
+		    			 containerObjs[index]=$.appendSource(container, source);
 	    			     	 });		    			              	
 	    			      }
 	    			  });
@@ -42,8 +44,7 @@
 				    			 //$(".right").append(sourceDiv);	
 				    			                  													
 				    			 var source=JSON.parse(d);	
-				    			 var container='#container'+index;		    			                  	
-				    			 $.appendSource(container, source);
+				    			 containerObjs[index].update(source);
 			    			    });		    			              	
 			    		    }
 			    	  });

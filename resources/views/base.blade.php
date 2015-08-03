@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Rail Source Management</title>
     
+    <script type="text/javascript" src="js/jquery.js"></script> 
     <link rel="stylesheet" type="text/css" href="css/comm.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
   	<script type="text/javascript" src="js/initialize.js"></script> 
@@ -79,7 +80,8 @@
         laydate({
            elem: '#demo'
         });
-      }
+      };
+      $('#{{$navName}}').addClass('active');
     </script>
 
 </body>

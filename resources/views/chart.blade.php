@@ -36,8 +36,15 @@
           	 	</form>
           	 	<div id="flot" style="width:1000px; height: 400px; margin: auto;">          	 	
 	            </div>          	 	
-          	 </div>
-<script type="text/javascript">
+          	 </div>	
+	<script type="text/javascript" src="js/jquery.js" 	charset="utf-8"></script>
+	<script type="text/javascript" src="js/json2.js"></script> 
+  	<script type="text/javascript" src="js/json_parse.js"></script>
+	<script type="text/javascript" src='js/laydate/laydate.js'></script>   
+	<script type="text/javascript" src="js/initialize.js"></script>
+	<script type="text/javascript" src="js/jquery.flot.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/jquery.flot.time.js" charset="utf-8"></script>
+	<script type="text/javascript">
    //定义全局变量
 	var data;
 	var time;
@@ -120,7 +127,10 @@
                    	res.push([millis, data[index]]);
 
 				}
-                i++;
+
+				//暂停
+				if(!pause)
+                	i++;
              
 				return res;
 			}
@@ -150,7 +160,6 @@
 				plot.setupGrid();
 				
 				//据pause来判断是否调用draw函数
-				if(!pause)
 					plot.draw();
 
                 //获取速度选项              

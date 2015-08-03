@@ -30,7 +30,7 @@ class MainController extends Controller
 		
 		//判断是否第一次请求
 		if($isFirst!=null)
-			return view($stationId,['navName'=>$stationId]);
+			return view('stage',['stageName'=>$stationId,'navName'=>$stationId]);
 		
 		$tableService=new TableServices();
 		$datas=$tableService->getStationMessageById($stationId);
