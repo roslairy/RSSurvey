@@ -88,7 +88,7 @@ $.source_div = '<div class="source-container">'+
 '					<div class="left-square">'+
 '						<p class="html-volzo2">123</p>'+
 '					</div>'+
-'					<p>a</p>'+
+'					<p>o</p>'+
 '				</div>'+
 '				<div class="data-block">'+
 '					<div class="left-square">'+
@@ -98,7 +98,7 @@ $.source_div = '<div class="source-container">'+
 '					<div class="left-square">'+
 '						<p class="html-volfo2">123</p>'+
 '					</div>'+
-'					<p>a</p>'+
+'					<p>o</p>'+
 '				</div>'+
 '			</div>'+
 '			<div class="rail-container">'+
@@ -195,6 +195,8 @@ $.appendSource = function (selector, source){
 	// 定义更新数据的函数
 	obj.update = function(data){
 
+
+		console.log(data);
 		// 电源名称
 		this.find('.html-PowerName').text(data.PowerName);
 
@@ -243,17 +245,18 @@ $.appendSource = function (selector, source){
 				// this.find('.html-rail-' + rails[0] + '-square').addClass('active-square');
 				// this.find('.html-gbg' + data.rails.indexOf(rails[0]) / 2 + '-square' + i).addClass('active-square');
 				this.shine1.pushIfNotExist(this.find('.html-rail-' + rails[0] + '-square'));
-				this.shine1.pushIfNotExist(this.find('.html-gbg' + data.rails.indexOf(rails[0]) / 2 + '-square' + i));
+				this.shine1.pushIfNotExist(this.find('.html-gbg' + Math.floor(data.rails.indexOf(rails[0]) / 2) + '-square' + i));
 				this.shine2.pushIfNotExist(this.find('.html-rail-' + rails[0] + '-square'));
-				this.shine2.pushIfNotExist(this.find('.html-gbg' + data.rails.indexOf(rails[0]) / 2 + '-square' + i));
+				this.shine2.pushIfNotExist(this.find('.html-gbg' + Math.floor(data.rails.indexOf(rails[0]) / 2) + '-square' + i));
+				console.log(this.shine2);
 			// 2个轨道
 			} else {
 				_rails = rails;
 				_i = i;
 				this.shine1.pushIfNotExist(this.find('.html-rail-' + _rails[0] + '-square'));
-				this.shine1.pushIfNotExist(this.find('.html-gbg' + data.rails.indexOf(_rails[0]) / 2 + '-square' + _i));
+				this.shine1.pushIfNotExist(this.find('.html-gbg' + Math.floor(data.rails.indexOf(_rails[0]) / 2) + '-square' + _i));
 				this.shine2.pushIfNotExist(this.find('.html-rail-' + _rails[1] + '-square'));
-				this.shine2.pushIfNotExist(this.find('.html-gbg' + data.rails.indexOf(_rails[1]) / 2 + '-square' + _i));
+				this.shine2.pushIfNotExist(this.find('.html-gbg' + Math.floor(data.rails.indexOf(_rails[1]) / 2) + '-square' + _i));
 				// obj['state1_gbg' + i] = function(j){
 				// 	this.find('.html-rail-' + _rails[j - 1] + '-name').text(data['RailNum' + j]);
 				// 	// this.find('.html-rail-' + _rails[0] + '-square').addClass('active-square');

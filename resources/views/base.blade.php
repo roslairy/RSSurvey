@@ -34,7 +34,6 @@
       }
       .tablelist caption {
         font-size: 18px;
-        color: white;
       }
       .active{
         background:skyblue;
