@@ -57,6 +57,9 @@ $.source_div = '<div class="source-container">'+
 '					</div>'+
 '					<p>o</p>'+
 '				</div>'+
+'				<div class="data-block">'+
+'					<p id="html-Power1"></p>'+
+'				</div>'+
 '			</div>'+
 '			<div class="state-container">'+
 '				<div class="data-block">'+
@@ -99,6 +102,9 @@ $.source_div = '<div class="source-container">'+
 '						<p class="html-volfo2">123</p>'+
 '					</div>'+
 '					<p>o</p>'+
+'				</div>'+
+'				<div class="data-block">'+
+'					<p id="html-Power1"></p>'+
 '				</div>'+
 '			</div>'+
 '			<div class="rail-container">'+
