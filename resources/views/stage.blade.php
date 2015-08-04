@@ -13,6 +13,7 @@
 	}
 </style>
  
+    <h1 style="text-align:center;font-size:30px;">{{$stageNameChinese}}</h1>
   <div class="cebian" id="cebian">
   	
 	  	<div class="data-block">电源</div>

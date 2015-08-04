@@ -117,6 +117,7 @@ $.appendSource = function (selector, source){
 
 	// 计算轨边柜个数
 	obj.gbgCnt = source.rails.length / 2;
+	obj.find('.rail-container').append('<div style="float:left;width:' + (3 - obj.gbgCnt) * 55 + 'px;height:30px;"><div/>')
 
 	// 追加轨边柜
 	for (var i = 0; i < obj.gbgCnt; i++) {
