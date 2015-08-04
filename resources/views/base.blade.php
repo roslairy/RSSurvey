@@ -75,10 +75,6 @@
    </div>
    <script type="text/javascript">
       window.onload=function(){
-         chushihua();
-        laydate({
-           elem: '#demo'
-        });
       };
       $('#{{$navName}}').addClass('active');
     </script>
