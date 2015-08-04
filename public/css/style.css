@@ -3,11 +3,12 @@ p{
 }
 .source-container{
 	width: 320px;
-	height: 220px;
+	height: 230px;
 	outline: 1px solid #999;
 }
 .source-container p{
 	margin: 0;
+	overflow: hidden;
 }
 
 .state-block{
@@ -82,4 +83,9 @@ p{
 
 .bad-square{
 	background-color: red;
+}
+.power-condition{
+	width:160px;
+	text-align: center;
+	color: red;
 }

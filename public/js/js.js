@@ -58,7 +58,7 @@ $.source_div = '<div class="source-container">'+
 '					<p>o</p>'+
 '				</div>'+
 '				<div class="data-block">'+
-'					<p id="html-Power1"></p>'+
+'					<p class="html-Power1-condition power-condition"></p>'+
 '				</div>'+
 '			</div>'+
 '			<div class="state-container">'+
@@ -104,7 +104,7 @@ $.source_div = '<div class="source-container">'+
 '					<p>o</p>'+
 '				</div>'+
 '				<div class="data-block">'+
-'					<p id="html-Power1"></p>'+
+'					<p class="html-Power2-condition power-condition"></p>'+
 '				</div>'+
 '			</div>'+
 '			<div class="rail-container">'+
@@ -202,19 +202,15 @@ $.appendSource = function (selector, source){
 	// 定义更新数据的函数
 	obj.update = function(data){
 
-
-		console.log(data);
 		// 电源名称
 		
 		//判断是否有故障
 		
-		var alarmMessage="&nbsp;";
-		if(data.vol1>100)
-			alarmMessage+="I路："+data.condition1 +　'&nbsp;';
-		if(data.vol2>100)
-			alarmMessage+="II路："+data.condition2;
+		if(data.vol1 < 100)
+			this.find('.html-Power1-condition').html(data.condition1);
+		if(data.vol2 < 100)
+			this.find('.html-Power2-condition').html(data.condition2);
 	
-		this.find('.html-PowerName').html(data.PowerName+alarmMessage);
 		
 
 		// 清除轨边柜标签
