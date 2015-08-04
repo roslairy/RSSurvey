@@ -40,7 +40,12 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">找不到页面！</div>
+                <div class="title">找不到页面！3s后返回。</div>
+                <script type="text/javascript">
+					setTimeout(function(){
+							history.back();
+						}, 3000);
+                </script>
             </div>
         </div>
     </body>

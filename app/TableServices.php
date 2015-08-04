@@ -20,6 +20,7 @@ class TableServices {
 			$tableModel->setTable('NewData');
 			
 			//执行分站场查询操作
+			// TODO: thisname改为拼音
 			$thisName1Datas=$tableModel::where('ThisName','=','1')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
 			$thisName2Datas=$tableModel::where('ThisName','=','2')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
 			$thisName3Datas=$tableModel::where('ThisName','=','3')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
@@ -60,6 +61,7 @@ class TableServices {
 			//Rx1,Rx2分别为负对地，正对地绝缘电阻
 			$Rx11=$Rx12=$Rx21=$Rx22=-1;
 			
+			// TODO: 传值
 			$this->calculateResistor($Rx11, $Rx12, $vol1, $volz1);
 			$this->calculateResistor($Rx21, $Rx22, $vol2, $volz2);
 			
@@ -285,6 +287,7 @@ class TableServices {
 		for($i=0;$i<count($datas);$i++){
 			
 			//计算对地电阻，1，2分别为负对地电阻，正对地电阻
+			// TODO: 传值
 			$Rx11=$Rx12=$Rx21=$Rx22=-1;
 			$this->calculateResistor($Rx11, $Rx12,$datas[$i]['vol1'],$datas[$i]['volz1']);
 			$this->calculateResistor($Rx21, $Rx22,$datas[$i]['vol1'],$datas[$i]['volz1']);
@@ -338,6 +341,7 @@ class TableServices {
 			else{}
 	
 			//测试用
+			// TODO: 去掉
 			$datas[$i]=array_add($datas[$i],'PowerUse1','1000');
 			$datas[$i]=array_add($datas[$i],'PowerUse2','2000');
 

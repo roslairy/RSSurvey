@@ -20,6 +20,7 @@ class MainController extends Controller
 	
 	public function  surveyStation(){	
 			
+		// TODO: 表单验证
 		$stationId=Input::get('stationId','nodefine');//站场ID及默认值
 		$isFirst=Input::get('isFirst');
 	
@@ -29,6 +30,7 @@ class MainController extends Controller
 			return view('error',['validatorMessage'=>'对不起，您查找的站场不在服务范围']);
 		
 		//判断是否第一次请求
+		// TODO: 删掉
 		if($isFirst!=null)
 			return view('stage',['stageName'=>$stationId,'navName'=>$stationId]);
 		
@@ -56,6 +58,7 @@ class MainController extends Controller
 	public function showChart(){
 		
 		//获取查看条目信息并设置默认值
+		// TODO: 表单验证
 		$selectWhat=Input::get('selectWhat',null);
 		//验证合法性
 		$selections='-vol1-cur1-i1-vol2-cur2-i2-';
