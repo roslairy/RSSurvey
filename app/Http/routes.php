@@ -15,22 +15,12 @@ use Illuminate\Http\Response;
 */
 
 
-//全站信息
+//全站信息显示
 Route::get('/',function(){
 
 	$tableService=new TableServices();
 	$datas=$tableService->getNewestData();	
 	return view('index',['datas'=>$datas,'navName'=>'index']);
-	
-	//return view('alarmmessage');
-	//return view('railuse');
-	//return view('error');
-	//return view('xinyangstation');
-	//return view('chart');
-	//return view('xinyangstation');
-	//return view('survey');
-	
-	//echo strtotime("2015-07-21 11:20:30");
 	
 });
 

@@ -178,19 +178,18 @@ class MainController extends Controller
 	//电源使用情况查询
 	public function searchPowerUse(){	
 		
-		//输入参数验证
+		
 		$validator=Validator::make(Input::all(),
 				[
 						'beginTime'=>'date',
 						'stopTime'=>'date',
 						'powerName'=>'integer'
-						//'stageName'=>'require'
 				]);
 		
 		//验证未通过跳转到出错页面
 		if($validator->fails()){
 			$validatorMessage=$validator->messages();
-			return view('error',['validatorMessage'=>$validatorMessage]);
+			return view('error',['validatorMessage'=>$validatorMessage,'navName'=>'error']);
 				
 		}
 		
@@ -208,7 +207,7 @@ class MainController extends Controller
 		$beginTime=Input::get('beginTime','');
 		$stopTime=Input::get('stopTime','');
 		$powerName=Input::get('powerName','');
-		$stageName=Input::get('stageName');
+		$stageName=Input::get('stageName','xinyang');
 	
 		
 		$tableService=new TableServices();
@@ -216,22 +215,17 @@ class MainController extends Controller
 		//获取查询数据
 		$datas=$tableService->getPowerUse($beginTime, $stopTime, $stageName,$powerName);
 		
-		/*
-		foreach ($datas[0] as $key=>$value)
-			echo $key.'=>'.$value.'<br>';
-		*/		
-		
 		//构造excel表格数据源，用于导出
 		$excelArray=array();		
-		//excel表格字段名
+		//设置excel表格字段名
 		$excelKeys=['电源编号','路数','轨道号','车号','开始时间','结束时间','用电量'];
 
-		//组合得到完整数据表
+		//组合得到恰当格式的数据表数据数组
 		for($i=0;$i<count($datas);$i++){
 			$excelArray[$i]=array_combine($excelKeys, $datas[$i]);
 		}
 		
-		//将数据保存在session中，用于导出excel表格。
+		//将最新查询数据保存在session中，用于导出excel表格。
 		Session::put('sPowerUseDatas',$excelArray);						
 		return view('poweruse',[
 				'stageName'=>$stageName,

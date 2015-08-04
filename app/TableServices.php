@@ -66,7 +66,7 @@ class TableServices {
 			$Rx21=$Rx2s['$Rx1'];
 			$Rx22=$Rx2s['$Rx2'];
 			
-			//判断结果
+			//判断结果，floor函数为取整
 			$Rx11Result=($Rx11==-1||$Rx11>2500)?'绝缘正常':floor($Rx11);			
 			$Rx12Result=($Rx12==-1||$Rx12>2500)?'绝缘正常':floor($Rx12);
 			$Rx21Result=($Rx21==-1||$Rx21>2500)?'绝缘正常':floor($Rx21);
@@ -97,7 +97,7 @@ class TableServices {
 		
 		//设定默认值
 		$Rx1=$Rx2=-1;
-		//正常情况下
+		//正常情况下（即正对地电压=负对地电压）
 		if($volz1==($vol1-$volz1)){}
 
 		//负线存在对地电阻时
