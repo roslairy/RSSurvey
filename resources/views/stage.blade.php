@@ -1,6 +1,34 @@
 @extends('base')
 
 @section('right')
+
+  <style>
+	.cebian{
+	width: 100px;
+	height: 220px;
+	margin: 20px 40px;
+	float: left;
+	outline: 1px solid #999;
+    text-align:center;
+	}
+</style>
+ 
+  <div class="cebian" id="cebian">
+  	
+	  	<div class="data-block">电源</div>
+	  	<div class="data-block">整流回路</div>
+	  	<div class="data-block">用电量</div> 	
+	  	<div class="data-block">电压电流</div>
+	  	<div class="data-block">正向绝缘</div>
+	  	<div class="data-block">负向绝缘</div>
+	
+		
+	  	<div class="data-block">柜边柜</div>
+	  	<div class="data-block"></div>
+	  	<div class="data-block">轨道</div>
+	  	<div class="data-block">列车</div>
+	
+  </div>
   <script type="text/javascript" src="js/jquery.js"></script> 
   <script type="text/javascript" src="js/js.js"></script> 
   <script type="text/javascript" src="js/json2.js"></script> 
@@ -19,9 +47,13 @@
 	    			     success: function(data){	    			                  	
 	    			     $.each(data.jsonDatas,function(index,d){
 											
-		    			 var sourceDiv='<div id="container'+index+'" style="width: 320px; margin: 20px;	float:left"></div>';
+		    			 var sourceDiv='<div id="container'+index+'" style="width: 320px; margin: 20px 40px;	float:left"></div>';
 			    		 $(".right").append(sourceDiv);	
-		    			                  													
+
+			    		 
+		    			 if(index==1&&data.jsonDatas.length>2){
+		    				$(".right").append($('#cebian').clone());
+		    			 }                													
 		    			 var source=JSON.parse(d);			
 		    			 var container='#container'+index; 	                  	
 		    			 containerObjs[index]=$.appendSource(container, source);

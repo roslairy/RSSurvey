@@ -2,16 +2,15 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\Schema;
 
-class Test extends Migration
+class TableMigrate extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+  public function up()
     {
         //
     	Schema::create('NewData',function(Blueprint $table){
