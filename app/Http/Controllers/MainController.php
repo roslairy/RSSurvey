@@ -42,7 +42,7 @@ class MainController extends Controller
 		// TODO: 删掉
 		
 		if($isFirst!=null)
-			return view('stage',['stageName'=>$stageName,'stageNameChinese'=>$stageNameChinese[$stageName],'navName'=>$stageName]);
+			return view('stage',['stageName'=>$stageName,'stageNameChinese'=>$this->stageNameChinese[$stageName],'navName'=>$stageName]);
 		$tableService=new TableServices();
 		$datas=$tableService->getStationMessageById($stageName);
 		
