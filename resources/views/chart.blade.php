@@ -9,8 +9,8 @@
           	 			<label for="start">起始时间</label>
           	 			<input class="laydate-icon" onclick="laydate()" name="start" id="_date" style="position: relative;">
           	 			
-          	 			<label for="num">站场</label>
-          	 			<select name="num" id="stationName">
+          	 			<label for="num1">站场</label>
+          	 			<select name="num1" id="stageName">
           	 			<option value="xinyang">信阳</option>
           	 			<option value="yichang">宜昌</option>
           	 			<option value="xiangyang">襄阳</option>
@@ -18,8 +18,8 @@
           	 			<option value="hankou">汉口</option>
           	 			</select>
           	 			
-          	 			<label for="num">电源编号</label>
-          	 			<select name="num" id="powerName">
+          	 			<label for="num2">电源编号</label>
+          	 			<select name="num2" id="powerName">
           	 			<option value="1">1</option>
           	 			<option value="2">2</option>
           	 			<option value="3">3</option>
@@ -62,7 +62,7 @@
 	function buttonAction(selectWhat){
   		var selectWhat=selectWhat;
 		var date=document.getElementById('_date').value;
-  		var stationName=document.getElementById('stationName').value;
+  		var stageName=document.getElementById('stageName').value;
   		var powerName=document.getElementById('powerName').value;
 
 	//ajax请求
@@ -73,7 +73,7 @@
 	     data:{
 	    	 selectWhat:selectWhat,//要发送的数据
 	    	 date:date,
-	    	 stationName:stationName,
+	    	 stageName:stageName,
 	    	 powerName:powerName
 	     },
 	     success: function(data){	    			                  						

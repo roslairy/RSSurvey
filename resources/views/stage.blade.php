@@ -43,7 +43,7 @@
 	    			     dataType: "json",//返回json格式的数据
 	    			     url: "survey",//要访问的后台地址
 	    			     data:{
-		    			      stationId:"{{$stageName}}"//要发送的数据
+		    			      stageName:"{{$stageName}}"//要发送的数据
 	    			      },
 	    			     success: function(data){	    			                  	
 	    			     $.each(data.jsonDatas,function(index,d){
@@ -68,7 +68,7 @@
 			    			     dataType: "json",//返回json格式的数据
 			    			     url: "survey",//要访问的后台地址
 			    			     data:{
-				    			      stationId:"{{$stageName}}"//要发送的数据
+				    			      stageName:"{{$stageName}}"//要发送的数据
 			    			     },
 			    			     success: function(data){	    			                  	
 			    			     $.each(data.jsonDatas,function(index,d){

@@ -22,12 +22,12 @@ class MainController extends Controller
 	public function  surveyStation(){	
 			
 		// TODO: 表单验证
-		$stationId=Input::get('stationId','nodefine');//站场ID及默认值
+		$stageName=Input::get('stageName','nodefine');//站场ID及默认值
 		$isFirst=Input::get('isFirst');
 	
 		//字段合法性验证
 		$stations='-wuchang-hankou-yichang-xiangyang-xinyang-';
-		if(!strpos($stations, $stationId))
+		if(!strpos($stations, $stageName))
 			return view('error',['validatorMessage'=>'对不起，您查找的站场不在服务范围']);
 		
 		//站场中英文名映射数组
@@ -44,9 +44,9 @@ class MainController extends Controller
 		// TODO: 删掉
 		
 		if($isFirst!=null)
-			return view('stage',['stageName'=>$stationId,'stageNameChinese'=>$stationNameChinese[$stationId],'navName'=>$stationId]);
+			return view('stage',['stageName'=>$stageName,'stageNameChinese'=>$stationNameChinese[$stageName],'navName'=>$stageName]);
 		$tableService=new TableServices();
-		$datas=$tableService->getStationMessageById($stationId);
+		$datas=$tableService->getStationMessageById($stageName);
 		
 		//返回json数据到请求页面
 		return response()->json(['jsonDatas'=>$datas]);

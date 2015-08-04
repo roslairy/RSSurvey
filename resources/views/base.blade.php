@@ -59,11 +59,11 @@
                           <li id="alarmmessage"><a href={{route('alarmmessage')}}>按故障</a></li>
                       </ul>
                   </li>
-                  <li id="xinyang"><a href='{{route('survey')}}?stationId=xinyang&isFirst=true'>信阳</a></li>
-                  <li id="yichang"><a href='{{route('survey')}}?stationId=yichang&isFirst=true'>宜昌</a></li>
-                  <li id="xiangyang"><a href='{{route('survey')}}?stationId=xiangyang&isFirst=true'>襄阳</a></li>
-                  <li id="wuchang"><a href='{{route('survey')}}?stationId=wuchang&isFirst=true'>武昌</a></li>
-                  <li id="hankou"><a href='{{route('survey')}}?stationId=hankou&isFirst=true'>汉口</a></li>
+                  <li id="xinyang"><a href='{{route('survey')}}?stageName=xinyang&isFirst=true'>信阳</a></li>
+                  <li id="yichang"><a href='{{route('survey')}}?stageName=yichang&isFirst=true'>宜昌</a></li>
+                  <li id="xiangyang"><a href='{{route('survey')}}?stageName=xiangyang&isFirst=true'>襄阳</a></li>
+                  <li id="wuchang"><a href='{{route('survey')}}?stageName=wuchang&isFirst=true'>武昌</a></li>
+                  <li id="hankou"><a href='{{route('survey')}}?stageName=hankou&isFirst=true'>汉口</a></li>
                   
               </ul>
           </div>
