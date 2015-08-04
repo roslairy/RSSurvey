@@ -14,7 +14,15 @@ use Faker\Provider\DateTime;
 class MainController extends Controller
 {
 	
-	
+	//站场中英文名映射数组
+	public $stageNameChinese=[
+			'xinyang'=>'信阳',
+			'xiangyang'=>'襄阳',
+			'wuchang'=>'武昌',
+			'hankou'=>'汉口',
+			'yichang'=>'宜昌'
+	];
+		
 				/****************以下是站场实时监控模块***************/
 	
 	
@@ -30,21 +38,11 @@ class MainController extends Controller
 		if(!strpos($stations, $stageName))
 			return view('error',['validatorMessage'=>'对不起，您查找的站场不在服务范围']);
 		
-		//站场中英文名映射数组
-		$stationNameChinese=[
-				'xinyang'=>'信阳',
-				'xiangyang'=>'襄阳',
-				'wuchang'=>'武昌',
-				'hankou'=>'汉口',
-				'yichang'=>'宜昌'				
-		];
-		
-		
 		//判断是否第一次请求
 		// TODO: 删掉
 		
 		if($isFirst!=null)
-			return view('stage',['stageName'=>$stageName,'stageNameChinese'=>$stationNameChinese[$stageName],'navName'=>$stageName]);
+			return view('stage',['stageName'=>$stageName,'stageNameChinese'=>$stageNameChinese[$stageName],'navName'=>$stageName]);
 		$tableService=new TableServices();
 		$datas=$tableService->getStationMessageById($stageName);
 		
@@ -71,29 +69,29 @@ class MainController extends Controller
 		//获取查看条目信息并设置默认值
 		// TODO: 表单验证
 		$selectWhat=Input::get('selectWhat',null);
-		$stationName=Input::get('stationName',null);
+		$stageName=Input::get('stageName',null);
 		$powerName=Input::get('powreName');
 		$date=Input::get('date');
 		//若为空
 		
-		if($selectWhat==null&&$stationName==null)
+		if($selectWhat==null&&$stageName==null)
 			return view('chart',['navName'=>'chart']);
 		
 		//验证合法性
 		$validator = Validator::make(Input::all(),['date' => 'date']);
 		$selections='-vol1-cur1-i1-vol2-cur2-i2-';
-		$stationNames='-yichang-xinyang-wuchang-hankou-xiangyang-';
+		$stageNames='-yichang-xinyang-wuchang-hankou-xiangyang-';
 		
 		if($validator->fails())
 			return view('error',['validatorMessage'=>'日期格式出错！']);
-		if(!strpos($stationNames,$stationName))
+		if(!strpos($stageNames,$stageName))
 			return view('error',['validatorMessage'=>'暂不支持此站场的图表显示']);
 		if(!strpos($selections,$selectWhat))
 			return view('error',['validatorMessage'=>'暂不支持此选项的图表显示']);
 		
 		
 		$tableService=new TableServices();
-		$datas=$tableService->getSourceMessageInHistory($stationName,$date,'station1',$selectWhat);
+		$datas=$tableService->getSourceMessageInHistory($stageName,$date,'station1',$selectWhat);
 				
 		/*
 		for($i=0;$i<count($datas[0]);$i++)
@@ -130,9 +128,10 @@ class MainController extends Controller
 		}
 		
 		//若验证通过获取参数并设置默认值
-		$beginTime=Input::get('beginTime','0000-00-00');
-		$stopTime=Input::get('stopTime','0000-00-00');
-		$powerName=Input::get('powerName','0');
+		$beginTime=Input::get('beginTime','');
+		$stopTime=Input::get('stopTime','');
+		$powerName=Input::get('powerName','');
+		$stageName=Input::get('stageName');
 		
 		//判断是否有导出excel表格请求
 		if(Input::has('export')){
@@ -145,7 +144,7 @@ class MainController extends Controller
 		}
 		
 		$tableService=new TableServices();
-		$datas=$tableService->getRailUse($beginTime, $stopTime, $powerName);
+		$datas=$tableService->getRailUse($beginTime, $stopTime, $stageName,$powerName);
 		
 		
 		
@@ -164,7 +163,14 @@ class MainController extends Controller
 		//将数据保存在session中，用于导出excel表格。
 		Session::put('sRailUseDatas',$excelArray);
 				
-		return view('railuse',['datas'=>$datas,'navName'=>'railuse']);
+		return view('railuse',[
+				'stageName'=>$stageName,
+				'stageNameChinese'=>$this->stageNameChinese,
+				'beginTime'=>$beginTime,
+				'stopTime'=>$stopTime,
+				'datas'=>$datas,
+				'navName'=>'poweruse'
+		]);
 	}
 
 	/**************************/
@@ -178,6 +184,7 @@ class MainController extends Controller
 						'beginTime'=>'date',
 						'stopTime'=>'date',
 						'powerName'=>'integer'
+						//'stageName'=>'require'
 				]);
 		
 		//验证未通过跳转到出错页面
@@ -198,15 +205,16 @@ class MainController extends Controller
 		}
 		
 		//若验证通过获取参数并设置默认值
-		$beginTime=Input::get('beginTime','0000-00-00');
-		$stopTime=Input::get('stopTime','0000-00-00');
-		$powerName=Input::get('powerName','0');
+		$beginTime=Input::get('beginTime','');
+		$stopTime=Input::get('stopTime','');
+		$powerName=Input::get('powerName','');
+		$stageName=Input::get('stageName');
 	
 		
 		$tableService=new TableServices();
 		
 		//获取查询数据
-		$datas=$tableService->getPowerUse($beginTime, $stopTime, $powerName);
+		$datas=$tableService->getPowerUse($beginTime, $stopTime, $stageName,$powerName);
 		
 		/*
 		foreach ($datas[0] as $key=>$value)
@@ -224,9 +232,15 @@ class MainController extends Controller
 		}
 		
 		//将数据保存在session中，用于导出excel表格。
-		Session::put('sPowerUseDatas',$excelArray);		
-				
-		return view('poweruse',['datas'=>$datas,'navName'=>'poweruse']);
+		Session::put('sPowerUseDatas',$excelArray);						
+		return view('poweruse',[
+				'stageName'=>$stageName,
+				'stageNameChinese'=>$this->stageNameChinese,
+				'beginTime'=>$beginTime,
+				'stopTime'=>$stopTime,
+				'datas'=>$datas,
+				'navName'=>'poweruse'
+		]);
 		
 	}
 	
@@ -261,12 +275,13 @@ class MainController extends Controller
 		}
 		
 		
-		$alarmTime=Input::get('alarmTime','0000-00-00');
-		$endTime=Input::get('endTime','0000-00-00');
-		$powerName=Input::get('powerName','0');
+		$alarmTime=Input::get('alarmTime','');
+		$endTime=Input::get('endTime','');
+		$powerName=Input::get('powerName','');
+		$stageName=Input::get('stageName','');
 	
 		$tableService=new TableServices();
-		$datas=$tableService->getAlarmMessage($alarmTime, $endTime, $powerName);
+		$datas=$tableService->getAlarmMessage($alarmTime, $endTime, $stageName,$powerName);
 		
 		//构造excel表格数据源，用于导出
 		$excelArray=array();
@@ -280,8 +295,14 @@ class MainController extends Controller
 		//将数据保存在session中
 		Session::put('$sAlarmMessageDatas',$excelArray);
 		
-		
-		return view('alarmmessage',['datas'=>$datas,'navName'=>'alarmmessage']);
+		return view('alarmmessage',[
+				'stageName'=>$stageName,
+				'stageNameChinese'=>$this->stageNameChinese,
+				'alarmTime'=>$alarmTime,
+				'endTime'=>$endTime,
+				'datas'=>$datas,
+				'navName'=>'poweruse'
+		]);
 	
 	}
 	

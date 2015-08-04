@@ -117,13 +117,14 @@ class TableServices {
 	/**************************分块查询相关函数***********************************/
 		
 	//获取车次使用信息
-	public function getRailUse($beginTime,$stopTime,$powerName){
+	public function getRailUse($beginTime,$stopTime,$stageName,$powerName){
 		
 		$tableModel=new TableModel();
 		$tableModel->setTable('RailUse');
 		
 		$datas=$tableModel	->where('BeginTime','>=',$beginTime)
 							->where('StopTime','<=',$stopTime)
+							->where('ThisName','=',$stageName)
 							->where('PowerName','=',$powerName)
 							->select('RailNum','PowerName','RailwayName','BeginTime','StopTime','UseKWH')
 							->orderBy('RailNum')
@@ -135,7 +136,7 @@ class TableServices {
 	}
 	
 	//获取电源使用信息
-	public function getPowerUse($beginTime,$stopTime,$powerName){
+	public function getPowerUse($beginTime,$stopTime, $stageName,$powerName){
 		
 
 		$tableModel=new TableModel();
@@ -143,6 +144,7 @@ class TableServices {
 
 		$datas=$tableModel	->where('BeginTime','>=',$beginTime)
 							->where('StopTime','<=',$stopTime)
+							->where('ThisName','=',$stageName)
 							->where('PowerName','=',$powerName)
 							->select('PowerName','PowerNum','RailwayName','RailNum','BeginTime','StopTime','UseKWH')
 							->orderBy('PowerNum')
@@ -154,12 +156,13 @@ class TableServices {
 	}
 	
 	//获取故障信息
-	public function getAlarmMessage($alarmTime,$endTime,$PowerName){
+	public function getAlarmMessage($alarmTime,$endTime,$stageName,$PowerName){
 		$tableModel=new TableModel();
 		$tableModel->setTable('AlarmMessage');
 	
 		$datas=$tableModel  ->where('AlarmTime','>=',$alarmTime)
 							->where('EndTime','<=',$endTime)
+							->where('ThisName','=',$stageName)
 							->where('PowerName','=',$PowerName)
 							->select('PowerName','PowerNum','Alarm','AlarmTime','EndTime')
 							->orderBy('PowerName')

@@ -7,9 +7,24 @@
                 <fieldset>
                   <legend>查询条件</legend>
                 
-                  <label for="start">起始时间</label><input class="laydate-icon" onclick="laydate()" name="alarmTime">
-                  <label for="stop">结束时间</label><input id='demo' class="laydate-icon" onclick="laydate()" name="endTime">
-                  <label for="num">电源编号</label><select name="powerName">
+                  <label for="start">起始时间</label><input class="laydate-icon" onclick="laydate()" name="alarmTime" value='{{$alarmTime or ""}}'>
+                  <label for="stop">结束时间</label><input id='demo' class="laydate-icon" onclick="laydate()" name="endTime" value='{{$endTime or ""}}'>
+                 
+                   
+                  <label >站场</label>
+          	 			<select id="stage" name="stageName">
+          	 			@foreach($stageNameChinese as $key => $value)
+          	 			<option value="{{ $key }}"
+          	 			@if ($key == $stageName)
+          	 			selected
+          	 			@endif
+          	 			>{{ $value }}</option>
+          	 			@endforeach
+          	 			</select>	
+          	 			
+                 
+                  <label for="num">电源编号</label>
+                  <select name="powerName">
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
