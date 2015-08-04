@@ -20,12 +20,11 @@ class TableServices {
 			$tableModel->setTable('NewData');
 			
 			//执行分站场查询操作
-			// TODO: thisname改为拼音
-			$thisName1Datas=$tableModel::where('ThisName','=','1')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
-			$thisName2Datas=$tableModel::where('ThisName','=','2')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
-			$thisName3Datas=$tableModel::where('ThisName','=','3')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
-			$thisName4Datas=$tableModel::where('ThisName','=','4')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
-			$thisName5Datas=$tableModel::where('ThisName','=','5')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
+			$thisName1Datas=$tableModel::where('ThisName','=','wuchang')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
+			$thisName2Datas=$tableModel::where('ThisName','=','hankou')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
+			$thisName3Datas=$tableModel::where('ThisName','=','yichang')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
+			$thisName4Datas=$tableModel::where('ThisName','=','xiangyang')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
+			$thisName5Datas=$tableModel::where('ThisName','=','xinyang')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
 						
 			//调用格式化函数处理数据
 			$thisName1Datas=$this->formatArray($thisName1Datas);
@@ -58,12 +57,14 @@ class TableServices {
 			$vol2=$datas[$i]['vol2'];
 			$volz2=$datas[$i]['volz2'];
 			
-			//Rx1,Rx2分别为负对地，正对地绝缘电阻
-			$Rx11=$Rx12=$Rx21=$Rx22=-1;
+			//Rx1,Rx2分别为负对地，正对地绝缘电阻			
+			$Rx1s=$this->calculateResistor($vol1, $volz1);
+			$Rx11=$Rx1s['$Rx1'];
+			$Rx12=$Rx1s['$Rx2'];
 			
-			// TODO: 传值
-			$this->calculateResistor($Rx11, $Rx12, $vol1, $volz1);
-			$this->calculateResistor($Rx21, $Rx22, $vol2, $volz2);
+			$Rx2s=$this->calculateResistor($vol2, $volz2);
+			$Rx21=$Rx2s['$Rx1'];
+			$Rx22=$Rx2s['$Rx2'];
 			
 			//判断结果
 			$Rx11Result=($Rx11==-1||$Rx11>2500)?'绝缘正常':$Rx11;			
@@ -90,10 +91,12 @@ class TableServices {
 	}
 		
 	//此函数用来计算对地绝缘电阻
-	public function calculateResistor($Rx1,$Rx2,$vol1,$volz1){
+	public function calculateResistor($vol1,$volz1){
 		
 		//Rx1,Rx2分别为负对地绝缘电阻、正对地绝缘电阻
 		
+		//设定默认值
+		$Rx1=$Rx2=-1;
 		//正常情况下
 		if($volz1==($vol1-$volz1)){}
 
@@ -103,7 +106,9 @@ class TableServices {
 				
 		//正线存在对地电阻时
 		else
-			$Rx2=2100*$volz1/($vol1-2*$volz1);							
+			$Rx2=2100*$volz1/($vol1-2*$volz1);	
+		//返回计算结果
+		return array('$Rx1'=>$Rx1,'$Rx2'=>$Rx2);						
 	}
 	
 	
@@ -172,12 +177,12 @@ class TableServices {
 	/**********************图表显示模块相关函数************************************/
 
 	//获取指定日期指定电源的信息
-	public function getSourceMessageInHistory($stationName,$date,$powerName,$selectWhat){
+	public function getSourceMessageInHistory($stageName,$date,$powerName,$selectWhat){
 		
 		//构造得到表名
 		$date=date_create($date);
 		$date=date_format($date, 'Y_m_d');		
-		$tableName=$stationName.$date;
+		$tableName=$stageName.$date;
 		
 		//绑定数据表
 		$tableModel=new TableModel();
@@ -287,13 +292,25 @@ class TableServices {
 		for($i=0;$i<count($datas);$i++){
 			
 			//计算对地电阻，1，2分别为负对地电阻，正对地电阻
-			// TODO: 传值
-			$Rx11=$Rx12=$Rx21=$Rx22=-1;
-			$this->calculateResistor($Rx11, $Rx12,$datas[$i]['vol1'],$datas[$i]['volz1']);
-			$this->calculateResistor($Rx21, $Rx22,$datas[$i]['vol1'],$datas[$i]['volz1']);
+			//一路
+			$vol1=$datas[$i]['vol1'];
+			$volz1=$datas[$i]['volz1'];
 				
+			//二路
+			$vol2=$datas[$i]['vol2'];
+			$volz2=$datas[$i]['volz2'];
+			
+			//Rx1,Rx2分别为负对地，正对地绝缘电阻			
+			$Rx1s=$this->calculateResistor($vol1, $volz1);
+			$Rx11=$Rx1s['$Rx1'];
+			$Rx12=$Rx1s['$Rx2'];
+			
+			$Rx2s=$this->calculateResistor($vol2, $volz2);
+			$Rx21=$Rx2s['$Rx1'];
+			$Rx22=$Rx2s['$Rx2'];
+			
 			//判断结果
-			$Rx11Result=($Rx11==-1||$Rx11>2500)?'绝缘正常':$Rx11;
+			$Rx11Result=($Rx11==-1||$Rx11>2500)?'绝缘正常':$Rx11;			
 			$Rx12Result=($Rx12==-1||$Rx12>2500)?'绝缘正常':$Rx12;
 			$Rx21Result=($Rx21==-1||$Rx21>2500)?'绝缘正常':$Rx21;
 			$Rx22Result=($Rx22==-1||$Rx22>2500)?'绝缘正常':$Rx22;
@@ -304,8 +321,8 @@ class TableServices {
 			$datas[$i]=array_add($datas[$i], 'volfo2', $Rx21Result);
 			$datas[$i]=array_add($datas[$i], 'volzo2', $Rx22Result);
 			
-			$datas[$i]=array_add($datas[$i], 'volf1', $datas[$i]['vol1']-$datas[$i]['volz1']);//负对地电压
-			$datas[$i]=array_add($datas[$i], 'volf2', $datas[$i]['vol2']-$datas[$i]['volz2']);
+			$datas[$i]=array_add($datas[$i], 'volf1', $vol1-$volz1);//负对地电压
+			$datas[$i]=array_add($datas[$i], 'volf2', $vol2-$volz2);
 			
 			//设置站场的柜边柜
 			if($stationId=='xinyang')

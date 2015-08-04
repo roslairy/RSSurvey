@@ -210,7 +210,7 @@ $.appendSource = function (selector, source){
 		
 		var alarmMessage="&nbsp;";
 		if(data.vol1>100)
-			alarmMessage+="I路："+data.condition1;
+			alarmMessage+="I路："+data.condition1 +　'&nbsp;';
 		if(data.vol2>100)
 			alarmMessage+="II路："+data.condition2;
 	

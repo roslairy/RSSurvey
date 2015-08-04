@@ -30,11 +30,21 @@ class MainController extends Controller
 		if(!strpos($stations, $stationId))
 			return view('error',['validatorMessage'=>'对不起，您查找的站场不在服务范围']);
 		
+		//站场中英文名映射数组
+		$stationNameChinese=[
+				'xinyang'=>'信阳',
+				'xiangyang'=>'襄阳',
+				'wuchang'=>'武昌',
+				'hankou'=>'汉口',
+				'yichang'=>'宜昌'				
+		];
+		
+		
 		//判断是否第一次请求
 		// TODO: 删掉
-		if($isFirst!=null)
-			return view('stage',['stageName'=>$stationId,'navName'=>$stationId]);
 		
+		if($isFirst!=null)
+			return view('stage',['stageName'=>$stationId,'stageNameChinese'=>$stationNameChinese[$stationId],'navName'=>$stationId]);
 		$tableService=new TableServices();
 		$datas=$tableService->getStationMessageById($stationId);
 		
