@@ -10,7 +10,6 @@
                   
                   <label for="start">起始时间</label><input id='demo0' class="laydate-icon" onclick="laydate()" name="beginTime" value ='{{$beginTime or ""}}'>
                   <label for="stop">结束时间</label><input id='demo' class="laydate-icon" onclick="laydate()" name="stopTime" value ='{{$stopTime or ""}}'>
-                  <label for="num">电源编号</label>
                   
                   <label >站场</label>
           	 			<select id="stage" name="stageName">
@@ -22,7 +21,7 @@
           	 			>{{ $value }}</option>
           	 			@endforeach
           	 			</select>		
-          	 			
+          	 	  <label for="num">电源编号</label>
                   <select name="powerName">
                   <option value="1">1</option>
                   <option value="2">2</option>

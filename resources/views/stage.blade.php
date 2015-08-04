@@ -5,7 +5,7 @@
   <style>
 	.cebian{
 	width: 100px;
-	height: 220px;
+	height: 230px;
 	margin: 20px 40px;
 	float: left;
 	outline: 1px solid #999;
@@ -23,9 +23,9 @@
 	  	<div class="data-block">正向绝缘</div>
 	  	<div class="data-block">负向绝缘</div>
 	
-		
-	  	<div class="data-block">柜边柜</div>
 	  	<div class="data-block"></div>
+	  	<div class="data-block">柜边柜</div>
+	  	<div class="data-block"></div>	  	
 	  	<div class="data-block">轨道</div>
 	  	<div class="data-block">列车</div>
 	

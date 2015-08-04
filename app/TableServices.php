@@ -67,10 +67,10 @@ class TableServices {
 			$Rx22=$Rx2s['$Rx2'];
 			
 			//判断结果
-			$Rx11Result=($Rx11==-1||$Rx11>2500)?'绝缘正常':$Rx11;			
-			$Rx12Result=($Rx12==-1||$Rx12>2500)?'绝缘正常':$Rx12;
-			$Rx21Result=($Rx21==-1||$Rx21>2500)?'绝缘正常':$Rx21;
-			$Rx22Result=($Rx22==-1||$Rx22>2500)?'绝缘正常':$Rx22;
+			$Rx11Result=($Rx11==-1||$Rx11>2500)?'绝缘正常':floor($Rx11);			
+			$Rx12Result=($Rx12==-1||$Rx12>2500)?'绝缘正常':floor($Rx12);
+			$Rx21Result=($Rx21==-1||$Rx21>2500)?'绝缘正常':floor($Rx21);
+			$Rx22Result=($Rx22==-1||$Rx22>2500)?'绝缘正常':floor($Rx22);
 			
 			//只保留数组的值，以方便下一步插入操作和视图遍历
 			$datas[$i]=array_values($datas[$i]);
@@ -313,10 +313,10 @@ class TableServices {
 			$Rx22=$Rx2s['$Rx2'];
 			
 			//判断结果
-			$Rx11Result=($Rx11==-1||$Rx11>2500)?'绝缘正常':$Rx11;			
-			$Rx12Result=($Rx12==-1||$Rx12>2500)?'绝缘正常':$Rx12;
-			$Rx21Result=($Rx21==-1||$Rx21>2500)?'绝缘正常':$Rx21;
-			$Rx22Result=($Rx22==-1||$Rx22>2500)?'绝缘正常':$Rx22;
+			$Rx11Result=($Rx11==-1||$Rx11>2500)?'绝缘正常':floor($Rx11);			
+			$Rx12Result=($Rx12==-1||$Rx12>2500)?'绝缘正常':floor($Rx12);
+			$Rx21Result=($Rx21==-1||$Rx21>2500)?'绝缘正常':floor($Rx21);
+			$Rx22Result=($Rx22==-1||$Rx22>2500)?'绝缘正常':floor($Rx22);
 			
 			//插入处理得到的数值
 			$datas[$i]=array_add($datas[$i], 'volfo1', $Rx11Result);//一路负对地电阻
