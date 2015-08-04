@@ -172,21 +172,21 @@ class TableServices {
 	/**********************图表显示模块相关函数************************************/
 
 	//获取指定日期指定电源的信息
-	public function getSourceMessageInHistory($stationName,$date,$selectWhat){
+	public function getSourceMessageInHistory($stationName,$date,$powerName,$selectWhat){
 		
-		//根据约定规则构造得到表名
-		//$tableName=$stationName.$date;
+		//构造得到表名
+		$date=date_create($date);
+		$date=date_format($date, 'Y_m_d');		
+		$tableName=$stationName.$date;
 		
 		//绑定数据表
 		$tableModel=new TableModel();
-		//$tableModel->setTable($tableName);
-		$tableModel->setTable('station1_2015_07_21');
-		
+		$tableModel->setTable($tableName);		
 		
 		//i1,i2分别为一路漏电流和二路漏电流
 		if($selectWhat=='i1'){
 			
-			$datas=$tableModel	->where('PowerName','=','station1')
+			$datas=$tableModel	->where('PowerName','=',$powerName)
 								->select('vol1','volz1','savetime')
 								->orderBy('savetime')
 								->get()
@@ -208,7 +208,7 @@ class TableServices {
 		
 		else if($selectWhat=='i2'){
 				
-			$datas=$tableModel	->where('PowerName','=','station1')
+			$datas=$tableModel	->where('PowerName','=',$powerName)
 								->select('vol2','volz2','savetime')
 								->orderBy('savetime')
 								->get()
@@ -229,7 +229,7 @@ class TableServices {
 		else{
 			
 			//x轴坐标值
-			$x=$tableModel		->where('PowerName','=','station1')
+			$x=$tableModel		->where('PowerName','=',$powerName)
 								->select('savetime')
 								->orderBy('savetime')
 								->get()
@@ -237,7 +237,7 @@ class TableServices {
 			$x=array_flatten($x);
 			
 			//y轴坐标值
-			$y=$tableModel		->where('PowerName','=','station1')
+			$y=$tableModel		->where('PowerName','=',$powerName)
 								->select('vol1')
 								->orderBy('savetime')
 								->get()

@@ -17,7 +17,7 @@ class TestSeeder extends Seeder
     public function run()
     {
         //
-        
+        /*
     	for($i=0;$i<24;$i++){
     		for($j=0;$j<60;$j++){
     			for($k=0;$k<7;$k++){
@@ -36,6 +36,7 @@ class TestSeeder extends Seeder
     			
     		}
     	}
+    	*/
         /*
         for($i=10;$i<16;$i++){
         	TestModel0::create(array(
@@ -70,24 +71,15 @@ class TestSeeder extends Seeder
         		'UseKWH'=>$i,
         	));
         }
-       
-        
-         for($i=10;$i<16;$i++){
-        	TestModel2::create(array(
-        		'ThisName'=>$i,
-        		'PowerName'=>$i,
-        		'PowerNum'=>$i,
-        		'RailwayName'=>$i,
-        		'RailNum'=>$i,
-        		'BeginTime'=>$i,
-        		'StopTime'=>$i,
-        		'BeginKWH'=>$i,
-        		'StopKWH'=>$i,
-        		'UseKWH'=>$i,
-        	));
-        	
-         }
-         
+       */
+    	$poweruse = array(
+    			array('ThisName' => '1','PowerName' => '1','PowerNum' => '1','RailwayName' => '1','RailNum' => '1','BeginTime' => '2015-07-14 00:00:00','StopTime' => '2015-07-22 00:00:00','BeginKWH' => '10','StopKWH' => '20','UseKWH' => '10'),
+    			array('updated_at' => '0000-00-00 00:00:00','ThisName' => '1','PowerName' => '1','PowerNum' => '2','RailwayName' => '2','RailNum' => '2','BeginTime' => '2015-07-21 00:00:00','StopTime' => '2015-07-23 00:00:00','BeginKWH' => '20','StopKWH' => '50','UseKWH' => '30')
+    	);
+    	 foreach ($poweruse as $p){
+        	TestModel2::create($p);
+    	 }
+         /*
          for($i=10;$i<16;$i++){
          	TestModel3::create(array(
          	'ThisName'=>$i,

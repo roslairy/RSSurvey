@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Response;
+use Faker\Provider\DateTime;
 
 class MainController extends Controller
 {
@@ -60,19 +61,29 @@ class MainController extends Controller
 		//获取查看条目信息并设置默认值
 		// TODO: 表单验证
 		$selectWhat=Input::get('selectWhat',null);
-		//验证合法性
-		$selections='-vol1-cur1-i1-vol2-cur2-i2-';
-		
+		$stationName=Input::get('stationName',null);
+		$powerName=Input::get('powreName');
+		$date=Input::get('date');
 		//若为空
-		if($selectWhat==null)
+		
+		if($selectWhat==null&&$stationName==null)
 			return view('chart',['navName'=>'chart']);
 		
-		//检查是否存在此选项
+		//验证合法性
+		$validator = Validator::make(Input::all(),['date' => 'date']);
+		$selections='-vol1-cur1-i1-vol2-cur2-i2-';
+		$stationNames='-yichang-xinyang-wuchang-hankou-xiangyang-';
+		
+		if($validator->fails())
+			return view('error',['validatorMessage'=>'日期格式出错！']);
+		if(!strpos($stationNames,$stationName))
+			return view('error',['validatorMessage'=>'暂不支持此站场的图表显示']);
 		if(!strpos($selections,$selectWhat))
 			return view('error',['validatorMessage'=>'暂不支持此选项的图表显示']);
 		
+		
 		$tableService=new TableServices();
-		$datas=$tableService->getSourceMessageInHistory('1','2015-07-21',$selectWhat);
+		$datas=$tableService->getSourceMessageInHistory($stationName,$date,'station1',$selectWhat);
 				
 		/*
 		for($i=0;$i<count($datas[0]);$i++)

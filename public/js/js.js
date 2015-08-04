@@ -199,7 +199,17 @@ $.appendSource = function (selector, source){
 
 		console.log(data);
 		// 电源名称
-		this.find('.html-PowerName').text(data.PowerName);
+		
+		//判断是否有故障
+		
+		var alarmMessage="&nbsp;";
+		if(data.vol1>100)
+			alarmMessage+="I路："+data.condition1;
+		if(data.vol2>100)
+			alarmMessage+="II路："+data.condition2;
+	
+		this.find('.html-PowerName').html(data.PowerName+alarmMessage);
+		
 
 		// 清除轨边柜标签
 		var _this = this;

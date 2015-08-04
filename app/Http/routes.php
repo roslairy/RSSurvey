@@ -1,5 +1,4 @@
 <?php
-
 use App\TableServices;
 use App\TableModel;
 use Illuminate\Support\Facades\Route;
@@ -19,10 +18,8 @@ use Illuminate\Http\Response;
 //全站信息
 Route::get('/',function(){
 
-	
 	$tableService=new TableServices();
-	$datas=$tableService->getNewestData();
-	
+	$datas=$tableService->getNewestData();	
 	return view('index',['datas'=>$datas,'navName'=>'index']);
 	
 	//return view('alarmmessage');
