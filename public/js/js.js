@@ -209,22 +209,11 @@ $.appendSource = function (selector, source){
 		if(data.vol1 < 100){
 			volgood[0] = false;
 			this.find('.html-Power1-condition').html(data.condition1);
-<<<<<<< HEAD
-		else
-			this.find('.html-Power1-condition').html('');
-
-		if(data.vol2 < 100)
-			this.find('.html-Power2-condition').html(data.condition2);
-		else
-			this.find('.html-Power2-condition').html('');
-		
-=======
 		}
 		if(data.vol2 < 100){
 			volgood[1] = false;
 			this.find('.html-Power2-condition').html(data.condition2);
 		}
->>>>>>> origin/master
 
 		// 清除轨边柜标签
 		var _this = this;

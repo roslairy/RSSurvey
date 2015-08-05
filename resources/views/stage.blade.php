@@ -101,12 +101,6 @@
 			    		    }
 			    	  });
 	    			    	
-<<<<<<< HEAD
 			   },10000);
 		</script> 
 @stop
-=======
-			   },5000);
-		</script>
-@stop
->>>>>>> origin/master
