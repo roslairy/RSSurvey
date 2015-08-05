@@ -205,13 +205,16 @@ $.appendSource = function (selector, source){
 		// 电源名称
 		
 		//判断是否有故障
+		var volgood = [true, true];
 		
-		if(data.vol1 < 100)
+		if(data.vol1 < 100){
+			volgood[0] = false;
 			this.find('.html-Power1-condition').html(data.condition1);
-		if(data.vol2 < 100)
+		}
+		if(data.vol2 < 100){
+			volgood[1] = false;
 			this.find('.html-Power2-condition').html(data.condition2);
-	
-		
+		}
 
 		// 清除轨边柜标签
 		var _this = this;
@@ -253,7 +256,10 @@ $.appendSource = function (selector, source){
 			// 检查是否有两个轨道
 			rails = data['RailwayName' + i].split('/');
 			// 1个轨道
-			if (rails.length == 1){
+			if (!volgood[i - 1]) {
+				continue;
+			}
+			else if (rails.length == 1){
 				// this.find('.html-rail-' + rails[0] + '-name').text(data['RailNum' + i]);
 				// this.find('.html-rail-' + rails[0] + '-square').addClass('active-square');
 				// this.find('.html-gbg' + data.rails.indexOf(rails[0]) / 2 + '-square' + i).addClass('active-square');
@@ -261,7 +267,6 @@ $.appendSource = function (selector, source){
 				this.shine1.pushIfNotExist(this.find('.html-gbg' + Math.floor(data.rails.indexOf(rails[0]) / 2) + '-square' + i));
 				this.shine2.pushIfNotExist(this.find('.html-rail-' + rails[0] + '-square'));
 				this.shine2.pushIfNotExist(this.find('.html-gbg' + Math.floor(data.rails.indexOf(rails[0]) / 2) + '-square' + i));
-				console.log(this.shine2);
 			// 2个轨道
 			} else {
 				_rails = rails;
@@ -377,7 +382,6 @@ source_1 = {
 		'k6'
 	]
 };
-console.log(source_1);
 
 /**
  *
