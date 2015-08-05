@@ -31,31 +31,31 @@ $.source_div = '<div class="source-container">'+
 '					<div class="left-square">'+
 '						<p class="html-vol1">123</p>'+
 '					</div>'+
-'					<p>v</p>'+
+'					<p>V</p>'+
 '					<div class="left-square">'+
 '						<p class="html-cur1">123</p>'+
 '					</div>'+
-'					<p>a</p>'+
+'					<p>A</p>'+
 '				</div>'+
 '				<div class="data-block">'+
 '					<div class="left-square">'+
 '						<p class="html-volz1">123</p>'+
 '					</div>'+
-'					<p>v</p>'+
+'					<p>V</p>'+
 '					<div class="left-square">'+
 '						<p class="html-volzo1">123</p>'+
 '					</div>'+
-'					<p>o</p>'+
+'					<p>Ω</p>'+
 '				</div>'+
 '				<div class="data-block">'+
 '					<div class="left-square">'+
 '						<p class="html-volf1">123</p>'+
 '					</div>'+
-'					<p>v</p>'+
+'					<p>V</p>'+
 '					<div class="left-square">'+
 '						<p class="html-volfo1">123</p>'+
 '					</div>'+
-'					<p>o</p>'+
+'					<p>Ω</p>'+
 '				</div>'+
 '				<div class="data-block">'+
 '					<p class="html-Power1-condition power-condition"></p>'+
@@ -77,31 +77,31 @@ $.source_div = '<div class="source-container">'+
 '					<div class="left-square">'+
 '						<p class="html-vol2">123</p>'+
 '					</div>'+
-'					<p>v</p>'+
+'					<p>V</p>'+
 '					<div class="left-square">'+
 '						<p class="html-cur2">123</p>'+
 '					</div>'+
-'					<p>a</p>'+
+'					<p>A</p>'+
 '				</div>'+
 '				<div class="data-block">'+
 '					<div class="left-square">'+
 '						<p class="html-volz2">123</p>'+
 '					</div>'+
-'					<p>a</p>'+
+'					<p>A</p>'+
 '					<div class="left-square">'+
 '						<p class="html-volzo2">123</p>'+
 '					</div>'+
-'					<p>o</p>'+
+'					<p>Ω</p>'+
 '				</div>'+
 '				<div class="data-block">'+
 '					<div class="left-square">'+
 '						<p class="html-volf2">123</p>'+
 '					</div>'+
-'					<p>a</p>'+
+'					<p>A</p>'+
 '					<div class="left-square">'+
 '						<p class="html-volfo2">123</p>'+
 '					</div>'+
-'					<p>o</p>'+
+'					<p>Ω</p>'+
 '				</div>'+
 '				<div class="data-block">'+
 '					<p class="html-Power2-condition power-condition"></p>'+
@@ -202,15 +202,18 @@ $.appendSource = function (selector, source){
 	// 定义更新数据的函数
 	obj.update = function(data){
 
-		// 电源名称
-		
+	
 		//判断是否有故障
 		
 		if(data.vol1 < 100)
 			this.find('.html-Power1-condition').html(data.condition1);
+		else
+			this.find('.html-Power1-condition').html('');
+
 		if(data.vol2 < 100)
 			this.find('.html-Power2-condition').html(data.condition2);
-	
+		else
+			this.find('.html-Power2-condition').html('');
 		
 
 		// 清除轨边柜标签

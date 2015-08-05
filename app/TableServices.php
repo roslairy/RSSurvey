@@ -85,6 +85,7 @@ class TableServices {
 			
 			//最后处理结果保存到返回数组
 			$thisDatas[$i]=$datas[$i];
+			//$thisDatas[$i]=json_encode($datas[$i]);
 		}
 				
 		return $thisDatas;		

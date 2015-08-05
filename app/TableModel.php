@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TableModel extends Model
 {
-    //°ó¶¨ÏàÓ¦Êı¾İ±í
+    //é»˜è®¤ç»‘å®šæ•°æ®è¡¨
     protected  $table='NewData';
    
 }

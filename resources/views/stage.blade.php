@@ -72,16 +72,13 @@
 			    			     },
 			    			     success: function(data){	    			                  	
 			    			     $.each(data.jsonDatas,function(index,d){
-													
-				    			 //var sourceDiv='<div id="container"'+index+' style="width: 320px; margin: auto;"></div>';
-				    			 //$(".right").append(sourceDiv);	
-				    			                  													
+																					
 				    			 var source=JSON.parse(d);	
 				    			 containerObjs[index].update(source);
 			    			    });		    			              	
 			    		    }
 			    	  });
 	    			    	
-			   },5000);
+			   },10000);
 		</script> 
 @stop

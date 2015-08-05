@@ -3,6 +3,7 @@ use App\TableServices;
 use App\TableModel;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Input;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,17 +14,16 @@ use Illuminate\Http\Response;
 | and give it the controller to call when that URI is requested.
 |
 */
+//测试
+Route::get('/refreshNewDataT',['as'=>'refreshNewDataT','uses'=>'TestController@refreshNewDataT']);
 
-
-//全站信息显示
-Route::get('/',function(){
-
-	$tableService=new TableServices();
-	$datas=$tableService->getNewestData();	
-	return view('index',['datas'=>$datas,'navName'=>'index']);
-	
+Route::get('/',function (){
+	return view('index',['navName'=>'index']);
 });
 
+//全站信息显示
+Route::get('/index',['as'=>'index','uses'=>'MainController@index']);
+	
 //站场监控
 Route::get('/survey',['as'=>'survey','uses'=>'MainController@surveyStation']);
 

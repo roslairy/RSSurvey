@@ -22,7 +22,26 @@ class MainController extends Controller
 			'hankou'=>'汉口',
 			'yichang'=>'宜昌'
 	];
+				/****************以下是全站显示模块***************/
+	
+	public function index(){
 		
+		if(Input::has('notFirst')){
+			$tableService=new TableServices();
+			$datas=$tableService->getNewestData();
+			return response()->json([
+					'wuchang'=>$datas[0],
+					'hankou'=>$datas[1],
+					'yichang'=>$datas[2],
+					'xiangyang'=>$datas[3],
+					'xinyang'=>$datas[4],
+					'powerNum'=>$datas[5]
+				]);
+		}
+		
+		return view('index',['navName'=>'index']);
+ }
+	
 				/****************以下是站场实时监控模块***************/
 	
 	
