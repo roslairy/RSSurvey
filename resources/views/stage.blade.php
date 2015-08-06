@@ -80,7 +80,10 @@
 				    			 var container='#container'+index; 	                  	
 				    			 containerObjs[index]=$.appendSource(container, source);
 	    			     	 });		    			              	
-	    			     }
+	    			     },
+			    		 error: function(){	    			                  							
+			    				 	 alert('请求失败')  ;       	    			              	
+			    				}
 	    			});
 			    	self.setInterval(function(){
 			    	   //ajax请求
@@ -97,8 +100,11 @@
 				    			 var source=JSON.parse(d);	
 				    			 containerObjs[index].update(source);
 			    			    });		    			              	
-			    		    }
-			    	  });
+			    		    },
+				    		     error: function(){	    			                  							
+				    			 	 alert('请求失败')  ;       	    			              	
+				    			}
+				    	  });
 	    			    	
 			   },10000);
 		</script> 

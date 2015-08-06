@@ -79,7 +79,10 @@
 	     },
 	     success: function(data){	    			                  							
 		 	 myPlot(data.y,data.x)  ;       	    			              	
-   }
+   },
+		 error: function(){	    			                  							
+			 	 alert('请求失败')  ;       	    			              	
+			}
 });			
 
 	

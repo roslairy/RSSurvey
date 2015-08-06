@@ -149,7 +149,10 @@
 			 appendDatas('#yichang2',data.yichang,powerNum[2])	;
 			 appendDatas('#xiangyang2',data.xiangyang,powerNum[3]);
 			 appendDatas('#xinyang2',data.xinyang,powerNum[4])	;		   		 	    			              	
-   		}
+   		},
+      	 error: function(){	    			                  							
+    	 	 alert('请求失败')  ;       	    			              	
+    	}
  
 });
 	
@@ -169,7 +172,10 @@
 				 appendDatas('#yichang2',data.yichang,powerNum[2])	;
 				 appendDatas('#xiangyang2',data.xiangyang,powerNum[3]);
 				 appendDatas('#xinyang2',data.xinyang,powerNum[4])	;		   		 	    			              	
-	   		}
+	   		},
+		   	 error: function(){	    			                  							
+			 	 alert('请求失败')  ;       	    			              	
+			}
 	 
 	});
 			    	
