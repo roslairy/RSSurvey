@@ -108,6 +108,12 @@
 				// 自己加的函数                
 				for(var j = 0; j < totalPoints; j++){
 					index = (i + j) % data.length;
+
+					if(i+j>=data.length){
+						$('#flot').empty();
+						break;
+					}
+					
                     if(j==0){
                         initial = index;
                     }
