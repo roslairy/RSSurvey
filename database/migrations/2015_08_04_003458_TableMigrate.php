@@ -13,6 +13,22 @@ class TableMigrate extends Migration
   public function up()
     {
         //
+    	Schema::create('hankou2015_08_06',function(Blueprint $table){
+    		$table->increments('id');
+    		$table->timestamps();
+    	
+    		$table->string('PowerName');    
+    		$table->dateTime('savetime');
+    		$table->integer('vol1');
+    		$table->integer('volz1');
+    		$table->integer('cur1');
+    		$table->integer('vol2');
+    		$table->integer('volz2');
+    		$table->integer('cur2');
+    	
+    	
+    	});
+        /*
     	Schema::create('NewData',function(Blueprint $table){
     		$table->increments('id');
     		$table->timestamps();
@@ -78,6 +94,8 @@ class TableMigrate extends Migration
     					$table->dateTime('AlarmTime');
     					$table->dateTime('EndTime');
     				});
+    				
+    				*/
     }
 
     /**

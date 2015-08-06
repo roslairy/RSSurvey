@@ -7,9 +7,9 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <link rel="stylesheet" type="text/css" href="css/comm.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/poweruse.css">
 <script type="text/javascript" src="js/initialize.js"></script>
 <script type="text/javascript" src="js/laydate/laydate.js"></script>
-<link rel="stylesheet" type="text/css" href="css/poweruse.css">
 <script type="text/javascript">
 		 window.onload=function(){
     	chushihua();
@@ -74,16 +74,13 @@
 		</div>
 
 	</div>
-	<script type="text/javascript">
-    
+<script type="text/javascript">   
+	//模拟定时刷新
    self.setInterval(function(){
 	   			$.get('refreshNewDataT');
           },10000);
 	
-      $('#{{$navName}}').addClass('active');
- 
-  	// window.location.href='refreshNewDataT';
-    </script>
-
+   $('#{{$navName}}').addClass('active');
+</script>
 </body>
 </html>

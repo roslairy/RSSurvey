@@ -271,7 +271,6 @@ class TableServices {
 		
 		$datas=$tableModel::where('ThisName','=',$stationId)
 							->select('ThisName','PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')
-							->orderBy('PowerName')
 							->get()
 							->toArray();
 		
@@ -362,9 +361,9 @@ class TableServices {
 			else{}
 	
 			//测试用
-			// TODO: 去掉
-			$datas[$i]=array_add($datas[$i],'PowerUse1','1000');
-			$datas[$i]=array_add($datas[$i],'PowerUse2','2000');
+			// TODO: 去掉(实际用不到)
+			$datas[$i]=array_add($datas[$i],'PowerUse1',' ');
+			$datas[$i]=array_add($datas[$i],'PowerUse2',' ');
 
 			$resultDatas[$i]=json_encode($datas[$i]);
 					

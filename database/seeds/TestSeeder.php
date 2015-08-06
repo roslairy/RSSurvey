@@ -16,27 +16,27 @@ class TestSeeder extends Seeder
      */
     public function run()
     {
-        //
-        /*
+        
+    	//填充历史数据
     	for($i=0;$i<24;$i++){
     		for($j=0;$j<60;$j++){
-    			for($k=0;$k<7;$k++){
+    			for($k=0;$k<6;$k++){
     				$second=10*$k;
 		    		TestModel::create(array(
-			    		'PowerName'=>'station1',
-			    		'savetime'=>$i.':'.$j.':'.$second,
-			    		'vol1'=>rand(0, 100),
-			    		'volz1'=>rand(0, 100),
-			    		'cur1'=>rand(0, 100),
-			    		'vol2'=>rand(0, 100),
-			    		'volz2'=>rand(0, 100),
-			    		'cur2'=>rand(0, 100),
+			    		'PowerName'=>'1',
+			    		'savetime'=>'2015-08-06'.' '.$i.':'.$j.':'.$second,
+			    		'vol1'=>rand(0, 750),
+			    		'volz1'=>rand(0, 750),
+			    		'cur1'=>rand(0, 700),
+			    		'vol2'=>rand(0, 750),
+			    		'volz2'=>rand(0, 750),
+			    		'cur2'=>rand(0, 700),
 		    		));
     			}
     			
     		}
     	}
-    	*/
+    	
         /*
         for($i=10;$i<16;$i++){
         	TestModel0::create(array(
@@ -71,15 +71,7 @@ class TestSeeder extends Seeder
         		'UseKWH'=>$i,
         	));
         }
-       */
-    	$poweruse = array(
-    			array('ThisName' => '1','PowerName' => '1','PowerNum' => '1','RailwayName' => '1','RailNum' => '1','BeginTime' => '2015-07-14 00:00:00','StopTime' => '2015-07-22 00:00:00','BeginKWH' => '10','StopKWH' => '20','UseKWH' => '10'),
-    			array('updated_at' => '0000-00-00 00:00:00','ThisName' => '1','PowerName' => '1','PowerNum' => '2','RailwayName' => '2','RailNum' => '2','BeginTime' => '2015-07-21 00:00:00','StopTime' => '2015-07-23 00:00:00','BeginKWH' => '20','StopKWH' => '50','UseKWH' => '30')
-    	);
-    	 foreach ($poweruse as $p){
-        	TestModel2::create($p);
-    	 }
-         /*
+      
          for($i=10;$i<16;$i++){
          	TestModel3::create(array(
          	'ThisName'=>$i,
