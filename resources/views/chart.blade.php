@@ -77,7 +77,8 @@
 	    	 powerName:powerName
 	     },
 
-	     success: function(data){   			                  							
+	     success: function(data){ 
+		     console.log(data);  			                  							
 		 	 myPlot(data.y,data.x)  ;       	    			              	
    },
 		 error: function(){	    			                  							
@@ -123,7 +124,8 @@
 
                     var date=time[index];
 					var millis=(new Date(date)).getTime();
-                   	res.push([millis, data[index]]); 
+					console.log(millis);
+                   	//res.push([millis, data[index]]); 
                  	
 				}
 

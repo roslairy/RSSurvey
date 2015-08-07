@@ -224,7 +224,10 @@ class TableServices {
 			$x=array();
 			$y=array();
 			for($i=0;$i<count($datas);$i++){
-				$x[$i]['savetime']=$datas[$i]['savetime'];
+				
+				//格式化时间函数
+				//$x[$i]['savetime']=$datas[$i]['savetime'];
+				$x[$i]['savetime']=date_format($datas[$i]['savetime'],'Y/m/d H:i:s');
 				$y[$i]['i2']=abs(2*$datas[$i]['volz2']-$datas[$i]['vol2'])/2100;				
 			}
 				
