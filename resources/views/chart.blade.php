@@ -124,8 +124,8 @@
 
                     var date=time[index];
 					var millis=(new Date(date)).getTime();
-					console.log(millis);
-                   	//res.push([millis, data[index]]); 
+					//console.log(millis);
+                   	res.push([millis, data[index]]); 
                  	
 				}
 

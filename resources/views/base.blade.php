@@ -52,7 +52,7 @@
 			<div class="left" id="left">
 				<ul class="left_menu">
 					<li id="index"><a href='./'>全站显示</a></li>
-					<li id="chart"><a href={{route('chart')}}>曲线图显示</a></li>
+					<li id="chart"><a href='{{route('chart')}}?isFirst=true'>曲线图显示</a></li>
 					<li id="sepli">查询
 						<ul>
 							<li id="railuse"><a href={{route('railuse')}}>按车次</a></li>

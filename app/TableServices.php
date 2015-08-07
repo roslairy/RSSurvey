@@ -188,7 +188,8 @@ class TableServices {
 		
 		//绑定数据表
 		$tableModel=new TableModel();
-		$tableModel->setTable($tableName);		
+		$tableModel->setTable($tableName);
+
 		
 		//i1,i2分别为一路漏电流和二路漏电流
 		if($selectWhat=='i1'){
@@ -204,7 +205,9 @@ class TableServices {
 			$y=array();		
 				
 			for($i=0;$i<count($datas);$i++){
-				$x[$i]['savetime']=$datas[$i]['savetime'];
+				//$x[$i]['savetime']=$datas[$i]['savetime'];
+				//下面的格式化是为了解决在IE浏览器中js函数日期转换出现错误的情况
+				$x[$i]['savetime']=Carbon::createFromFormat('Y-m-d H:i:s',$datas[$i]['savetime'])->format('Y/m/d H:i:s');
 				$y[$i]['i1']=abs(2*$datas[$i]['volz1']-$datas[$i]['vol1'])/2100;				
 			}
 			
@@ -227,7 +230,8 @@ class TableServices {
 				
 				//格式化时间函数
 				//$x[$i]['savetime']=$datas[$i]['savetime'];
-				$x[$i]['savetime']=date_format($datas[$i]['savetime'],'Y/m/d H:i:s');
+				//下面的格式化是为了解决在IE浏览器中js函数日期转换出现错误的情况
+				$x[$i]['savetime']=Carbon::createFromFormat('Y-m-d H:i:s',$datas[$i]['savetime'])->format('Y/m/d H:i:s');
 				$y[$i]['i2']=abs(2*$datas[$i]['volz2']-$datas[$i]['vol2'])/2100;				
 			}
 				
@@ -237,7 +241,6 @@ class TableServices {
 		}
 		
 		else{
-			
 			//x轴坐标值
 			$x=$tableModel		->where('PowerName','=',$powerName)
 								->select('savetime')
@@ -245,6 +248,10 @@ class TableServices {
 								->get()
 								->toArray();				
 			$x=array_flatten($x);
+			
+			//下面的格式化是为了解决在IE浏览器中js函数日期转换出现错误的情况
+			for($i=0;$i<count($x);$i++)				
+				$x[$i]=Carbon::createFromFormat('Y-m-d H:i:s',$x[$i])->format('Y/m/d H:i:s');
 			
 			//y轴坐标值
 			$y=$tableModel		->where('PowerName','=',$powerName)

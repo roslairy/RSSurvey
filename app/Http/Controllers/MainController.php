@@ -80,33 +80,36 @@ class MainController extends Controller
 	
 		
 	public function showChart(){
-		
-		//获取查看条目信息并设置默认值
-		$selectWhat=Input::get('selectWhat',null);
-		$stageName=Input::get('stageName',null);
-		$powerName=Input::get('powerName',null);
-		//若为空
-		
-		if($selectWhat==null&&$stageName==null)
+
+		//第一次请求
+		if(Input::has('isFirst'))
 			return view('chart',['navName'=>'chart']);
+				
+		$validator = Validator::make(Input::all(),[
+				'date' => 'required|date',
+				'selectWhat'=> 'required',
+				'stageName'=> 'required',
+				'powerName'=> 'required',								
+		]);
+		if($validator->fails())
+			return view('error',['navName'=>'chart','validatorMessage'=>'输入参数验证出错！']);
 		
-		//验证合法性
-		$validator = Validator::make(Input::all(),['date' => 'date']);
-		$selections='-vol1-cur1-i1-vol2-cur2-i2-';
-		$stageNames='-yichang-xinyang-wuchang-hankou-xiangyang-';
-		
+		//验证通过则获取相关参数
+		$selectWhat=Input::get('selectWhat');
+		$stageName=Input::get('stageName');
+		$powerName=Input::get('powerName');
 		$date=Input::get('date');
 		
-		if($validator->fails())
-			return view('error',['validatorMessage'=>'日期格式出错！']);
-		if(!strpos($stageNames,$stageName))
-			return view('error',['validatorMessage'=>'暂不支持此站场的图表显示']);
-		if(!strpos($selections,$selectWhat))
-			return view('error',['validatorMessage'=>'暂不支持此选项的图表显示']);
+	
+		//验证合法性						
+		if($stageName!='yichang'&&$stageName!='xinyang'&&$stageName!='wuchang'&&$stageName!='hankou'&&$stageName!='xiangyang')
+			return view('error',['navName'=>'chart','validatorMessage'=>'暂不支持此站场的图表显示']);
+		
+		if($selectWhat!='vol1'&&$selectWhat!='cur1'&&$selectWhat!='i1'&&$selectWhat!='vol2'&&$selectWhat!='cur2'&&$selectWhat!='i2')
+			return view('error',['navName'=>'chart','validatorMessage'=>'暂不支持此选项的图表显示']);
 		
 		$tableService=new TableServices();
 		$datas=$tableService->getSourceMessageInHistory($stageName,$date,$powerName,$selectWhat);
-				
 
 		return response()->json(['x'=>$datas[0],'y'=>$datas[1]]);
 	}
