@@ -79,7 +79,8 @@
 	     success: function(data){	    			                  						
 		 		//_data=data.y;	
 		 		//_time=data.x;	 
-		 		myPlot(data.y,data.x)  ;        	    			              	
+		 		myPlot(data.y,data.x)  ;
+		 		console.log(data);        	    			              	
    }
 });			
 
