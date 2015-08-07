@@ -6,7 +6,9 @@
 			<legend>查询条件</legend>
 
 			<label for="start">起始时间</label>
-				<input class="laydate-icon" onclick="laydate()" name="beginTime" id="_date" value='{{$beginTime or ""}}'> <label for="stop">结束时间</label><inputid='demo' class="laydate-icon" onclick="laydate()" name="stopTime"value='{{$stopTime or ""}}'>
+				<input class="laydate-icon" onclick="laydate()" name="beginTime" id="_date" value='{{$beginTime or ""}}'>
+				 <label for="stop">结束时间</label>
+				 <input	id='demo' class="laydate-icon" onclick="laydate()" name="stopTime"value='{{$stopTime or ""}}'>
 				 <label>站场</label> 
 				 <select id="stage"	name="stageName"> 
 				 @foreach($stageNameChinese as $key => $value)

@@ -23,7 +23,6 @@ class MainController extends Controller
 			'yichang'=>'宜昌'
 	];
 				/****************以下是全站显示模块***************/
-	
 	public function index(){
 		
 		if(Input::has('notFirst')){
@@ -35,7 +34,7 @@ class MainController extends Controller
 					'yichang'=>$datas[2],
 					'xiangyang'=>$datas[3],
 					'xinyang'=>$datas[4],
-					'powerNum'=>$datas[5]
+					'powerNum'=>$datas[5]//电源数目
 				]);
 		}
 		
@@ -43,7 +42,6 @@ class MainController extends Controller
  }
 	
 				/****************以下是站场实时监控模块***************/
-	
 	
 	
 	public function  surveyStation(){	
@@ -80,17 +78,13 @@ class MainController extends Controller
 	
 	/**************************************************************************/
 	
-	
-	
-	
+		
 	public function showChart(){
 		
 		//获取查看条目信息并设置默认值
-		// TODO: 表单验证
 		$selectWhat=Input::get('selectWhat',null);
 		$stageName=Input::get('stageName',null);
-		$powerName=Input::get('powreName');
-		$date=Input::get('date');
+		$powerName=Input::get('powerName',null);
 		//若为空
 		
 		if($selectWhat==null&&$stageName==null)
@@ -101,6 +95,8 @@ class MainController extends Controller
 		$selections='-vol1-cur1-i1-vol2-cur2-i2-';
 		$stageNames='-yichang-xinyang-wuchang-hankou-xiangyang-';
 		
+		$date=Input::get('date');
+		
 		if($validator->fails())
 			return view('error',['validatorMessage'=>'日期格式出错！']);
 		if(!strpos($stageNames,$stageName))
@@ -108,15 +104,10 @@ class MainController extends Controller
 		if(!strpos($selections,$selectWhat))
 			return view('error',['validatorMessage'=>'暂不支持此选项的图表显示']);
 		
-		
 		$tableService=new TableServices();
-		$datas=$tableService->getSourceMessageInHistory($stageName,$date,'station1',$selectWhat);
+		$datas=$tableService->getSourceMessageInHistory($stageName,$date,$powerName,$selectWhat);
 				
-		/*
-		for($i=0;$i<count($datas[0]);$i++)
-			echo $datas[1][$i].'<br>';
-		*/	
-		//return view('chart',['x'=>$datas[0],'y'=>$datas[1]]);
+
 		return response()->json(['x'=>$datas[0],'y'=>$datas[1]]);
 	}
 

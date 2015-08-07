@@ -7,9 +7,9 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <link rel="stylesheet" type="text/css" href="css/comm.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/poweruse.css">
 <script type="text/javascript" src="js/initialize.js"></script>
 <script type="text/javascript" src="js/laydate/laydate.js"></script>
-<link rel="stylesheet" type="text/css" href="css/poweruse.css">
 <script type="text/javascript">
 		 window.onload=function(){
     	chushihua();
@@ -43,12 +43,10 @@
 }
 </style>
 </head>
-
-
 <body>
 	<div class="wrap" id="wrap">
 		<div class="header">
-			<span>铁路电源使用信息管理</span>
+			<span>武昌车辆段DC600V地面电源信息管理</span>
 		</div>
 		<div class="body" id="obody">
 			<div class="left" id="left">
@@ -62,28 +60,24 @@
 							<li id="alarmmessage"><a href={{route('alarmmessage')}}>按故障</a></li>
 						</ul>
 					</li>
-					<li id="xinyang"><a href='{{route('survey')}}?stageName=xinyang&isFirst=true'>信阳</a></li>
-					<li id="yichang"><a href='{{route('survey')}}?stageName=yichang&isFirst=true'>宜昌</a></li>
-					<li id="xiangyang"><a href='{{route('survey')}}?stageName=xiangyang&isFirst=true'>襄阳</a></li>
 					<li id="wuchang"><a href='{{route('survey')}}?stageName=wuchang&isFirst=true'>武昌</a></li>
 					<li id="hankou"><a href='{{route('survey')}}?stageName=hankou&isFirst=true'>汉口</a></li>
-
+					<li id="yichang"><a href='{{route('survey')}}?stageName=yichang&isFirst=true'>宜昌</a></li>
+					<li id="xiangyang"><a href='{{route('survey')}}?stageName=xiangyang&isFirst=true'>襄阳</a></li>					
+					<li id="xinyang"><a href='{{route('survey')}}?stageName=xinyang&isFirst=true'>信阳</a></li>					
 				</ul>
 			</div>
 			<div class="right" id="right">@yield('right')</div>
 		</div>
 
 	</div>
-	<script type="text/javascript">
-    
+<script type="text/javascript">   
+	//模拟定时刷新
    self.setInterval(function(){
 	   			$.get('refreshNewDataT');
           },10000);
 	
-      $('#{{$navName}}').addClass('active');
- 
-  	// window.location.href='refreshNewDataT';
-    </script>
-
+   $('#{{$navName}}').addClass('active');
+</script>
 </body>
 </html>

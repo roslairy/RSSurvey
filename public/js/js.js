@@ -25,7 +25,7 @@ $.source_div = '<div class="source-container">'+
 '					<div class="center-square square-way1">'+
 '						<p class="html-PowerUse1">1路</p>'+
 '					</div>'+
-'					<p>kwh</p>'+
+'					<p> </p>'+
 '				</div>'+
 '				<div class="data-block">'+
 '					<div class="left-square">'+
@@ -71,7 +71,7 @@ $.source_div = '<div class="source-container">'+
 '					<div class="center-square">'+
 '						<p class="html-PowerUse2">1路</p>'+
 '					</div>'+
-'					<p>kwh</p>'+
+'					<p> </p>'+
 '				</div>'+
 '				<div class="data-block">'+
 '					<div class="left-square">'+
@@ -117,7 +117,6 @@ $.appendSource = function (selector, source){
 
 	// 清除
 	obj.html('');
-
 	// 追加主体
 	obj.append($.source_div);
 
@@ -202,17 +201,22 @@ $.appendSource = function (selector, source){
 	// 定义更新数据的函数
 	obj.update = function(data){
 
-	
+
+		this.find('.html-PowerName').text(source['PowerName']);
 		//判断是否有故障
 		var volgood = [true, true];
 		
 		if(data.vol1 < 100){
 			volgood[0] = false;
 			this.find('.html-Power1-condition').html(data.condition1);
+		} else {
+			this.find('.html-Power1-condition').html('');
 		}
 		if(data.vol2 < 100){
 			volgood[1] = false;
 			this.find('.html-Power2-condition').html(data.condition2);
+		} else {
+			this.find('.html-Power2-condition').html('');
 		}
 
 		// 清除轨边柜标签

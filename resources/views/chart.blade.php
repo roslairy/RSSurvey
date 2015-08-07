@@ -3,7 +3,7 @@
 @section('right')
 <h3>电源使用记录查询</h3>
           	 <div>
-          	 	<form action="" method="post" id="fi">
+          	 	<form action="" method="post">
           	 		<fieldset>
           	 			<legend>查询条件</legend>
           	 			<label for="start">起始时间</label>
@@ -60,10 +60,11 @@
 
 	//选择按钮事件
 	function buttonAction(selectWhat){
-  		var selectWhat=selectWhat;
+  		var selectWhat=selectWhat;//要查的變量
 		var date=document.getElementById('_date').value;
   		var stageName=document.getElementById('stageName').value;
   		var powerName=document.getElementById('powerName').value;
+	}
 
 	//ajax请求
 	$.ajax({
@@ -76,15 +77,22 @@
 	    	 stageName:stageName,
 	    	 powerName:powerName
 	     },
+<<<<<<< HEAD
 	     success: function(data){	    			                  						
 		 		//_data=data.y;	
 		 		//_time=data.x;	 
 		 		myPlot(data.y,data.x)  ;
 		 		console.log(data);        	    			              	
    }
+=======
+	     success: function(data){	    			                  							
+		 	 myPlot(data.y,data.x)  ;       	    			              	
+   },
+		 error: function(){	    			                  							
+			 	 alert('请求失败')  ;       	    			              	
+			}
+>>>>>>> origin/master
 });			
-
-
 
 	
   	}
@@ -96,26 +104,13 @@
 	
 
 	function myPlot(data,time){
-
-	   //将上一个图表清空，否则易产生干扰而是图像不稳定。
+	   //将上一个图表清空，否则易产生干扰而使图像不稳定。
 	   $('#flot').empty();
        $(function(){
 
     	   //是否暂停,默认为否
 			var pause=false;
 
-			/*
-      	 //获取后台传过来的数组			
-        	var data=new Array();
-        	var time=new Array(); 
-        	
-        	@if(isset($x)&&isset($y))        
-        		@for($i=0;$i<count($x);$i++)          			
-        			data.push('{{$y[$i]}}');
-        			time.push('{{$x[$i]}}');            			
-        		@endfor
-        	@endif    		
-*/
 			var totalPoints =300,initial=0;
             var i = 0;
 			function getRandomData() {
@@ -125,27 +120,27 @@
 				// 自己加的函数                
 				for(var j = 0; j < totalPoints; j++){
 					index = (i + j) % data.length;
+
+					if(i+j>=data.length){
+						$('#flot').empty();
+						break;
+					}
+					
                     if(j==0){
                         initial = index;
                     }
-					//res.push([i + j, data[index]]);
 
-                    //将时间转化为毫秒数，前面的日期只是为了转化方便，无实际意义
-					var date="2015/01/01"+' '+time[index];
+                    var date=time[index];
 					var millis=(new Date(date)).getTime();
-
-                   	res.push([millis, data[index]]);
-
+                   	res.push([millis, data[index]]);                   	
 				}
 
 				//暂停
-				if(!pause)
-                	i++;
+				if(!pause)	i++;
              
 				return res;
 			}
-            
-          
+                     
 			var plot = $.plot('#flot', [ getRandomData() ], {
 				series: {
 					shadowSize: 0	// Drawing is faster without shadows
@@ -167,24 +162,20 @@
 
 				var res = getRandomData();
 				plot.setData([res]);
-				plot.setupGrid();
-				
-				//据pause来判断是否调用draw函数
-					plot.draw();
+				plot.setupGrid();				
+				plot.draw();
 
                 //获取速度选项              
 				var _interval =$("input[name='speed']:checked").val(); 
-
 				//默认值 
-				if(_interval==null)
-					_interval=100;								
+				if(_interval==null)	_interval=100;
+												
 				setTimeout(update,_interval);	
 			}
 
 			//暂停按钮事件
 			$("#pause").click(function(){
-				pause=true;
-				
+				pause=true;				
 			});
 			
 			//开始按钮事件
