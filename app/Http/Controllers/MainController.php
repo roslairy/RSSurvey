@@ -15,12 +15,12 @@ class MainController extends Controller
 {
 	
 	//站场中英文名映射数组
-	public $stageNameChinese=[
-			'xinyang'=>'信阳',
-			'xiangyang'=>'襄阳',
+	public $stageNameChinese=[			
 			'wuchang'=>'武昌',
 			'hankou'=>'汉口',
-			'yichang'=>'宜昌'
+			'yichang'=>'宜昌',
+			'xiangyang'=>'襄阳',
+			'xinyang'=>'信阳'
 	];
 				/****************以下是全站显示模块***************/
 	public function index(){
@@ -182,7 +182,7 @@ class MainController extends Controller
 				'beginTime'=>$beginTime,
 				'stopTime'=>$stopTime,
 				'datas'=>$datas,
-				'navName'=>'poweruse'
+				'navName'=>'railuse'
 		]);
 	}
 
@@ -308,7 +308,7 @@ class MainController extends Controller
 				'alarmTime'=>$alarmTime,
 				'endTime'=>$endTime,
 				'datas'=>$datas,
-				'navName'=>'poweruse'
+				'navName'=>'alarmmessage'
 		]);
 	
 	}

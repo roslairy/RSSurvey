@@ -11,11 +11,11 @@
           	 			
           	 			<label for="num1">站场</label>
           	 			<select name="num1" id="stageName">
-          	 			<option value="xinyang">信阳</option>
-          	 			<option value="yichang">宜昌</option>
-          	 			<option value="xiangyang">襄阳</option>
           	 			<option value="wuchang">武昌</option>
           	 			<option value="hankou">汉口</option>
+          	 			<option value="yichang">宜昌</option>
+          	 			<option value="xiangyang">襄阳</option>
+          	 			<option value="xinyang">信阳</option>          	 			          	 			
           	 			</select>
           	 			
           	 			<label for="num2">电源编号</label>
@@ -77,8 +77,7 @@
 	    	 powerName:powerName
 	     },
 
-	     success: function(data){ 
-		     console.log(data);  			                  							
+	     success: function(data){  			                  							
 		 	 myPlot(data.y,data.x)  ;       	    			              	
    },
 		 error: function(){	    			                  							
