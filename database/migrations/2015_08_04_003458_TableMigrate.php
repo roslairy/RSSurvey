@@ -28,7 +28,7 @@ class TableMigrate extends Migration
     	
     	
     	});
-        /*
+        
     	Schema::create('NewData',function(Blueprint $table){
     		$table->increments('id');
     		$table->timestamps();
@@ -95,7 +95,7 @@ class TableMigrate extends Migration
     					$table->dateTime('EndTime');
     				});
     				
-    				*/
+    				
     }
 
     /**
