@@ -64,7 +64,6 @@
 		var date=document.getElementById('_date').value;
   		var stageName=document.getElementById('stageName').value;
   		var powerName=document.getElementById('powerName').value;
-	}
 
 	//ajax请求
 	$.ajax({
@@ -77,21 +76,13 @@
 	    	 stageName:stageName,
 	    	 powerName:powerName
 	     },
-<<<<<<< HEAD
-	     success: function(data){	    			                  						
-		 		//_data=data.y;	
-		 		//_time=data.x;	 
-		 		myPlot(data.y,data.x)  ;
-		 		console.log(data);        	    			              	
-   }
-=======
-	     success: function(data){	    			                  							
+
+	     success: function(data){   			                  							
 		 	 myPlot(data.y,data.x)  ;       	    			              	
    },
 		 error: function(){	    			                  							
 			 	 alert('请求失败')  ;       	    			              	
 			}
->>>>>>> origin/master
 });			
 
 	
@@ -132,7 +123,8 @@
 
                     var date=time[index];
 					var millis=(new Date(date)).getTime();
-                   	res.push([millis, data[index]]);                   	
+                   	res.push([millis, data[index]]); 
+                 	
 				}
 
 				//暂停
