@@ -111,11 +111,13 @@
 	function appendDatas(selector,datas,length){ 
 		var obj = $(selector);
 		var chineseName;
+		
 		if(selector=='#wuchang2')chineseName='武昌';
 		else if(selector=='#hankou2')chineseName='汉口';
 		else if(selector=='#yichang2')chineseName='宜昌';
 		else if(selector=='#xiangyang2')chineseName='襄阳';
 		else	chineseName='信阳';
+		
 		obj.empty();
 		var append = '<caption>'+chineseName+'</caption>'+$('#table-tpl').html();
 
@@ -151,7 +153,7 @@
 			 appendDatas('#xinyang2',data.xinyang,powerNum[4])	;		   		 	    			              	
    		},
       	 error: function(){	    			                  							
-    	 	 alert('请求失败')  ;       	    			              	
+    	 	 alert('请求失败！')  ;       	    			              	
     	}
  
 });
@@ -174,7 +176,7 @@
 				 appendDatas('#xinyang2',data.xinyang,powerNum[4])	;		   		 	    			              	
 	   		},
 		   	 error: function(){	    			                  							
-			 	 alert('请求失败')  ;       	    			              	
+			 	 alert('定时刷新请求失败！')  ;       	    			              	
 			}
 	 
 	});

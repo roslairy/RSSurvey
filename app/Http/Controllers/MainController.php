@@ -23,7 +23,6 @@ class MainController extends Controller
 			'yichang'=>'宜昌'
 	];
 				/****************以下是全站显示模块***************/
-	
 	public function index(){
 		
 		if(Input::has('notFirst')){
@@ -35,7 +34,7 @@ class MainController extends Controller
 					'yichang'=>$datas[2],
 					'xiangyang'=>$datas[3],
 					'xinyang'=>$datas[4],
-					'powerNum'=>$datas[5]
+					'powerNum'=>$datas[5]//电源数目
 				]);
 		}
 		

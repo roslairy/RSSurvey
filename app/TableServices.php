@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Session;
 use PhpParser\Node\Expr\Array_;
 
 
-
+//此类实现与数据库的交互，兼处理原始数据
 class TableServices {
+	
 	
 	/************************全站显示相关函数*************************************/	
 	
@@ -152,8 +153,7 @@ class TableServices {
 							->get()
 							->toArray();
 	
-		return $datas;
-				
+		return $datas;				
 	}
 	
 	//获取故障信息
@@ -173,9 +173,7 @@ class TableServices {
 		return $datas;
 	
 	}
-	
-		
-	
+				
 	
 	
 	/**********************图表显示模块相关函数************************************/
@@ -258,8 +256,6 @@ class TableServices {
 	}
 	
 	
-
-	
 	
 	/***********************指定站场监控相关函数***********************************/
 		
@@ -284,9 +280,7 @@ class TableServices {
 		
 		return $datas;
 	}
-	
-	
-	
+		
 	//格式化以得到站场监控页面所需的数据
 	public function formatArray2($datas,$stationId){
 		
