@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Rail Source Management</title>
 
-<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/comm.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" type="text/css" href="css/poweruse.css">
