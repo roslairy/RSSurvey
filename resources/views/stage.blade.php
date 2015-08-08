@@ -74,8 +74,7 @@
 		    			     $.each(data.jsonDatas,function(index,d){
 												
 				    			 var sourceDiv='<div id="container'+index+'" style="width: 320px; margin: 20px 40px;	float:left"></div>';
-					    		 $(".stage-container").append(sourceDiv);	
-								 console.log(d);					    		              													
+					    		 $(".stage-container").append(sourceDiv);	    		              													
 				    			 var source=JSON.parse(d);			
 				    			 var container='#container'+index; 	                  	
 				    			 containerObjs[index]=$.appendSource(container, source);
