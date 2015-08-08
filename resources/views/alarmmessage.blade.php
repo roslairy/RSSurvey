@@ -38,7 +38,7 @@
               </form>
               <div class="result">
                   <table>
-                    <tr><th>电源编号</th><th>路数</th><th>故障类型</th><th>故障时间</th><th>接触故障时间</th></tr>
+                    <tr><th>电源编号</th><th>路数</th><th>故障类型</th><th>故障时间</th><th>解除故障时间</th></tr>
                     @if(isset($datas))
                       @for($i=0;$i<count($datas);$i++)
                         <tr>
