@@ -21,11 +21,11 @@ class TableServices {
 			$tableModel->setTable('NewData');
 			
 			//执行分站场查询操作
-			$thisName1Datas=$tableModel::where('ThisName','=','wuchang')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
-			$thisName2Datas=$tableModel::where('ThisName','=','hankou')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
-			$thisName3Datas=$tableModel::where('ThisName','=','yichang')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
-			$thisName4Datas=$tableModel::where('ThisName','=','xiangyang')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
-			$thisName5Datas=$tableModel::where('ThisName','=','xinyang')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->orderBy('PowerName')->get()->toArray();
+			$thisName1Datas=$tableModel::where('ThisName','=','wuchang')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->get()->toArray();
+			$thisName2Datas=$tableModel::where('ThisName','=','hankou')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->get()->toArray();
+			$thisName3Datas=$tableModel::where('ThisName','=','yichang')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->get()->toArray();
+			$thisName4Datas=$tableModel::where('ThisName','=','xiangyang')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->get()->toArray();
+			$thisName5Datas=$tableModel::where('ThisName','=','xinyang')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->get()->toArray();
 						
 			//调用格式化函数处理数据
 			$thisName1Datas=$this->formatArray($thisName1Datas);
@@ -86,7 +86,6 @@ class TableServices {
 			
 			//最后处理结果保存到返回数组
 			$thisDatas[$i]=$datas[$i];
-			//$thisDatas[$i]=json_encode($datas[$i]);
 		}
 				
 		return $thisDatas;		
@@ -129,7 +128,6 @@ class TableServices {
 							->where('ThisName','=',$stageName)
 							->where('PowerName','=',$powerName)
 							->select('RailNum','PowerName','RailwayName','BeginTime','StopTime','UseKWH')
-							->orderBy('RailNum')
 							->get()
 							->toArray();
 				
@@ -369,6 +367,7 @@ class TableServices {
 			$datas[$i]=array_add($datas[$i],'PowerUse1',' ');
 			$datas[$i]=array_add($datas[$i],'PowerUse2',' ');
 
+			
 			$resultDatas[$i]=json_encode($datas[$i]);
 					
 		}

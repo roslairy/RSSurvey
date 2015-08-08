@@ -38,6 +38,7 @@ class MainController extends Controller
 				]);
 		}
 		
+		//若第一次打开主页面
 		return view('index',['navName'=>'index']);
  }
 	
@@ -144,12 +145,12 @@ class MainController extends Controller
 		$beginTime=Input::get('beginTime','');
 		$stopTime=Input::get('stopTime','');
 		$powerName=Input::get('powerName','');
-		$stageName=Input::get('stageName');
+		$stageName=Input::get('stageName','');
 		
 		//判断是否有导出excel表格请求
 		if(Input::has('export')){
 			$sRailUseDatas=Session::get('sRailUseDatas',['null'=>'null']);
-			Excel::create('车次使用情况',function($excel)	use($sRailUseDatas){
+			Excel::create('railuse',function($excel)	use($sRailUseDatas){
 				$excel->sheet('sheet0' ,function($sheet)	use($sRailUseDatas){
 					$sheet->fromArray($sRailUseDatas);
 				});
@@ -209,7 +210,7 @@ class MainController extends Controller
 		//判断是否有导出excel表格请求
 		if(Input::has('export')){
 			$sPowerUseDatas=Session::get('sPowerUseDatas',['null'=>'null']);
-			Excel::create('电源使用情况',function($excel)	use($sPowerUseDatas){
+			Excel::create('poweruse',function($excel)	use($sPowerUseDatas){
 				$excel->sheet('sheet0' ,function($sheet)	use($sPowerUseDatas){
 					$sheet->fromArray($sPowerUseDatas);
 				});
@@ -220,7 +221,7 @@ class MainController extends Controller
 		$beginTime=Input::get('beginTime','');
 		$stopTime=Input::get('stopTime','');
 		$powerName=Input::get('powerName','');
-		$stageName=Input::get('stageName','xinyang');
+		$stageName=Input::get('stageName','');
 	
 		
 		$tableService=new TableServices();
@@ -274,7 +275,7 @@ class MainController extends Controller
 		//判断是否有导出excel表格请求
 		if(Input::has('export')){
 			$sAlarmMessageDatas=Session::get('$sAlarmMessageDatas',['null'=>'null']);
-			Excel::create('故障记录',function($excel)	use($sAlarmMessageDatas){
+			Excel::create('trouble record',function($excel)	use($sAlarmMessageDatas){
 				$excel->sheet('sheet0' ,function($sheet)	use($sAlarmMessageDatas){
 					$sheet->fromArray($sAlarmMessageDatas);
 				});

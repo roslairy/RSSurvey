@@ -25,7 +25,7 @@
 
 		<div class="data-block">电源</div>
 		<div class="data-block">整流回路</div>
-		<div class="data-block">用电量</div>
+		<div class="data-block"></div>
 		<div class="data-block">电压电流</div>
 		<div class="data-block">正向绝缘</div>
 		<div class="data-block">负向绝缘</div>
@@ -41,7 +41,7 @@
 
 		<div class="data-block">电源</div>
 		<div class="data-block">整流回路</div>
-		<div class="data-block">用电量</div>
+		<div class="data-block"></div>
 		<div class="data-block">电压电流</div>
 		<div class="data-block">正向绝缘</div>
 		<div class="data-block">负向绝缘</div>
