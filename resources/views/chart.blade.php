@@ -80,7 +80,8 @@
 	     success: function(data){  			                  							
 		 	 myPlot(data.y,data.x)  ;       	    			              	
    },
-		 error: function(){	    			                  							
+		 error: function(){	    
+			 	$('#flot').empty();			                  							
 			 	 alert('请求失败')  ;       	    			              	
 			}
 });			
