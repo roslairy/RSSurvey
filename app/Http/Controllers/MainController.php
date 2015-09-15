@@ -55,18 +55,15 @@ class MainController extends Controller
 		if($stageName!='yichang'&&$stageName!='xinyang'&&$stageName!='wuchang'&&$stageName!='hankou'&&$stageName!='xiangyang')
 			return view('error',['validatorMessage'=>'对不起，您查找的站场不在服务范围']);
 		
-		//判断是否第一次请求
-		// TODO: 删掉
-		
+		//判断是否第一次请求		
 		if($isFirst!=null)
 			return view('stage',['stageName'=>$stageName,'stageNameChinese'=>$this->stageNameChinese[$stageName],'navName'=>$stageName]);
+		
 		$tableService=new TableServices();
 		$datas=$tableService->getStationMessageById($stageName);
 		
 		//返回json数据到请求页面
-		return response()->json(['jsonDatas'=>$datas]);
-	
-		
+		return response()->json(['jsonDatas'=>$datas]);		
 		
 	}
 
@@ -143,7 +140,9 @@ class MainController extends Controller
 		
 		//判断是否有导出excel表格请求
 		if(Input::has('export')){
+			
 			$sRailUseDatas=Session::get('sRailUseDatas',['null'=>'null']);
+			
 			Excel::create('railuse',function($excel)	use($sRailUseDatas){
 				$excel->sheet('sheet0' ,function($sheet)	use($sRailUseDatas){
 					$sheet->fromArray($sRailUseDatas);
@@ -203,7 +202,9 @@ class MainController extends Controller
 		
 		//判断是否有导出excel表格请求
 		if(Input::has('export')){
+			
 			$sPowerUseDatas=Session::get('sPowerUseDatas',['null'=>'null']);
+			
 			Excel::create('poweruse',function($excel)	use($sPowerUseDatas){
 				$excel->sheet('sheet0' ,function($sheet)	use($sPowerUseDatas){
 					$sheet->fromArray($sPowerUseDatas);

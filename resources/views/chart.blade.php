@@ -108,11 +108,12 @@
 
 				var res = [];
 
-				// 自己加的函数                
+				// 自己加的函数          
+				var len = data.length;      
 				for(var j = 0; j < totalPoints; j++){
-					index = (i + j) % data.length;
+					index = (i + j) % len;
 
-					if(i+j>=data.length){
+					if(i+j>=len){
 						$('#flot').empty();
 						break;
 					}
@@ -123,7 +124,6 @@
 
                     var date=time[index];
 					var millis=(new Date(date)).getTime();
-					//console.log(millis);
                    	res.push([millis, data[index]]); 
                  	
 				}

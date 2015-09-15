@@ -48,7 +48,8 @@ class TableServices {
 		$thisDatas=array();
 		
 		//分电源处理
-		for($i=0;$i<count($datas);$i++){
+		$len=count($datas);
+		for($i=0;$i<$len;$i++){
 			
 			//一路
 			$vol1=$datas[$i]['vol1'];
@@ -202,7 +203,8 @@ class TableServices {
 			$x=array();
 			$y=array();		
 				
-			for($i=0;$i<count($datas);$i++){
+			$len=count($datas);
+			for($i=0;$i<$len;$i++){
 				//下面的格式化是为了解决在IE浏览器中js函数日期转换出现错误的情况
 				$x[$i]['savetime']=Carbon::createFromFormat('Y-m-d H:i:s',$datas[$i]['savetime'])->format('Y/m/d H:i:s');
 				$y[$i]['i1']=abs(2*$datas[$i]['volz1']-$datas[$i]['vol1'])/2100;				
@@ -223,7 +225,9 @@ class TableServices {
 									
 			$x=array();
 			$y=array();
-			for($i=0;$i<count($datas);$i++){
+			
+			$len=count($datas);
+			for($i=0;$i<$len;$i++){
 
 				//下面的格式化是为了解决在IE浏览器中js函数日期转换出现错误的情况
 				$x[$i]['savetime']=Carbon::createFromFormat('Y-m-d H:i:s',$datas[$i]['savetime'])->format('Y/m/d H:i:s');
@@ -243,9 +247,10 @@ class TableServices {
 								->get()
 								->toArray();				
 			$x=array_flatten($x);
-			
+			$xlen=count($x);
 			//下面的格式化是为了解决在IE浏览器中js函数日期转换出现错误的情况
-			for($i=0;$i<count($x);$i++)				
+			
+			for($i=0;$i<$xlen;$i++)				
 				$x[$i]=Carbon::createFromFormat('Y-m-d H:i:s',$x[$i])->format('Y/m/d H:i:s');
 			
 			//y轴坐标值
@@ -286,8 +291,10 @@ class TableServices {
 	public function formatArray2($datas,$stationId){
 		
 		//定义结果数组
-		$resultDatas=array();
-		for($i=0;$i<count($datas);$i++){
+		$resultDatas=array();		
+		$len=count($datas);
+		
+		for($i=0;$i<$len;$i++){
 			
 			//计算对地电阻，1，2分别为负对地电阻，正对地电阻
 			//一路
