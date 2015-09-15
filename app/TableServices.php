@@ -182,7 +182,7 @@ class TableServices {
 		//构造得到表名
 		$date=date_create($date);
 		$date=date_format($date, 'Y_m_d');		
-		$tableName='z'.$stageId.$date;
+		$tableName='z'.$stageId."_".$date;
 		
 		//绑定数据表
 		$tableModel=new TableModel();

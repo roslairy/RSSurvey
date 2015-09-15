@@ -62,7 +62,7 @@
 	function buttonAction(selectWhat){
   		var selectWhat=selectWhat;//要查的變量
 		var date=document.getElementById('_date').value;
-  		var stageName=document.getElementById('stageName').value;
+  		var stageId=document.getElementById('stageId').value;
   		var powerName=document.getElementById('powerName').value;
 
 	//ajax请求
@@ -73,7 +73,7 @@
 	     data:{
 	    	 selectWhat:selectWhat,//要发送的数据
 	    	 date:date,
-	    	 stageName:stageName,
+	    	 stageId:stageId,
 	    	 powerName:powerName
 	     },
 
