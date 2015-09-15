@@ -10,12 +10,12 @@
           	 			<input class="laydate-icon" onclick="laydate()" name="start" id="_date" style="position: relative;">
           	 			
           	 			<label for="num1">站场</label>
-          	 			<select name="num1" id="stageName">
-          	 			<option value="wuchang">武昌</option>
-          	 			<option value="hankou">汉口</option>
-          	 			<option value="yichang">宜昌</option>
-          	 			<option value="xiangyang">襄阳</option>
-          	 			<option value="xinyang">信阳</option>          	 			          	 			
+          	 			<select name="num1" id="stageId">
+          	 			<option value="1">武昌</option>
+          	 			<option value="2">汉口</option>
+          	 			<option value="3">宜昌</option>
+          	 			<option value="4">襄阳</option>
+          	 			<option value="5">信阳</option>          	 			          	 			
           	 			</select>
           	 			
           	 			<label for="num2">电源编号</label>

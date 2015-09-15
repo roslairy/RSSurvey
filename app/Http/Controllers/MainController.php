@@ -52,8 +52,7 @@ class MainController extends Controller
 		$isFirst=Input::get('isFirst');
 	
 		//字段合法性验证
-		$stations='-wuchang-hankou-yichang-xiangyang-xinyang-';
-		if(!strpos($stations, $stageName))
+		if($stageName!='yichang'&&$stageName!='xinyang'&&$stageName!='wuchang'&&$stageName!='hankou'&&$stageName!='xiangyang')
 			return view('error',['validatorMessage'=>'对不起，您查找的站场不在服务范围']);
 		
 		//判断是否第一次请求
@@ -89,7 +88,7 @@ class MainController extends Controller
 		$validator = Validator::make(Input::all(),[
 				'date' => 'required|date',
 				'selectWhat'=> 'required',
-				'stageName'=> 'required',
+				'stageId'=> 'required|between:0,6',
 				'powerName'=> 'required',								
 		]);
 		if($validator->fails())
@@ -97,20 +96,15 @@ class MainController extends Controller
 		
 		//验证通过则获取相关参数
 		$selectWhat=Input::get('selectWhat');
-		$stageName=Input::get('stageName');
+		$stageId=Input::get('stageId');
 		$powerName=Input::get('powerName');
 		$date=Input::get('date');
-		
-	
-		//验证合法性						
-		if($stageName!='yichang'&&$stageName!='xinyang'&&$stageName!='wuchang'&&$stageName!='hankou'&&$stageName!='xiangyang')
-			return view('error',['navName'=>'chart','validatorMessage'=>'暂不支持此站场的图表显示']);
 		
 		if($selectWhat!='vol1'&&$selectWhat!='cur1'&&$selectWhat!='i1'&&$selectWhat!='vol2'&&$selectWhat!='cur2'&&$selectWhat!='i2')
 			return view('error',['navName'=>'chart','validatorMessage'=>'暂不支持此选项的图表显示']);
 		
 		$tableService=new TableServices();
-		$datas=$tableService->getSourceMessageInHistory($stageName,$date,$powerName,$selectWhat);
+		$datas=$tableService->getSourceMessageInHistory($stageId,$date,$powerName,$selectWhat);
 
 		return response()->json(['x'=>$datas[0],'y'=>$datas[1]]);
 	}

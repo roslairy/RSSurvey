@@ -177,12 +177,12 @@ class TableServices {
 	/**********************图表显示模块相关函数************************************/
 
 	//获取指定日期指定电源的信息
-	public function getSourceMessageInHistory($stageName,$date,$powerName,$selectWhat){
+	public function getSourceMessageInHistory($stageId,$date,$powerName,$selectWhat){
 		
 		//构造得到表名
 		$date=date_create($date);
 		$date=date_format($date, 'Y_m_d');		
-		$tableName=$stageName.$date;
+		$tableName='z'.$stageId.$date;
 		
 		//绑定数据表
 		$tableModel=new TableModel();
@@ -203,7 +203,6 @@ class TableServices {
 			$y=array();		
 				
 			for($i=0;$i<count($datas);$i++){
-				//$x[$i]['savetime']=$datas[$i]['savetime'];
 				//下面的格式化是为了解决在IE浏览器中js函数日期转换出现错误的情况
 				$x[$i]['savetime']=Carbon::createFromFormat('Y-m-d H:i:s',$datas[$i]['savetime'])->format('Y/m/d H:i:s');
 				$y[$i]['i1']=abs(2*$datas[$i]['volz1']-$datas[$i]['vol1'])/2100;				
@@ -225,9 +224,7 @@ class TableServices {
 			$x=array();
 			$y=array();
 			for($i=0;$i<count($datas);$i++){
-				
-				//格式化时间函数
-				//$x[$i]['savetime']=$datas[$i]['savetime'];
+
 				//下面的格式化是为了解决在IE浏览器中js函数日期转换出现错误的情况
 				$x[$i]['savetime']=Carbon::createFromFormat('Y-m-d H:i:s',$datas[$i]['savetime'])->format('Y/m/d H:i:s');
 				$y[$i]['i2']=abs(2*$datas[$i]['volz2']-$datas[$i]['vol2'])/2100;				
@@ -281,10 +278,6 @@ class TableServices {
 		//调用函数格式化数组
 		$datas=$this->formatArray2($datas,$stationId);
 		
-		/*
-		foreach($datas[0] as $key=>$value)
-			echo $key.'=>'.$value.'<br>';
-		*/
 		
 		return $datas;
 	}
