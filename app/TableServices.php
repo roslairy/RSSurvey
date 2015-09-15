@@ -181,9 +181,21 @@ class TableServices {
 	public function getSourceMessageInHistory($stageId,$date,$powerName,$selectWhat){
 		
 		//构造得到表名
+
+		//获取站场ID与名称的对应关系
+		$tableModel = new TableModel();
+		$tableModel -> setTable("ServerMessage");
+		
+		//从数据库中查找对应站场的实际ID
+		$serverStageId = $tableModel -> where ('ThisName','=',$stageId)
+									 ->select('ID')
+									 ->get()
+									 ->toArray();
+		//转换日期格式		
 		$date=date_create($date);
-		$date=date_format($date, 'Y_m_d');		
-		$tableName='z'.$stageId."_".$date;
+		$date=date_format($date, 'Y_m_d');	
+			
+		$tableName='z'.$serverStageId[0]['ID'].'_'.$date;
 		
 		//绑定数据表
 		$tableModel=new TableModel();

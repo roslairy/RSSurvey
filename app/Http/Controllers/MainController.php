@@ -85,7 +85,7 @@ class MainController extends Controller
 		$validator = Validator::make(Input::all(),[
 				'date' => 'required|date',
 				'selectWhat'=> 'required',
-				'stageId'=> 'required|between:0,6',
+				'stageId'=> 'required',
 				'powerName'=> 'required',								
 		]);
 		if($validator->fails())
