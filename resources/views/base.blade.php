@@ -52,7 +52,7 @@
 			<div class="left" id="left">
 				<ul class="left_menu">
 					<li id="index"><a href='./'>全站显示</a></li>
-					<li id="chart"><a href='{{route('chart')}}?isFirst=true'>曲线图显示</a></li>
+					<li id="chart"><a href='{{route('chart')}}'>曲线图显示</a></li>
 					<li id="sepli">查询
 						<ul>
 							<li id="railuse"><a href={{route('railuse')}}>按车次</a></li>
@@ -60,11 +60,11 @@
 							<li id="alarmmessage"><a href={{route('alarmmessage')}}>按故障</a></li>
 						</ul>
 					</li>
-					<li id="wuchang"><a href='{{route('survey')}}?stageName=wuchang&isFirst=true'>武昌</a></li>
-					<li id="hankou"><a href='{{route('survey')}}?stageName=hankou&isFirst=true'>汉口</a></li>
-					<li id="yichang"><a href='{{route('survey')}}?stageName=yichang&isFirst=true'>宜昌</a></li>
-					<li id="xiangyang"><a href='{{route('survey')}}?stageName=xiangyang&isFirst=true'>襄阳</a></li>					
-					<li id="xinyang"><a href='{{route('survey')}}?stageName=xinyang&isFirst=true'>信阳</a></li>					
+					<li id="wuchang"><a href='{{route('survey')}}?stageName=武昌&isFirst=true'>武昌</a></li>
+					<li id="hankou"><a href='{{route('survey')}}?stageName=汉口&isFirst=true'>汉口</a></li>
+					<li id="yichang"><a href='{{route('survey')}}?stageName=宜昌&isFirst=true'>宜昌</a></li>
+					<li id="xiangyang"><a href='{{route('survey')}}?stageName=襄阳&isFirst=true'>襄阳</a></li>					
+					<li id="xinyang"><a href='{{route('survey')}}?stageName=信阳&isFirst=true'>信阳</a></li>					
 				</ul>
 			</div>
 			<div class="right" id="right">@yield('right')</div>
@@ -72,10 +72,6 @@
 
 	</div>
 <script type="text/javascript">   
-	//模拟定时刷新
-   self.setInterval(function(){
-	   			$.get('refreshNewDataT');
-          },10000);
 	
    $('#{{$navName}}').addClass('active');
 </script>

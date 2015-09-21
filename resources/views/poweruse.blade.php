@@ -14,7 +14,7 @@
 				 @foreach($stageNameChinese as $key => $value)
 					<option value="{{ $key }}"
 						@if ($key==$stageName)selected
-          	 			@endif>{{ $value }}
+          	 			@endif>{{ $key }}
           	 		</option> 
           	 	@endforeach
 			</select> 

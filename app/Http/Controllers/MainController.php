@@ -16,18 +16,21 @@ class MainController extends Controller
 	
 	//站场中英文名映射数组
 	public $stageNameChinese=[			
-			'wuchang'=>'武昌',
-			'hankou'=>'汉口',
-			'yichang'=>'宜昌',
-			'xiangyang'=>'襄阳',
-			'xinyang'=>'信阳'
+			'武昌'=>'wuchang',
+			'汉口'=>'hankou',
+			'宜昌'=>'yichang',
+			'襄阳'=>'xiangyang',
+			'信阳'=>'xinyang'
 	];
+
+
 				/****************以下是全站显示模块***************/
 	public function index(){
 		
 		if(Input::has('notFirst')){
 			$tableService=new TableServices();
 			$datas=$tableService->getNewestData();
+			
 			return response()->json([
 					'wuchang'=>$datas[0],
 					'hankou'=>$datas[1],
@@ -36,6 +39,7 @@ class MainController extends Controller
 					'xinyang'=>$datas[4],
 					'powerNum'=>$datas[5]//电源数目
 				]);
+				
 		}
 		
 		//若第一次打开主页面
@@ -52,12 +56,12 @@ class MainController extends Controller
 		$isFirst=Input::get('isFirst');
 	
 		//字段合法性验证
-		if($stageName!='yichang'&&$stageName!='xinyang'&&$stageName!='wuchang'&&$stageName!='hankou'&&$stageName!='xiangyang')
+		if($stageName!='宜昌'&&$stageName!='信阳'&&$stageName!='武昌'&&$stageName!='汉口'&&$stageName!='襄阳')
 			return view('error',['validatorMessage'=>'对不起，您查找的站场不在服务范围']);
 		
 		//判断是否第一次请求		
 		if($isFirst!=null)
-			return view('stage',['stageName'=>$stageName,'stageNameChinese'=>$this->stageNameChinese[$stageName],'navName'=>$stageName]);
+			return view('stage',['stageName'=>$stageName,'stageNameChinese'=>$stageName,'navName'=>$this->stageNameChinese[$stageName]]);
 		
 		$tableService=new TableServices();
 		$datas=$tableService->getStationMessageById($stageName);
@@ -79,31 +83,40 @@ class MainController extends Controller
 	public function showChart(){
 
 		//第一次请求
-		if(Input::has('isFirst'))
+		if(empty(Input::All()))
 			return view('chart',['navName'=>'chart']);
 				
+		//非第一次请求
 		$validator = Validator::make(Input::all(),[
 				'date' => 'required|date',
-				'selectWhat'=> 'required',
+				'lushu'=> 'required',//电源路数
 				'stageId'=> 'required',
 				'powerName'=> 'required',								
 		]);
+		
 		if($validator->fails())
 			return view('error',['navName'=>'chart','validatorMessage'=>'输入参数验证出错！']);
 		
 		//验证通过则获取相关参数
-		$selectWhat=Input::get('selectWhat');
+		$lushu=Input::get('lushu');
 		$stageId=Input::get('stageId');
 		$powerName=Input::get('powerName');
 		$date=Input::get('date');
 		
-		if($selectWhat!='vol1'&&$selectWhat!='cur1'&&$selectWhat!='i1'&&$selectWhat!='vol2'&&$selectWhat!='cur2'&&$selectWhat!='i2')
+		//路数合法性验证
+		if($lushu != 1 && $lushu != 2)
 			return view('error',['navName'=>'chart','validatorMessage'=>'暂不支持此选项的图表显示']);
 		
 		$tableService=new TableServices();
-		$datas=$tableService->getSourceMessageInHistory($stageId,$date,$powerName,$selectWhat);
+		$datas=$tableService->getSourceMessageInHistory($stageId,$date,$powerName,$lushu);
 
-		return response()->json(['x'=>$datas[0],'y'=>$datas[1]]);
+		//分离得到各项的值
+		$vol=array_column($datas, 'vol'.$lushu);
+		$cur=array_column($datas, 'cur'.$lushu);
+		$lCur=array_column($datas, 'lCur');	//漏电流	
+		$savetime=array_column($datas, 'savetime');
+
+		return response()->json(['vol'=>$vol, 'cur'=>$cur, 'lCur'=>$lCur, 'savetime'=>$savetime]);
 	}
 
 	

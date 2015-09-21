@@ -18,7 +18,7 @@
           	 			@if ($key == $stageName)
           	 			selected
           	 			@endif
-          	 			>{{ $value }}</option>
+          	 			>{{ $key }}</option>
           	 			@endforeach
           	 			</select>	
           	 			

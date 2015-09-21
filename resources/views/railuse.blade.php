@@ -18,7 +18,7 @@
           	 			@if ($key == $stageName)
           	 			selected
           	 			@endif
-          	 			>{{ $value }}</option>
+          	 			>{{ $key }}</option>
           	 			@endforeach
           	 			</select>		
           	 	  <label for="num">电源编号</label>
