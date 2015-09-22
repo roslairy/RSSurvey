@@ -67,7 +67,7 @@
 					<li id="xinyang"><a href='{{route('survey')}}?stageName=信阳&isFirst=true'>信阳</a></li>					
 				</ul>
 			</div>
-			<div class="right" id="right">@yield('right')</div>
+			<div class="right-panel" id="right">@yield('right')</div>
 		</div>
 
 	</div>

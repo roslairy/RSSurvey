@@ -215,13 +215,11 @@ class TableServices {
 		$tableModel=new TableModel();
 		$tableModel->setTable($tableName);
 		
-		//1路电源查询
-		if($lushu == 1){
-			$datas = $tableModel -> where('PowerName','=',$powerName)
-								 -> select('vol1', 'volz1', 'cur1', 'savetime')
-								 -> orderBy('savetime')
-								 ->get()
-								 ->toArray();
+		$datas = $tableModel -> where('PowerName','=',$powerName)
+							 -> select('vol'.$lushu, 'volz'.$lushu , 'cur'.$lushu, 'savetime')
+							 -> orderBy('savetime')
+						     -> get()
+							 -> toArray();
 			
 			//处理原始数据
 			
@@ -232,102 +230,15 @@ class TableServices {
 				$item['savetime'] = Carbon::createFromFormat('Y-m-d H:i:s',substr($item['savetime'],0,19))->format('Y/m/d H:i:s');
 				
 				//添加进漏电电流
-				$item['lCur'] = (2*$item['volz1']-$item['vol1'])/2100;
+				$item['lCur'] = (2*$item['volz'.$lushu]-$item['vol'.$lushu])/2100;
 			}
-		}
 			//注意重置悬挂指针，防止后面有可能出现的错误
 			unset($item);
 			
 			return $datas;
 	}	
 			
-/*
-		//i1,i2分别为一路漏电流和二路漏电流
-		if($selectWhat=='i1'){
-			
-			$datas=$tableModel	->where('PowerName','=',$powerName)
-								->select('vol1','volz1','savetime')
-								->orderBy('savetime')
-								->get()
-								->toArray();
-			
-			//x、y数组分别存时间和对应储漏电流
-			$x=array();
-			$y=array();		
-				
-			$len=count($datas);
-			for($i=0;$i<$len;$i++){
-				//下面的格式化是为了解决在IE浏览器中js函数日期转换出现错误的情况
-				$x[$i]['savetime'] = substr($datas[$i]['savetime'], 0, strlen($datas[$i]['savetime']) - 4);
-				$x[$i]['savetime']=Carbon::createFromFormat('Y-m-d H:i:s',$x[$i]['savetime'])->format('Y/m/d H:i:s');
 
-
-				//$x[$i]['savetime']=$datas[$i]['savetime']->format('Y/m/d H:i:s');
-				$y[$i]['i1']=abs(2*$datas[$i]['volz1']-$datas[$i]['vol1'])/2100;				
-			}
-			
-			$x=array_flatten($x);
-			$y=array_flatten($y);
-			return array($x,$y);
-		}
-		
-		else if($selectWhat=='i2'){
-				
-			$datas=$tableModel	->where('PowerName','=',$powerName)
-								->select('vol2','volz2','savetime')
-								->orderBy('savetime')
-								->get()
-								->toArray();
-									
-			$x=array();
-			$y=array();
-			
-			$len=count($datas);
-			for($i=0;$i<$len;$i++){
-
-				//下面的格式化是为了解决在IE浏览器中js函数日期转换出现错误的情况
-				$x[$i]['savetime'] = substr($datas[$i]['savetime'], 0, strlen($datas[$i]['savetime']) - 4);
-				$x[$i]['savetime']=Carbon::createFromFormat('Y-m-d H:i:s',$x[$i]['savetime'])->format('Y/m/d H:i:s');
-
-
-				//$x[$i]['savetime']=$datas[$i]['savetime']->format('Y/m/d H:i:s');
-				$y[$i]['i2']=abs(2*$datas[$i]['volz2']-$datas[$i]['vol2'])/2100;				
-			}
-				
-			$x=array_flatten($x);
-			$y=array_flatten($y);			
-			return array($x,$y);
-		}
-		
-		else{
-			//x轴坐标值
-			$x=$tableModel		->where('PowerName','=',$powerName)
-								->select('savetime')
-								->orderBy('savetime')
-								->get()
-								->toArray();				
-			$x=array_flatten($x);
-			$xlen=count($x);
-			//下面的格式化是为了解决在IE浏览器中js函数日期转换出现错误的情况
-			
-			for($i=0;$i<$xlen;$i++){
-				$x[$i] = substr($x[$i], 0, strlen($x[$i]) - 4);
-				$x[$i]=Carbon::createFromFormat('Y-m-d H:i:s',$x[$i])->format('Y/m/d H:i:s');
-			}
-			
-			//y轴坐标值
-			$y=$tableModel		->where('PowerName','=',$powerName)
-								->select('vol1')
-								->orderBy('savetime')
-								->get()
-								->toArray();				
-			$y=array_flatten($y);						
-			return array($x,$y);
-		}
-
-	}
-*/
-	
 	
 	/***********************指定站场监控相关函数***********************************/
 		
