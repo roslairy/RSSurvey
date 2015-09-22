@@ -113,7 +113,7 @@ class MainController extends Controller
 		//分离得到各项的值
 		$vol=array_column($datas, 'vol'.$lushu);
 		$cur=array_column($datas, 'cur'.$lushu);
-		$lCur=array_column($datas, 'lCur');	//漏电流	
+		$lCur=array_column($datas, 'lCur');		//漏电流	
 		$savetime=array_column($datas, 'savetime');
 
 		return response()->json(['vol'=>$vol, 'cur'=>$cur, 'lCur'=>$lCur, 'savetime'=>$savetime]);

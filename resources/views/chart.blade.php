@@ -44,14 +44,6 @@
           	 			<input type="radio" name="speed" id="speed4" value=10>X4
           	 		</fieldset>
           	 	</form>
-<!--           	 	<form method="post" action="" style="margin-left:120px;">
-          	 	    <input type="button" onclick="buttonAction('vol1')"	value="1路电压">
-          	 	    <input type="button" onclick="buttonAction('cur1')"	value="1路电流">
-          	 	    <input type="button" onclick="buttonAction('i1')"	value="1路漏电电流">
-          	 	    <input type="button" onclick="buttonAction('vol2')"	value="2路电压">
-          	 	    <input type="button" onclick="buttonAction('cur2')"	value="2路电流">
-          	 	    <input type="button" onclick="buttonAction('i2')"	value="2路漏电电流">
-<!--           	 	</form> -->
           	 	<div id="flot" style="width:1000px; height: 400px; margin: auto;">          	 	
 	            </div>          	 	
           	 </div>	
@@ -90,7 +82,6 @@
 
 	     success: function(data){  			                  							
 		 	 myPlot(data.vol, data.cur, data.lCur, data.savetime);
-		 	 //console.log(data.i);   
    },
 		 error: function(){	    
 			 	$('#flot').empty();			                  							
@@ -219,96 +210,7 @@
 				update();
 			});
 	}
-// 	function myPlot(data,time){
-// 	   //将上一个图表清空，否则易产生干扰而使图像不稳定。
-// 	   $('#flot').empty();
-//        $(function(){
 
-//     	   //是否暂停,默认为否
-// 			var pause=false;
-
-// 			var totalPoints =300,initial=0;
-//             var i = 0;
-// 			function getRandomData() {
-
-// 				var res = [];
-
-// 				// 自己加的函数          
-// 				var len = data.length;      
-// 				for(var j = 0; j < totalPoints; j++){
-// 					index = (i + j) % len;
-
-// 					if(i+j>=len){
-// 						$('#flot').empty();
-// 						break;
-// 					}
-					
-//                     if(j==0){
-//                         initial = index;
-//                     }
-
-//                     var date=time[index];
-// 					var millis=(new Date(date)).getTime();
-//                    	res.push([millis, data[index]]); 
-                 	
-// 				}
-
-// 				//暂停
-// 				if(!pause)	i++;
-             
-// 				return res;
-// 			}
-                     
-// 			var plot = $.plot('#flot', [ getRandomData() ], {
-// 				series: {
-// 					shadowSize: 0	// Drawing is faster without shadows
-// 				},
-// 				yaxis: {
-// 					show: true
-// 				},
-// 				xaxis: {
-// 					show: true
-// 				}
-// 			});
-
-// 			plot.getAxes().xaxis = {
-// 				min : 5,
-// 				max : 100
-// 			}
-
-// 			function update() {
-
-// 				var res = getRandomData();
-// 				plot.setData([res]);
-// 				plot.setupGrid();				
-// 				plot.draw();
-
-//                 //获取速度选项              
-// 				var _interval =$("input[name='speed']:checked").val(); 
-// 				//默认值 
-// 				if(_interval==null)	_interval=100;
-												
-// 				setTimeout(update,_interval);	
-// 			}
-
-// 			//暂停按钮事件
-// 			$("#pause").click(function(){
-// 				pause=true;				
-// 			});
-			
-// 			//开始按钮事件
-// 			$("#continue").click(function(){
-// 				pause=false;
-// 			});
-
-// 			//取消按钮事件,撤销图表
-// 			$("#cancel").click(function(){
-// 				$('#flot').empty();
-// 			});
-		
-// 			update();
-// 		});
-// }
   window.onload=function(){
      chushihua();
   }
