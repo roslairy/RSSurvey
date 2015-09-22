@@ -73,6 +73,7 @@ class TableServices {
 			$vol2=$datas[$i]['vol2'];
 			$volz2=$datas[$i]['volz2'];
 			
+			
 			//Rx1,Rx2分别为负对地，正对地绝缘电阻			
 			$Rx1s=$this->calculateResistor($vol1, $volz1);
 			$Rx11=$Rx1s['$Rx1'];
@@ -113,8 +114,12 @@ class TableServices {
 		
 		//设定默认值
 		$Rx1=$Rx2=-1;
+		
 		//正常情况下（即正对地电压=负对地电压）
 		if($volz1==($vol1-$volz1)){}
+		
+		//若正负对地电压小于20V，直接显示绝缘正常
+		else if($volz1 < 20 && ($vol1 - $volz1) < 20){}
 
 		//负线存在对地电阻时
 		else if($volz1>($vol1-$volz1))
