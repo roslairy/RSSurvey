@@ -27,19 +27,30 @@ class TableServices {
 										->orderBy('PowerName')
 										->get()
 										->toArray();
+			
 			$thisName2Datas=$tableModel::where('PowerName','<>','')
 										->where('ThisName','=','汉口')
 										->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')
 										->get()
 										->toArray();
+			
 			$thisName3Datas=$tableModel::where('PowerName','<>','')
 										->where('ThisName','=','宜昌')
 										->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')
 										->get()
 										->toArray();
+			
 			$thisName4Datas=$tableModel::where('PowerName','<>','')
-										->where('ThisName','=','襄阳')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->get()->toArray();
-			$thisName5Datas=$tableModel::where('PowerName','<>','')->where('ThisName','=','信阳')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->get()->toArray();
+										->where('ThisName','=','襄阳')
+										->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')
+										->get()
+										->toArray();
+			
+			$thisName5Datas=$tableModel::where('PowerName','<>','')
+										->where('ThisName','=','信阳')
+										->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')
+										->get()
+										->toArray();
 						
 			//调用格式化函数处理数据
 			$thisName1Datas=$this->formatArray($thisName1Datas);
@@ -51,6 +62,7 @@ class TableServices {
 			//存储每个站场的电源数
 			$powerNum=array(count($thisName1Datas),count($thisName2Datas),count($thisName3Datas),count($thisName4Datas),count($thisName5Datas));
 			$datas=array($thisName1Datas,$thisName2Datas,$thisName3Datas,$thisName4Datas,$thisName5Datas,$powerNum);
+			
 			return $datas;
 			
 	}
@@ -175,14 +187,14 @@ class TableServices {
 	}
 	
 	//获取故障信息
-	public function getAlarmMessage($alarmTime,$endTime,$stageName,$PowerName){
+	public function getAlarmMessage($alarmTime,$endTime,$stageName,$powerName){
 		$tableModel=new TableModel();
 		$tableModel->setTable('AlarmMessage');
 	
 		$datas=$tableModel  ->where('AlarmTime','>=',$alarmTime)
 							->where('EndTime','<=',$endTime)
 							->where('ThisName','=',$stageName)
-							->where('PowerName','=',$PowerName)
+							->where('PowerName','=',$powerName)
 							->select('PowerName','PowerNum','Alarm','AlarmTime','EndTime')
 							->orderBy('PowerName')
 							->get()

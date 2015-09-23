@@ -39,8 +39,8 @@
           	 			&nbsp;
           	 			<label>速度</label>
           	 			<input type="radio" name="speed" id="speed1" value=200>X1
-          	 			<input type="radio" name="speed" id="speed2" value=50>X2
-          	 			<input type="radio" name="speed" id="speed3" value=25>X3
+          	 			<input type="radio" name="speed" id="speed2" value=80>X2
+          	 			<input type="radio" name="speed" id="speed3" value=40>X3
           	 			<input type="radio" name="speed" id="speed4" value=10>X4
           	 		</fieldset>
           	 	</form>
@@ -165,7 +165,7 @@
 					      
 					yaxes: [						            
 							    { show: true, position: "left", color:"black", min: 0, max: 660},//电压轴
-							    { show: true, position: "right", color:"red", min: 0, max: 667},//电流轴
+							    { show: true, position: "right", color:"blue", min: 0, max: 667},//电流轴
 							    { show: true, position: "right", color:"red", min: -300, max: 300},//漏电流轴
 							]
 													 																							
@@ -204,6 +204,7 @@
 
 				//取消按钮事件,撤销图表
 				$("#cancel").click(function(){
+					//pause = true;
 					$('#flot').empty();
 				});
 			

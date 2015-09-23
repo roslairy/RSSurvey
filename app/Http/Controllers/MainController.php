@@ -15,7 +15,7 @@ class MainController extends Controller
 {
 	
 	//站场中英文名映射数组
-	public $stageNameChinese=[			
+	public $stageNameInEn=[			
 			'武昌'=>'wuchang',
 			'汉口'=>'hankou',
 			'宜昌'=>'yichang',
@@ -28,6 +28,7 @@ class MainController extends Controller
 	public function index(){
 		
 		if(Input::has('notFirst')){
+			
 			$tableService=new TableServices();
 			$datas=$tableService->getNewestData();
 			
@@ -61,7 +62,7 @@ class MainController extends Controller
 		
 		//判断是否第一次请求		
 		if($isFirst!=null)
-			return view('stage',['stageName'=>$stageName,'stageNameChinese'=>$stageName,'navName'=>$this->stageNameChinese[$stageName]]);
+			return view('stage',['stageName'=>$stageName,'stageNameInEn'=>$stageName,'navName'=>$this->stageNameInEn[$stageName]]);
 		
 		$tableService=new TableServices();
 		$datas=$tableService->getStationMessageById($stageName);
@@ -110,7 +111,7 @@ class MainController extends Controller
 		$tableService=new TableServices();
 		$datas=$tableService->getSourceMessageInHistory($stageId,$date,$powerName,$lushu);
 
-		//分离得到各项的值
+		//分离得到各项的序列值
 		$vol=array_column($datas, 'vol'.$lushu);
 		$cur=array_column($datas, 'cur'.$lushu);
 		$lCur=array_column($datas, 'lCur');		//漏电流	
@@ -130,12 +131,20 @@ class MainController extends Controller
 	//车次使用查询
 	public function searchRailUse(){
 		
+		if(empty(Input::All()))
+			return view('railuse',
+				[
+						'stageName'=>'武昌',
+						'stageNameInEn'=>$this->stageNameInEn,
+						'navName'=>'railuse'
+				]);
+				
 		//输入参数验证
 		$validator=Validator::make(Input::all(),
 				[
 						'beginTime'=>'date',
 						'stopTime'=>'date',
-						'powerName'=>'integer'					
+						'powerName'=>'integer'		//注意电源名称默认是整形数据					
 				]);		
 		
 		//验证未通过跳转到出错页面
@@ -183,14 +192,15 @@ class MainController extends Controller
 		//将数据保存在session中，用于导出excel表格。
 		Session::put('sRailUseDatas',$excelArray);
 				
-		return view('railuse',[
-				'stageName'=>$stageName,
-				'stageNameChinese'=>$this->stageNameChinese,
-				'beginTime'=>$beginTime,
-				'stopTime'=>$stopTime,
-				'datas'=>$datas,
-				'navName'=>'railuse'
-		]);
+		return view('railuse',
+				[				
+					'stageName'=>$stageName,
+					'stageNameInEn'=>$this->stageNameInEn,
+					'beginTime'=>$beginTime,
+					'stopTime'=>$stopTime,
+					'datas'=>$datas,
+					'navName'=>'railuse'
+				]);
 	}
 
 	/**************************/
@@ -198,7 +208,16 @@ class MainController extends Controller
 	//电源使用情况查询
 	public function searchPowerUse(){	
 		
-		
+		if(empty(Input::All()))
+			
+			return view('powerUse',
+				[
+						'stageName'=>'武昌',
+						'stageNameInEn'=>$this->stageNameInEn,
+						'navName'=>'poweruse'				
+				]);
+			
+			
 		$validator=Validator::make(Input::all(),
 				[
 						'beginTime'=>'date',
@@ -248,23 +267,33 @@ class MainController extends Controller
 		}
 		
 		//将最新查询数据保存在session中，用于导出excel表格。
-		Session::put('sPowerUseDatas',$excelArray);						
-		return view('poweruse',[
-				'stageName'=>$stageName,
-				'stageNameChinese'=>$this->stageNameChinese,
-				'beginTime'=>$beginTime,
-				'stopTime'=>$stopTime,
-				'datas'=>$datas,
-				'navName'=>'poweruse'
-		]);
-		
+		Session::put('sPowerUseDatas',$excelArray);		
+						
+		return view('poweruse',
+				[				
+					'stageName'=>$stageName,
+					'stageNameInEn'=>$this->stageNameInEn,
+					'beginTime'=>$beginTime,
+					'stopTime'=>$stopTime,
+					'datas'=>$datas,
+					'navName'=>'poweruse'
+				]);		
 	}
+	
 	
 	/**************************/
 	
 	//故障情况查询
 	public function searchAlarmMessage(){
 	
+		if(empty(Input::All()))
+				
+			return view('alarmmessage',
+					[
+							'stageName'=>'武昌',
+							'stageNameInEn'=>$this->stageNameInEn,
+							'navName'=>'alarmmessage'
+					]);
 		//输入参数验证
 		$validator=Validator::make(Input::all(),
 				[
@@ -282,7 +311,9 @@ class MainController extends Controller
 		
 		//判断是否有导出excel表格请求
 		if(Input::has('export')){
+			
 			$sAlarmMessageDatas=Session::get('$sAlarmMessageDatas',['null'=>'null']);
+			
 			Excel::create('trouble record',function($excel)	use($sAlarmMessageDatas){
 				$excel->sheet('sheet0' ,function($sheet)	use($sAlarmMessageDatas){
 					$sheet->fromArray($sAlarmMessageDatas);
@@ -311,14 +342,15 @@ class MainController extends Controller
 		//将数据保存在session中
 		Session::put('$sAlarmMessageDatas',$excelArray);
 		
-		return view('alarmmessage',[
-				'stageName'=>$stageName,
-				'stageNameChinese'=>$this->stageNameChinese,
-				'alarmTime'=>$alarmTime,
-				'endTime'=>$endTime,
-				'datas'=>$datas,
-				'navName'=>'alarmmessage'
-		]);
+		return view('alarmmessage',
+				[
+					'stageName'=>$stageName,
+					'stageNameInEn'=>$this->stageNameInEn,
+					'alarmTime'=>$alarmTime,
+					'endTime'=>$endTime,
+					'datas'=>$datas,
+					'navName'=>'alarmmessage'
+				]);
 	
 	}
 	

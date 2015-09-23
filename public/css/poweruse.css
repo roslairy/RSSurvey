@@ -21,17 +21,17 @@
 	width: 90%;
 	margin: 0 auto;
 }
-.right-panel >table {
+.right-panel >table , .result table{
 	border: 1px solid #000;
 	margin: 20px auto ;
 	border-collapse: collapse;
 }
-.right-panel >table td, .right-panel >table th{
+.right-panel >table td, .right-panel >table th, .result table td, .result table th{
 	width: 120px;
 	border: 1px solid #000;
 	text-align: center;
 	
 }
-.right-panel >table th{
+.right-panel >table th, .result table th{
 	background: #fc6;
 }

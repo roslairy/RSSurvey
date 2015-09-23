@@ -176,7 +176,7 @@
 				 appendDatas('#xinyang2',data.xinyang,powerNum[4])	;		   		 	    			              	
 	   		},
 		   	 error: function(){	    			                  							
-			 	// alert('定时刷新请求失败！')  ;       	    			              	
+			 	 alert('定时刷新请求失败！')  ;       	    			              	
 			}
 	 
 	});

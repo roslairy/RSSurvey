@@ -19,7 +19,7 @@
 }
 </style>
 
-<h1 style="text-align: center; font-size: 30px;">{{$stageNameChinese}}</h1>
+<h1 style="text-align: center; font-size: 30px;">{{$stageNameInEn}}</h1>
 <div class="cebian">
 	<div class="cebian-label">
 
