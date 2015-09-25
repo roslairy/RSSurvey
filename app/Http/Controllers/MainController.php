@@ -110,6 +110,7 @@ class MainController extends Controller
 		
 		$tableService=new TableServices();
 		$datas=$tableService->getSourceMessageInHistory($stageId,$date,$powerName,$lushu);
+<<<<<<< HEAD
 
 		//分离得到各项的序列值
 		$vol=array_column($datas, 'vol'.$lushu);
@@ -117,6 +118,15 @@ class MainController extends Controller
 		$lCur=array_column($datas, 'lCur');		//漏电流	
 		$savetime=array_column($datas, 'savetime');
 
+=======
+
+		//分离得到各项的序列值
+		$vol=array_column($datas, 'vol'.$lushu);
+		$cur=array_column($datas, 'cur'.$lushu);
+		$lCur=array_column($datas, 'lCur');		//漏电流	
+		$savetime=array_column($datas, 'savetime');
+
+>>>>>>> origin/master
 		return response()->json(['vol'=>$vol, 'cur'=>$cur, 'lCur'=>$lCur, 'savetime'=>$savetime]);
 	}
 
@@ -298,10 +308,14 @@ class MainController extends Controller
 		
 		//将最新查询数据保存在session中，用于导出excel表格。
 		Session::put('sPowerUseDatas',$excelArray);		
+<<<<<<< HEAD
 
 		array_forget($datas[0],'ThisName');	//去掉站场名，网页显示用不到
 		array_forget($datas[1],'ThisName');	//去掉站场名，网页显示用不到
 		
+=======
+						
+>>>>>>> origin/master
 		return view('poweruse',
 				[				
 					'stageName'=>$stageName,
@@ -319,7 +333,12 @@ class MainController extends Controller
 	//故障情况查询
 	public function searchAlarmMessage(){
 	
+<<<<<<< HEAD
 		if(empty(Input::All()))				
+=======
+		if(empty(Input::All()))
+				
+>>>>>>> origin/master
 			return view('alarmmessage',
 					[
 							'stageName'=>'武昌',
@@ -345,6 +364,7 @@ class MainController extends Controller
 		if(Input::has('export')){
 			
 			$sAlarmMessageDatas=Session::get('$sAlarmMessageDatas',['null'=>'null']);
+<<<<<<< HEAD
 						
 			Excel::create('trouble record',function($excel)	use($sAlarmMessageDatas){	
 											
@@ -363,6 +383,11 @@ class MainController extends Controller
 					
 							));
 					$sheet->prependRow( 'prepended');
+=======
+			
+			Excel::create('trouble record',function($excel)	use($sAlarmMessageDatas){
+				$excel->sheet('sheet0' ,function($sheet)	use($sAlarmMessageDatas){
+>>>>>>> origin/master
 					$sheet->fromArray($sAlarmMessageDatas);
 				});
 			})->export('xls');

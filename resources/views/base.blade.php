@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" type="text/css" href="css/poweruse.css">
 <script type="text/javascript" src="js/initialize.js"></script>
+<!--[if lte IE 8]><script type="text/javascript" src="js/excanvas.js"></script><![endif]-->
 <script type="text/javascript" src="js/laydate/laydate.js"></script>
 <script type="text/javascript">
 		 window.onload=function(){
@@ -46,8 +47,13 @@
 <body>
 	<div class="wrap" id="wrap">
 		<div class="header">
+<<<<<<< HEAD
 			<img src="img/dc.jpg" style="height:50px;float: left; margin: 10px 10px;">
 			<p style="float: right; font-size: 1em; margin: 0 10px; margin-top: 20px; height: 50px; padding-left:0">武汉迪昌科技有限公司</p>
+=======
+			<img src="img/dc.jpg" style="height:70px;float: left; margin: 0 10px;">
+			<p style="float: left; font-size: 1em; margin: 0 10px; margin-top: 20px; height: 50px; padding-left:0">武汉迪昌科技有限公司</p>
+>>>>>>> origin/master
 			<p style="float: left;">武昌车辆段DC600V地面电源信息管理</p>
 		</div>
 		<div class="body" id="obody">
@@ -55,7 +61,11 @@
 				<ul class="left_menu">
 					<li id="index"><a href='./'>全站显示</a></li>
 					<li id="chart"><a href='{{route('chart')}}'>曲线图显示</a></li>
+<<<<<<< HEAD
 					<li id="sepli">历史查询
+=======
+					<li id="sepli">查询
+>>>>>>> origin/master
 						<ul>
 							<li id="railuse"><a href={{route('railuse')}}>按车次</a></li>
 							<li id="poweruse"><a href={{route('poweruse')}}>按电源</a></li>

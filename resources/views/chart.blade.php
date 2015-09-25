@@ -58,6 +58,7 @@
 	<script type="text/javascript" src="js/jquery.flot.js" charset="utf-8"></script>
 	<script type="text/javascript" src="js/jquery.flot.time.js" charset="utf-8"></script>
 	<script type="text/javascript">
+<<<<<<< HEAD
 
 	function drawEmpty(){
 		   $('#flot').empty();
@@ -87,6 +88,8 @@
 	$(function(){
 		drawEmpty();
 	});
+=======
+>>>>>>> origin/master
 	
    //定义全局变量
 	var data;
@@ -138,7 +141,10 @@
 
 	    	   //是否暂停,默认为否
 				var pause=false;
+<<<<<<< HEAD
 				var empty = false;
+=======
+>>>>>>> origin/master
 
 				var totalPoints =300,initial=0;
 	            var i = 0;
@@ -155,7 +161,11 @@
 						var index = (i + j) % len;
 
 						if(i+j>=len){
+<<<<<<< HEAD
 							pause=true;		
+=======
+							$('#flot').empty();
+>>>>>>> origin/master
 							break;
 						}
 						
@@ -187,7 +197,11 @@
 				var plot = $.plot('#flot', getRandomData(), {
 
 					series: {
+<<<<<<< HEAD
 								shadowSize: 0	// Drawing is faster without shadows
+=======
+								shadowSize: 0,	// Drawing is faster without shadows
+>>>>>>> origin/master
 					},
 
 				
@@ -209,6 +223,7 @@
 					min : 5,
 					max : 100
 				}
+<<<<<<< HEAD
 
 				function update() {
 
@@ -224,11 +239,31 @@
 					
 					if (!empty) setTimeout(update, _interval);	
 
+=======
+
+				function update() {
+
+					var res = getRandomData();
+					plot.setData(res);
+					plot.setupGrid();				
+					plot.draw();
+
+	                //获取速度选项              
+					var _interval =$("input[name='speed']:checked").val(); 
+					//默认值 
+					if(_interval==null)	_interval=100;
+													
+					setTimeout(update,_interval);	
+>>>>>>> origin/master
 				}
 
 				//暂停按钮事件
 				$("#pause").click(function(){
+<<<<<<< HEAD
 					pause=true;		
+=======
+					pause=true;				
+>>>>>>> origin/master
 				});
 				
 				//开始按钮事件
@@ -239,8 +274,12 @@
 				//取消按钮事件,撤销图表
 				$("#cancel").click(function(){
 					//pause = true;
+<<<<<<< HEAD
 					//$('#flot').empty();
 					empty = true;
+=======
+					$('#flot').empty();
+>>>>>>> origin/master
 				});
 			
 				update();

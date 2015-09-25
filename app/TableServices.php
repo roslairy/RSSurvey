@@ -194,7 +194,11 @@ class TableServices {
 		$datas=$tableModel  ->where('AlarmTime','>=',$alarmTime)
 							->where('ThisName','=',$stageName)
 							->where('PowerName','=',$powerName)
+<<<<<<< HEAD
 							->select('ThisName','PowerName','PowerNum','Alarm','AlarmTime','EndTime')
+=======
+							->select('PowerName','PowerNum','Alarm','AlarmTime','EndTime')
+>>>>>>> origin/master
 							->orderBy('PowerName')
 							->get()
 							->toArray();
