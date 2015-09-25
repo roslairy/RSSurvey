@@ -13,12 +13,12 @@
                    
                   <label >站场</label>
           	 			<select id="stage" name="stageName">
-          	 			@foreach($stageNameChinese as $key => $value)
+          	 			@foreach($stageNameInEn as $key => $value)
           	 			<option value="{{ $key }}"
           	 			@if ($key == $stageName)
           	 			selected
           	 			@endif
-          	 			>{{ $value }}</option>
+          	 			>{{ $key }}</option>
           	 			@endforeach
           	 			</select>	
           	 			
@@ -40,15 +40,15 @@
                   <table>
                     <tr><th>电源编号</th><th>路数</th><th>故障类型</th><th>故障时间</th><th>解除故障时间</th></tr>
                     @if(isset($datas))
-                      @for($i=0;$i<count($datas);$i++)
+                      @foreach($datas as $item)
                         <tr>
-                          <td>{{$datas[$i]['PowerName']}}</td>
-                          <td>{{$datas[$i]['PowerNum']}}</td>
-                          <td>{{$datas[$i]['Alarm']}}</td>
-                          <td>{{$datas[$i]['AlarmTime']}}</td>
-                          <td>{{$datas[$i]['EndTime']}}</td>
+                          <td>{{$item['PowerName']}}</td>
+                          <td>{{$item['PowerNum']}}</td>
+                          <td>{{$item['Alarm']}}</td>
+                          <td>{{$item['AlarmTime']}}</td>
+                          <td>{{$item['EndTime']}}</td>
                         </tr>
-                      @endfor
+                      @endforeach
                     @endif
                   </table>
               </div>

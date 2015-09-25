@@ -1,37 +1,39 @@
-.right h3{
+.right-panel h3{
 	margin-top: 15px;
 	text-align: center;
 	font-size: 18px;
 
 }
-.right{
+.right-panel{
 	background: #fff;
 }
-.right fieldset {
+.right-panel fieldset {
 	padding: 40px;
 	width: 90%;
 	margin: 0 auto;
 }
-.right input[type=submit],input[type=button]{
+.right-panel input[type=submit],input[type=button]{
 	border: 0;
 	padding: 3px 15px;
 	
 }
 .result{
-	width: 90%;
+	width: 60%;
 	margin: 0 auto;
+	height: 400px;
+	overflow-y: scroll;
 }
-.right table {
+.right-panel >table , .result table{
 	border: 1px solid #000;
 	margin: 20px auto ;
 	border-collapse: collapse;
 }
-.right table td, .right table th{
+.right-panel >table td, .right-panel >table th, .result table td, .result table th{
 	width: 120px;
 	border: 1px solid #000;
 	text-align: center;
 	
 }
-.right table th{
+.right-panel >table th, .result table th{
 	background: #fc6;
 }

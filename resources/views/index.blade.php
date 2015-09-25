@@ -6,14 +6,14 @@
 		<th>电源名称</th>
 		<th>路数</th>
 		<th>状态</th>
-		<th>总电压</th>
-		<th>总电流</th>
+		<th>电压</th>
+		<th>电流</th>
 		<th>正对地电压</th>
 		<th>负对地电压</th>
 		<th>正对地绝缘</th>
 		<th>负对地绝缘</th>
 		<th>使用轨道</th>
-		<th>车号</th>
+		<th>车次</th>
 	</tr>
 </table>
 
@@ -23,14 +23,14 @@
 		<th>电源名称</th>
 		<th>路数</th>
 		<th>状态</th>
-		<th>总电压</th>
-		<th>总电流</th>
+		<th>电压</th>
+		<th>电流</th>
 		<th>正对地电压</th>
 		<th>负对地电压</th>
 		<th>正对地绝缘</th>
 		<th>负对地绝缘</th>
 		<th>使用轨道</th>
-		<th>车号</th>
+		<th>车次</th>
 	</tr>
 </table>
 
@@ -40,14 +40,14 @@
 		<th>电源名称</th>
 		<th>路数</th>
 		<th>状态</th>
-		<th>总电压</th>
-		<th>总电流</th>
+		<th>电压</th>
+		<th>电流</th>
 		<th>正对地电压</th>
 		<th>负对地电压</th>
 		<th>正对地绝缘</th>
 		<th>负对地绝缘</th>
 		<th>使用轨道</th>
-		<th>车号</th>
+		<th>车次</th>
 	</tr>
 </table>
 
@@ -58,14 +58,14 @@
 		<th>电源名称</th>
 		<th>路数</th>
 		<th>状态</th>
-		<th>总电压</th>
-		<th>总电流</th>
+		<th>电压</th>
+		<th>电流</th>
 		<th>正对地电压</th>
 		<th>负对地电压</th>
 		<th>正对地绝缘</th>
 		<th>负对地绝缘</th>
 		<th>使用轨道</th>
-		<th>车号</th>
+		<th>车次</th>
 	</tr>
 </table>
 
@@ -75,14 +75,14 @@
 		<th>电源名称</th>
 		<th>路数</th>
 		<th>状态</th>
-		<th>总电压</th>
-		<th>总电流</th>
+		<th>电压</th>
+		<th>电流</th>
 		<th>正对地电压</th>
 		<th>负对地电压</th>
 		<th>正对地绝缘</th>
 		<th>负对地绝缘</th>
 		<th>使用轨道</th>
-		<th>车号</th>
+		<th>车次</th>
 	</tr>
 </table>
 
@@ -91,14 +91,14 @@
 		<th>电源名称</th>
 		<th>路数</th>
 		<th>状态</th>
-		<th>总电压</th>
-		<th>总电流</th>
+		<th>电压</th>
+		<th>电流</th>
 		<th>正对地电压</th>
 		<th>负对地电压</th>
 		<th>正对地绝缘</th>
 		<th>负对地绝缘</th>
 		<th>使用轨道</th>
-		<th>车号</th>
+		<th>车次</th>
 	</tr>
 </table>
 

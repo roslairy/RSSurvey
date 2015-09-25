@@ -29,8 +29,8 @@
        
         color: aliceblue;
     }
-    .header span{
-        padding-left: 100px;
+    .header p{
+        padding-left: 10px;
         line-height: 70px;
         font-size: 30px;
     }
@@ -45,7 +45,7 @@
         background:#EFEFEF;
         float: left;
     }
-    .right{
+    .right-panel{
         width:85%;
         height: 100%;
         background: #999999;

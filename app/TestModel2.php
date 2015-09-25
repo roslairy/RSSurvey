@@ -8,4 +8,5 @@ class TestModel2 extends Model
 {
     //
 	protected $table='PowerUse';
+public $timestamps = false;
 }

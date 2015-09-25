@@ -1,16 +1,35 @@
 Array.prototype.pushIfNotExist = function(insert){
 	var exist = false;
-	this.forEach(function(e){
+	
+	$.each(this, function(index,e){
 		if (e.selector == insert.selector){
 			exist = true;
 		}
 	});
+//	this.forEach(function(e){
+//		if (e.selector == insert.selector){
+//			exist = true;
+//		}
+//	});
 	if (!exist){
 		this.push(insert);
 	}
-	// console.log(insert.selector);
-	// console.log(exist);
+	
 };
+
+//未解决ie8不支持indexOf的替代方法
+function myIndexOf(array, elem){
+	var i = 0;
+	var len = array.length;
+	
+	while(i < len){
+		if(array[i] == elem)
+			return i;
+		else 
+			i++;
+	}
+	
+}
 
 // 用来插入的块
 $.source_div = '<div class="source-container">'+
@@ -174,9 +193,15 @@ $.appendSource = function (selector, source){
 	obj.shine2 = [];
 
 	obj.shine = function(shineObj){
-		shineObj.forEach(function(elem){
+		$.each(shineObj, function(index,elem){
 			elem.addClass('active-square');
 		});
+		
+		/*
+		shineObj.forEach(function(elem){
+			elem.addClass('active-square');
+
+		});			*/
 	};
 
 	// 状态1的控制函数
@@ -221,11 +246,18 @@ $.appendSource = function (selector, source){
 
 		// 清除轨边柜标签
 		var _this = this;
+		
+		$.each(data.rails, function(index,elem){
+			_this.find('.html-rail-' + elem + '-name').text('-');
+			_this.find('.html-rail-' + elem + '-square').removeClass('active-square');
+		});
+		
+		/*
 		data.rails.forEach(function(elem){
 			_this.find('.html-rail-' + elem + '-name').text('-');
 			_this.find('.html-rail-' + elem + '-square').removeClass('active-square');
 		});
-
+*/
 		// 清除闪烁用函数
 		obj.state1_gbg1 = function(){};
 		obj.state1_gbg2 = function(){};
@@ -241,7 +273,9 @@ $.appendSource = function (selector, source){
 			var powerSquare = this.find('.html-Power' + i);
 			powerSquare.removeClass('active-square');
 			powerSquare.removeClass('bad-square');
-			if (data['vol' + i] < 100){
+			
+			if (data['condition' + i].length == 50);
+			else if (data['vol' + i] < 100){
 				powerSquare.addClass('bad-square');
 			} else {
 				powerSquare.addClass('active-square');
@@ -267,17 +301,21 @@ $.appendSource = function (selector, source){
 				// this.find('.html-rail-' + rails[0] + '-square').addClass('active-square');
 				// this.find('.html-gbg' + data.rails.indexOf(rails[0]) / 2 + '-square' + i).addClass('active-square');
 				this.shine1.pushIfNotExist(this.find('.html-rail-' + rails[0] + '-square'));
-				this.shine1.pushIfNotExist(this.find('.html-gbg' + Math.floor(data.rails.indexOf(rails[0]) / 2) + '-square' + i));
+				this.shine1.pushIfNotExist(this.find('.html-gbg' + Math.floor(myIndexOf(data.rails, rails[0]) / 2) + '-square' + i));
 				this.shine2.pushIfNotExist(this.find('.html-rail-' + rails[0] + '-square'));
-				this.shine2.pushIfNotExist(this.find('.html-gbg' + Math.floor(data.rails.indexOf(rails[0]) / 2) + '-square' + i));
+				this.shine2.pushIfNotExist(this.find('.html-gbg' + Math.floor(myIndexOf(data.rails, rails[0]) / 2) + '-square' + i));
 			// 2个轨道
 			} else {
 				_rails = rails;
 				_i = i;
 				this.shine1.pushIfNotExist(this.find('.html-rail-' + _rails[0] + '-square'));
-				this.shine1.pushIfNotExist(this.find('.html-gbg' + Math.floor(data.rails.indexOf(_rails[0]) / 2) + '-square' + _i));
+				//this.shine1.pushIfNotExist(this.find('.html-gbg' + Math.floor(data.rails.indexOf(_rails[0]) / 2) + '-square' + _i));
+				this.shine1.pushIfNotExist(this.find('.html-gbg' + Math.floor(myIndexOf(data.rails, _rails[0]) / 2) + '-square' + _i));
+				
 				this.shine2.pushIfNotExist(this.find('.html-rail-' + _rails[1] + '-square'));
-				this.shine2.pushIfNotExist(this.find('.html-gbg' + Math.floor(data.rails.indexOf(_rails[1]) / 2) + '-square' + _i));
+				this.shine2.pushIfNotExist(this.find('.html-gbg' + Math.floor(myIndexOf(data.rails, _rails[1]) / 2) + '-square' + _i));
+				
+				//this.shine2.pushIfNotExist(this.find('.html-gbg' + Math.floor(data.rails.indexOf(_rails[1]) / 2) + '-square' + _i));
 				// obj['state1_gbg' + i] = function(j){
 				// 	this.find('.html-rail-' + _rails[j - 1] + '-name').text(data['RailNum' + j]);
 				// 	// this.find('.html-rail-' + _rails[0] + '-square').addClass('active-square');
@@ -385,14 +423,3 @@ source_1 = {
 		'k6'
 	]
 };
-
-/**
- *
- * 		这里调用
- *
- */
-/*
-$(function(){
-	$.appendSource('#container', source_1);
-})
-*/

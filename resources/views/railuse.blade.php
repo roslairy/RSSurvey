@@ -13,12 +13,12 @@
                   
                   <label >站场</label>
           	 			<select id="stage" name="stageName">
-          	 			@foreach($stageNameChinese as $key => $value)
+          	 			@foreach($stageNameInEn as $key => $value)
           	 			<option value="{{ $key }}"
           	 			@if ($key == $stageName)
           	 			selected
           	 			@endif
-          	 			>{{ $value }}</option>
+          	 			>{{ $key }}</option>
           	 			@endforeach
           	 			</select>		
           	 	  <label for="num">电源编号</label>

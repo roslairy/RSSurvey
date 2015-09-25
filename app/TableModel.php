@@ -8,5 +8,6 @@ class TableModel extends Model
 {
     //默认绑定数据表
     protected  $table='NewData';
+    public $timestamps = false;
    
 }

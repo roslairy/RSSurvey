@@ -21,11 +21,36 @@ class TableServices {
 			$tableModel->setTable('NewData');
 			
 			//执行分站场查询操作
-			$thisName1Datas=$tableModel::where('ThisName','=','wuchang')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->get()->toArray();
-			$thisName2Datas=$tableModel::where('ThisName','=','hankou')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->get()->toArray();
-			$thisName3Datas=$tableModel::where('ThisName','=','yichang')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->get()->toArray();
-			$thisName4Datas=$tableModel::where('ThisName','=','xiangyang')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->get()->toArray();
-			$thisName5Datas=$tableModel::where('ThisName','=','xinyang')->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')->get()->toArray();
+			$thisName1Datas=$tableModel::where('PowerName','<>','')
+										->where('ThisName','=','武昌')
+										->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')
+										->orderBy('PowerName')
+										->get()
+										->toArray();
+			
+			$thisName2Datas=$tableModel::where('PowerName','<>','')
+										->where('ThisName','=','汉口')
+										->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')
+										->get()
+										->toArray();
+			
+			$thisName3Datas=$tableModel::where('PowerName','<>','')
+										->where('ThisName','=','宜昌')
+										->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')
+										->get()
+										->toArray();
+			
+			$thisName4Datas=$tableModel::where('PowerName','<>','')
+										->where('ThisName','=','襄阳')
+										->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')
+										->get()
+										->toArray();
+			
+			$thisName5Datas=$tableModel::where('PowerName','<>','')
+										->where('ThisName','=','信阳')
+										->select('PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')
+										->get()
+										->toArray();
 						
 			//调用格式化函数处理数据
 			$thisName1Datas=$this->formatArray($thisName1Datas);
@@ -37,6 +62,7 @@ class TableServices {
 			//存储每个站场的电源数
 			$powerNum=array(count($thisName1Datas),count($thisName2Datas),count($thisName3Datas),count($thisName4Datas),count($thisName5Datas));
 			$datas=array($thisName1Datas,$thisName2Datas,$thisName3Datas,$thisName4Datas,$thisName5Datas,$powerNum);
+			
 			return $datas;
 			
 	}
@@ -58,6 +84,7 @@ class TableServices {
 			//二路
 			$vol2=$datas[$i]['vol2'];
 			$volz2=$datas[$i]['volz2'];
+			
 			
 			//Rx1,Rx2分别为负对地，正对地绝缘电阻			
 			$Rx1s=$this->calculateResistor($vol1, $volz1);
@@ -99,8 +126,12 @@ class TableServices {
 		
 		//设定默认值
 		$Rx1=$Rx2=-1;
+		
 		//正常情况下（即正对地电压=负对地电压）
 		if($volz1==($vol1-$volz1)){}
+		
+		//若正负对地电压小于20V，直接显示绝缘正常
+		else if($volz1 < 20 && ($vol1 - $volz1) < 20){}
 
 		//负线存在对地电阻时
 		else if($volz1>($vol1-$volz1))
@@ -128,7 +159,7 @@ class TableServices {
 							->where('StopTime','<=',$stopTime)
 							->where('ThisName','=',$stageName)
 							->where('PowerName','=',$powerName)
-							->select('RailNum','PowerName','RailwayName','BeginTime','StopTime','UseKWH')
+							->select('ThisName','RailNum','PowerName','RailwayName','BeginTime','StopTime','UseKWH')
 							->get()
 							->toArray();
 				
@@ -147,7 +178,7 @@ class TableServices {
 							->where('StopTime','<=',$stopTime)
 							->where('ThisName','=',$stageName)
 							->where('PowerName','=',$powerName)
-							->select('PowerName','PowerNum','RailwayName','RailNum','BeginTime','StopTime','UseKWH')
+							->select('ThisName','PowerName','PowerNum','RailwayName','RailNum','BeginTime','StopTime','UseKWH')
 							->orderBy('PowerNum')
 							->get()
 							->toArray();
@@ -156,15 +187,14 @@ class TableServices {
 	}
 	
 	//获取故障信息
-	public function getAlarmMessage($alarmTime,$endTime,$stageName,$PowerName){
+	public function getAlarmMessage($alarmTime,$endTime,$stageName,$powerName){
 		$tableModel=new TableModel();
 		$tableModel->setTable('AlarmMessage');
 	
 		$datas=$tableModel  ->where('AlarmTime','>=',$alarmTime)
-							->where('EndTime','<=',$endTime)
 							->where('ThisName','=',$stageName)
-							->where('PowerName','=',$PowerName)
-							->select('PowerName','PowerNum','Alarm','AlarmTime','EndTime')
+							->where('PowerName','=',$powerName)
+							->select('ThisName','PowerName','PowerNum','Alarm','AlarmTime','EndTime')
 							->orderBy('PowerName')
 							->get()
 							->toArray();
@@ -178,10 +208,10 @@ class TableServices {
 	/**********************图表显示模块相关函数************************************/
 
 	//获取指定日期指定电源的信息
-	public function getSourceMessageInHistory($stageId,$date,$powerName,$selectWhat){
+	public function getSourceMessageInHistory($stageId,$date,$powerName,$lushu){
 		
-		//构造得到表名
-
+		//按约定规则构造得到对应表名
+		
 		//获取站场ID与名称的对应关系
 		$tableModel = new TableModel();
 		$tableModel -> setTable("ServerMessage");
@@ -193,91 +223,49 @@ class TableServices {
 									 ->toArray();
 		//转换日期格式		
 		$date=date_create($date);
-		$date=date_format($date, 'Y_m_d');	
+		$date_Y=date_format($date, 'Y');
+		$date_m=date_format($date, 'm');
+		$date_d=date_format($date, 'd');
+
+		if ($date_m[0] == '0'){
+			$date_m = substr($date_m, 1);
+		}
+		if ($date_d[0] == '0'){
+			$date_d = substr($date_d, 1);
+		}
+
+		$date = "{$date_Y}_{$date_m}_{$date_d}";
 			
 		$tableName='z'.$serverStageId[0]['ID'].'_'.$date;
 		
 		//绑定数据表
 		$tableModel=new TableModel();
 		$tableModel->setTable($tableName);
-
 		
-		//i1,i2分别为一路漏电流和二路漏电流
-		if($selectWhat=='i1'){
+		$datas = $tableModel -> where('PowerName','=',$powerName)
+							 -> select('vol'.$lushu, 'volz'.$lushu , 'cur'.$lushu, 'savetime')
+							 -> orderBy('savetime')
+						     -> get()
+							 -> toArray();
 			
-			$datas=$tableModel	->where('PowerName','=',$powerName)
-								->select('vol1','volz1','savetime')
-								->orderBy('savetime')
-								->get()
-								->toArray();
+			//处理原始数据
 			
-			//x、y数组分别存时间和对应储漏电流
-			$x=array();
-			$y=array();		
+			//注意$item使用的是引用,i1为一路漏电流和二路漏电流
+			foreach($datas as &$item){
 				
-			$len=count($datas);
-			for($i=0;$i<$len;$i++){
-				//下面的格式化是为了解决在IE浏览器中js函数日期转换出现错误的情况
-				$x[$i]['savetime']=Carbon::createFromFormat('Y-m-d H:i:s',$datas[$i]['savetime'])->format('Y/m/d H:i:s');
-				$y[$i]['i1']=abs(2*$datas[$i]['volz1']-$datas[$i]['vol1'])/2100;				
+				//格式化日期
+				$item['savetime'] = Carbon::createFromFormat('Y-m-d H:i:s',substr($item['savetime'],0,19))->format('Y/m/d H:i:s');
+				
+				//添加进漏电电流
+				$item['lCur'] = (2*$item['volz'.$lushu]-$item['vol'.$lushu])/2100;
 			}
+			//注意重置悬挂指针，防止后面有可能出现的错误
+			unset($item);
 			
-			$x=array_flatten($x);
-			$y=array_flatten($y);
-			return array($x,$y);
-		}
-		
-		else if($selectWhat=='i2'){
-				
-			$datas=$tableModel	->where('PowerName','=',$powerName)
-								->select('vol2','volz2','savetime')
-								->orderBy('savetime')
-								->get()
-								->toArray();
-									
-			$x=array();
-			$y=array();
+			return $datas;
+	}	
 			
-			$len=count($datas);
-			for($i=0;$i<$len;$i++){
 
-				//下面的格式化是为了解决在IE浏览器中js函数日期转换出现错误的情况
-				$x[$i]['savetime']=Carbon::createFromFormat('Y-m-d H:i:s',$datas[$i]['savetime'])->format('Y/m/d H:i:s');
-				$y[$i]['i2']=abs(2*$datas[$i]['volz2']-$datas[$i]['vol2'])/2100;				
-			}
-				
-			$x=array_flatten($x);
-			$y=array_flatten($y);			
-			return array($x,$y);
-		}
-		
-		else{
-			//x轴坐标值
-			$x=$tableModel		->where('PowerName','=',$powerName)
-								->select('savetime')
-								->orderBy('savetime')
-								->get()
-								->toArray();				
-			$x=array_flatten($x);
-			$xlen=count($x);
-			//下面的格式化是为了解决在IE浏览器中js函数日期转换出现错误的情况
-			
-			for($i=0;$i<$xlen;$i++)				
-				$x[$i]=Carbon::createFromFormat('Y-m-d H:i:s',$x[$i])->format('Y/m/d H:i:s');
-			
-			//y轴坐标值
-			$y=$tableModel		->where('PowerName','=',$powerName)
-								->select('vol1')
-								->orderBy('savetime')
-								->get()
-								->toArray();				
-			$y=array_flatten($y);						
-			return array($x,$y);
-		}
-
-	}
-	
-	
 	
 	/***********************指定站场监控相关函数***********************************/
 		
@@ -289,6 +277,7 @@ class TableServices {
 		
 		$datas=$tableModel::where('ThisName','=',$stationId)
 							->select('ThisName','PowerName','condition1','vol1','cur1','volz1','RailwayName1','RailNum1','condition2','vol2','cur2','volz2','RailwayName2','RailNum2')
+							->orderBy('PowerName')
 							->get()
 							->toArray();
 		
@@ -342,20 +331,20 @@ class TableServices {
 			$datas[$i]=array_add($datas[$i], 'volf2', $vol2-$volz2);
 			
 			//设置站场的柜边柜
-			if($stationId=='xinyang')
+			if($stationId=='信阳')
 				$datas[$i]=array_add($datas[$i], 'rails', ['k1','k2','k5','k6']);
 			
-			else if($stationId=='yichang')
+			else if($stationId=='宜昌')
 				$datas[$i]=array_add($datas[$i], 'rails', ['k1','k2','k3','k4']);
 			
-			else if($stationId=='xiangyang'){
+			else if($stationId=='襄阳'){
 				if($i==0)
 					$datas[$i]=array_add($datas[$i], 'rails', ['k3','k4','k5','k6']);
 				else 
 					$datas[$i]=array_add($datas[$i], 'rails', ['k7','k8','k9','k10']);
 			}
 			
-			else if($stationId=='wuchang'){
+			else if($stationId=='武昌'){
 				switch ($i){
 						case 0:$datas[$i]=array_add($datas[$i], 'rails', ['k5','k6']);break;
 						case 1:$datas[$i]=array_add($datas[$i], 'rails', ['k7','k8']);break;
@@ -365,7 +354,7 @@ class TableServices {
 					}	
 				}
 				
-			else if($stationId=='hankou'){
+			else if($stationId=='汉口'){
 				if($i==0)
 					$datas[$i]=array_add($datas[$i], 'rails', ['k2','k3','k4','k5','k6','k7']);
 				else

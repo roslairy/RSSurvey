@@ -8,4 +8,5 @@ class TestModel0 extends Model
 {
     //
     protected $table='NewData';
+	public $timestamps = false;
 }

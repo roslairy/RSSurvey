@@ -11,10 +11,10 @@
 				 <input	id='demo' class="laydate-icon" onclick="laydate()" name="stopTime"value='{{$stopTime or ""}}'>
 				 <label>站场</label> 
 				 <select id="stage"	name="stageName"> 
-				 @foreach($stageNameChinese as $key => $value)
+				 @foreach($stageNameInEn as $key => $value)
 					<option value="{{ $key }}"
 						@if ($key==$stageName)selected
-          	 			@endif>{{ $value }}
+          	 			@endif>{{ $key }}
           	 		</option> 
           	 	@endforeach
 			</select> 
@@ -23,8 +23,8 @@
 				<option value="2">2</option>
 				<option value="3">3</option>
 				<option value="4">4</option>
-			</select> <input type="submit" value="查询"
-				onclick="showOldSelection()"> <input type="button"
+			</select> <input type="submit" value="查询">
+				 <input type="button"
 				onclick="window.location.href=('{{action('MainController@searchPowerUse', ['export'=>true])}}')"
 				value="导出excel">
 		</fieldset>
@@ -41,18 +41,21 @@
 				<th>结束时间</th>
 				<th>用电量</th>
 			</tr>
-			<!--  <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr> -->
-
+			
 			@if(isset($datas[0]))
-			<tr>
-				@foreach($datas[0] as $key=>$value)
-				<td>{{$value}}</td> @endforeach
-			</tr>
-			@endif @if(isset($datas[1]))
-			</tr>
-			@foreach($datas[1] as $key=>$value)
-			<td>{{$value}}</td> @endforeach
-			</tr>
+				<tr>
+					@foreach($datas[0] as $key=>$value)
+						<td>{{$value}}</td>
+				    @endforeach
+				</tr>
+			@endif
+				
+		    @if(isset($datas[1]))
+				</tr>
+				@foreach($datas[1] as $key=>$value)
+					<td>{{$value}}</td> 
+				@endforeach
+				</tr>
 			@endif
 
 

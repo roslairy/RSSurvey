@@ -8,4 +8,5 @@ class TestModel3 extends Model
 {
     //
 	protected $table='AlarmMessage';
+public $timestamps = false;
 }
