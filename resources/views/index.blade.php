@@ -122,15 +122,35 @@
 		var append = '<caption>'+chineseName+'</caption>'+$('#table-tpl').html();
 
 		if (datas!=null){
+			
 			for(var i = 0; i <length; i++){
+
+				//一路信息
 				append += '<tr><td rowspan="2">'+datas[i][0]+'</td><td>1路</td>';
-				for(var j =1; j<10; j++)
-					append += '<td>'+datas[i][j]+'</td>';
+
+				//为特定变量加上了单位
+				for(var j =1; j<10; j++){
+					if(j == 2 || j == 4 || j == 5)
+						append += '<td>'+datas[i][j]+'V</td>';
+					else if(j == 3)
+						append += '<td>'+datas[i][j]+'A</td>';
+					else
+						append += '<td>'+datas[i][j]+'</td>';
+				}
 				append += '</tr>';
-				
+
+				//二路信息
 				append += '<tr><td>2路</td>';
-				for(var j =10; j<19; j++)
-					append += '<td>'+datas[i][j]+'</td>';
+				for(var j =10; j<19; j++){
+
+					if(j == 11 || j == 13 || j == 14)
+						append += '<td>'+datas[i][j]+'V</td>';
+					else if(j == 12)
+						append += '<td>'+datas[i][j]+'A</td>';
+					else
+						append += '<td>'+datas[i][j]+'</td>';
+				}
+				
 				append += '</tr>';
 			}
 			obj.append(append);

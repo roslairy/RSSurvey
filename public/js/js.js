@@ -17,7 +17,7 @@ Array.prototype.pushIfNotExist = function(insert){
 	
 };
 
-//未解决ie8不支持indexOf的替代方法
+//解决ie8不支持indexOf的替代方法
 function myIndexOf(array, elem){
 	var i = 0;
 	var len = array.length;
@@ -197,11 +197,6 @@ $.appendSource = function (selector, source){
 			elem.addClass('active-square');
 		});
 		
-		/*
-		shineObj.forEach(function(elem){
-			elem.addClass('active-square');
-
-		});			*/
 	};
 
 	// 状态1的控制函数
@@ -252,12 +247,6 @@ $.appendSource = function (selector, source){
 			_this.find('.html-rail-' + elem + '-square').removeClass('active-square');
 		});
 		
-		/*
-		data.rails.forEach(function(elem){
-			_this.find('.html-rail-' + elem + '-name').text('-');
-			_this.find('.html-rail-' + elem + '-square').removeClass('active-square');
-		});
-*/
 		// 清除闪烁用函数
 		obj.state1_gbg1 = function(){};
 		obj.state1_gbg2 = function(){};
@@ -297,9 +286,6 @@ $.appendSource = function (selector, source){
 				continue;
 			}
 			else if (rails.length == 1){
-				// this.find('.html-rail-' + rails[0] + '-name').text(data['RailNum' + i]);
-				// this.find('.html-rail-' + rails[0] + '-square').addClass('active-square');
-				// this.find('.html-gbg' + data.rails.indexOf(rails[0]) / 2 + '-square' + i).addClass('active-square');
 				this.shine1.pushIfNotExist(this.find('.html-rail-' + rails[0] + '-square'));
 				this.shine1.pushIfNotExist(this.find('.html-gbg' + Math.floor(myIndexOf(data.rails, rails[0]) / 2) + '-square' + i));
 				this.shine2.pushIfNotExist(this.find('.html-rail-' + rails[0] + '-square'));
@@ -309,29 +295,10 @@ $.appendSource = function (selector, source){
 				_rails = rails;
 				_i = i;
 				this.shine1.pushIfNotExist(this.find('.html-rail-' + _rails[0] + '-square'));
-				//this.shine1.pushIfNotExist(this.find('.html-gbg' + Math.floor(data.rails.indexOf(_rails[0]) / 2) + '-square' + _i));
-				this.shine1.pushIfNotExist(this.find('.html-gbg' + Math.floor(myIndexOf(data.rails, _rails[0]) / 2) + '-square' + _i));
-				
+				this.shine1.pushIfNotExist(this.find('.html-gbg' + Math.floor(myIndexOf(data.rails, _rails[0]) / 2) + '-square' + _i));				
 				this.shine2.pushIfNotExist(this.find('.html-rail-' + _rails[1] + '-square'));
 				this.shine2.pushIfNotExist(this.find('.html-gbg' + Math.floor(myIndexOf(data.rails, _rails[1]) / 2) + '-square' + _i));
 				
-				//this.shine2.pushIfNotExist(this.find('.html-gbg' + Math.floor(data.rails.indexOf(_rails[1]) / 2) + '-square' + _i));
-				// obj['state1_gbg' + i] = function(j){
-				// 	this.find('.html-rail-' + _rails[j - 1] + '-name').text(data['RailNum' + j]);
-				// 	// this.find('.html-rail-' + _rails[0] + '-square').addClass('active-square');
-				// 	// this.find('.html-rail-' + _rails[1] + '-name').text('-');
-				// 	// this.find('.html-rail-' + _rails[1] + '-square').removeClass('active-square');
-				// 	// this.find('.html-gbg' + data.rails.indexOf(_rails[0]) / 2 + '-square' + _i).addClass('active-square');
-				// 	// this.find('.html-gbg' + data.rails.indexOf(_rails[1]) / 2 + '-square' + _i).removeClass('active-square');
-				// }
-				// obj['state2_gbg' + i] = function(j){
-				// 	// this.find('.html-rail-' + _rails[0] + '-name').text('-');
-				// 	// this.find('.html-rail-' + _rails[0] + '-square').removeClass('active-square');
-				// 	this.find('.html-rail-' + _rails[j - 1] + '-name').text(data['RailNum' + j]);
-				// 	// this.find('.html-rail-' + _rails[1] + '-square').addClass('active-square');
-				// 	// this.find('.html-gbg' + data.rails.indexOf(_rails[1]) / 2 + '-square' + _i).addClass('active-square');
-				// 	// this.find('.html-gbg' + data.rails.indexOf(_rails[0]) / 2 + '-square' + _i).removeClass('active-square');
-				// }
 			}
 		};
 
@@ -368,20 +335,6 @@ $.appendSource = function (selector, source){
 				this.find('.html-rail-' + railsWays2[1] + '-name').text(data['RailNum2']);
 			};
 		}
-
-		// obj['state1_gbg1'] = function(j){
-		// 	var rail1 = data['RailwayName1'].split('/')[0];
-		// 	var rail2 = data['RailwayName2'].split('/')[0];
-		// 	this.find('.html-rail-' + rail1 + '-name').text(data['RailNum1']);
-		// 	this.find('.html-rail-' + rail2 + '-name').text(data['RailNum2']);
-		// }
-
-		// obj['state2_gbg1'] = function(j){
-		// 	var rail1 = data['RailwayName1'].split('/')[1];
-		// 	var rail2 = data['RailwayName2'].split('/')[1];
-		// 	this.find('.html-rail-' + rail1 + '-name').text(data['RailNum1']);
-		// 	this.find('.html-rail-' + rail2 + '-name').text(data['RailNum2']);
-		// }
 	}
 
 	// 更新数据

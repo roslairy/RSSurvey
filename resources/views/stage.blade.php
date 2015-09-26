@@ -72,7 +72,7 @@
 	    			     },
 	    			     success: function(data){	    			                  	
 		    			     $.each(data.jsonDatas,function(index,d){
-												
+								 console.log(index);				
 				    			 var sourceDiv='<div id="container'+index+'" style="width: 320px; margin: 20px 40px;	float:left"></div>';
 					    		 $(".stage-container").append(sourceDiv);	    		              													
 				    			 var source=JSON.parse(d);			
@@ -95,8 +95,7 @@
 		    			      stageName:"{{$stageName}}"//要发送的数据
 	    			     },
 	    			     success: function(data){	    			                  	
-		    			     $.each(data.jsonDatas,function(index,d){
-												
+		    			     $.each(data.jsonDatas,function(index,d){				
 				    			 var sourceDiv='<div id="container'+index+'" style="width: 320px; margin: 20px 40px;	float:left"></div>';
 					    		 $(".stage-container").append(sourceDiv);	    		              													
 				    			 var source=JSON.parse(d);			
